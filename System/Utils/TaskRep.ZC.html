@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.11">
+<meta name="generator" content="ZealOS V1.13">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -25,45 +25,69 @@ body {background-color:#1f1f1f;}
 </head>
 <body>
 <pre style="font-family:monospace;font-size:12pt">
-<a name="l1"></a><span class=cF0>#</span><span class=cF1>help_index</span><span class=cF0> </span><span class=cF6>&quot;Info;Task&quot;</span><span class=cF0>
-<a name="l2"></a></span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>TaskRepTask</span><span class=cF0>(</span><span class=cF9>CTask</span><span class=cF0> *task, </span><span class=cF9>I64</span><span class=cF0> indent)
-<a name="l3"></a>{
-<a name="l4"></a>    </span><span class=cF9>CTask</span><span class=cF0> *task1;
-<a name="l5"></a>
-<a name="l6"></a>    </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
-<a name="l7"></a>        </span><span class=cF6>&quot;%h*c$MA,T=\&quot;%08X\&quot;,LM=\&quot;Kill(0x%X);\n\&quot;,$ $BLACK$#%d$FG$ $TX,\&quot;%$Q...\&quot;,SCX=16$\n&quot;</span><span class=cF0>,
-<a name="l8"></a>            indent, </span><span class=cF3>CH_SPACE</span><span class=cF0>, task, task, task-&gt;task_num, task-&gt;task_title;
-<a name="l9"></a>    </span><span class=cF1>else</span><span class=cF0>
-<a name="l10"></a>        </span><span class=cF6>&quot;%h*c%08X #%d %$Q\n&quot;</span><span class=cF0>,
-<a name="l11"></a>            indent, </span><span class=cF3>CH_SPACE</span><span class=cF0>, task, task-&gt;task_num, task-&gt;task_title;
-<a name="l12"></a>
-<a name="l13"></a>    </span><span class=cF6>&quot;%h*c%08X %04X:%04X:%08X\n&quot;</span><span class=cF0>, indent + </span><span class=cFE>2</span><span class=cF0>, </span><span class=cF3>CH_SPACE</span><span class=cF0>,
-<a name="l14"></a>                                 </span><span class=cF5>TaskMemAlloced</span><span class=cF0>(task), task-&gt;task_flags, task-&gt;display_flags, task-&gt;win_inhibit;
-<a name="l15"></a>    task1 = task-&gt;next_child_task;
-<a name="l16"></a>    </span><span class=cF1>while</span><span class=cF0> (task1 != </span><span class=cF7>(</span><span class=cF0>&amp;task-&gt;next_child_task</span><span class=cF7>)(</span><span class=cF1>U8</span><span class=cF0> *</span><span class=cF7>)</span><span class=cF0> - </span><span class=cF1>offset</span><span class=cF7>(</span><span class=cF9>CTask</span><span class=cF0>.next_sibling_task</span><span class=cF7>)</span><span class=cF0>)
-<a name="l17"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l18"></a>        </span><span class=cF5>TaskRepTask</span><span class=cF0>(task1, indent + </span><span class=cFE>2</span><span class=cF0>);
-<a name="l19"></a>        task1 = task1-&gt;next_sibling_task;
-<a name="l20"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l21"></a>}
-<a name="l22"></a>
-<a name="l23"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>TaskRep</span><span class=cF0>()
-<a name="l24"></a>{</span><span class=cF2>//Report current tasks on all cores.</span><span class=cF0>
-<a name="l25"></a>    </span><span class=cF9>I64</span><span class=cF0> i;
-<a name="l26"></a>    </span><span class=cF9>CCPU</span><span class=cF0> *c;
+<a name="l1"></a><span class=cF0>
+<a name="l2"></a>
+<a name="l3"></a>#</span><span class=cF1>help_index</span><span class=cF0> </span><span class=cF6>&quot;Info;Task&quot;</span><span class=cF0>
+<a name="l4"></a></span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>TaskRepTask</span><span class=cF0>(</span><span class=cF9>CTask</span><span class=cF0> *task, </span><span class=cF9>I64</span><span class=cF0> indent, </span><span class=cF1>Bool</span><span class=cF0> verbose)
+<a name="l5"></a>{
+<a name="l6"></a>    </span><span class=cF9>CTask</span><span class=cF0>   *task1;
+<a name="l7"></a>    </span><span class=cF9>I64</span><span class=cF0>      i;
+<a name="l8"></a>
+<a name="l9"></a>    </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
+<a name="l10"></a>        </span><span class=cF6>&quot;%h*c$MA,T=\&quot;%08X\&quot;,LM=\&quot;Kill(0x%X);\n\&quot;,$ $BLACK$#%d$FG$ $TX,\&quot;%$Q...\&quot;,SCX=16$\n&quot;</span><span class=cF0>,
+<a name="l11"></a>            indent, </span><span class=cF3>CH_SPACE</span><span class=cF0>, task, task, task-&gt;task_num, task-&gt;task_title;
+<a name="l12"></a>    </span><span class=cF1>else</span><span class=cF0>
+<a name="l13"></a>        </span><span class=cF6>&quot;%h*c%08X #%d %$Q\n&quot;</span><span class=cF0>,
+<a name="l14"></a>            indent, </span><span class=cF3>CH_SPACE</span><span class=cF0>, task, task-&gt;task_num, task-&gt;task_title;
+<a name="l15"></a>
+<a name="l16"></a>    </span><span class=cF1>if</span><span class=cF0> (!verbose)
+<a name="l17"></a>        </span><span class=cF6>&quot;%h*c%08X %04X:%04X:%08X\n&quot;</span><span class=cF0>, indent + </span><span class=cFE>2</span><span class=cF0>, </span><span class=cF3>CH_SPACE</span><span class=cF0>,
+<a name="l18"></a>                                     </span><span class=cF5>TaskMemAlloced</span><span class=cF0>(task), task-&gt;task_flags, task-&gt;display_flags, task-&gt;win_inhibit;
+<a name="l19"></a>    </span><span class=cF1>else</span><span class=cF0>
+<a name="l20"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l21"></a>        </span><span class=cF6>&quot;%h*cMemory Allocated: 0x%08X\n&quot;</span><span class=cF0>, indent + </span><span class=cFE>2</span><span class=cF0>, </span><span class=cF3>CH_SPACE</span><span class=cF0>, </span><span class=cF5>TaskMemAlloced</span><span class=cF0>(task);
+<a name="l22"></a>        </span><span class=cF6>&quot;%h*cMemory Used:      0x%08X\n&quot;</span><span class=cF0>, indent + </span><span class=cFE>2</span><span class=cF0>, </span><span class=cF3>CH_SPACE</span><span class=cF0>, </span><span class=cF5>TaskMemUsed</span><span class=cF0>(task);
+<a name="l23"></a>        </span><span class=cF6>&quot;%h*cTask Flags:       0x%04X\n&quot;</span><span class=cF0>, indent + </span><span class=cFE>2</span><span class=cF0>, </span><span class=cF3>CH_SPACE</span><span class=cF0>, task-&gt;task_flags;
+<a name="l24"></a>        </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cF3>TASKf_FLAGS_NUM</span><span class=cF0>; i++)
+<a name="l25"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;task-&gt;task_flags, i</span><span class=cF7>)</span><span class=cF0>)
+<a name="l26"></a>                </span><span class=cF6>&quot;%h*c+ %Z\n&quot;</span><span class=cF0>, indent + </span><span class=cFE>4</span><span class=cF0>, </span><span class=cF3>CH_SPACE</span><span class=cF0>, i, </span><span class=cF6>&quot;ST_TASK_FLAGS&quot;</span><span class=cF0>;
 <a name="l27"></a>
-<a name="l28"></a>    </span><span class=cF1>PUSHFD</span><span class=cF0>
-<a name="l29"></a>    </span><span class=cF1>CLI</span><span class=cF0>
-<a name="l30"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cFB>mp_count</span><span class=cF0>; i++)
-<a name="l31"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l32"></a>        c = &amp;</span><span class=cFB>cpu_structs</span><span class=cF0>[i];
-<a name="l33"></a>        </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
-<a name="l34"></a>            </span><span class=cF6>&quot;$PURPLE$CPU%02X$FG$\n&quot;</span><span class=cF0>, i;
-<a name="l35"></a>        </span><span class=cF1>else</span><span class=cF0>
-<a name="l36"></a>            </span><span class=cF6>&quot;CPU%02X\n&quot;</span><span class=cF0>, i;
-<a name="l37"></a>        </span><span class=cF5>TaskRepTask</span><span class=cF0>(c-&gt;executive_task, </span><span class=cFE>2</span><span class=cF0>);
-<a name="l38"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l39"></a>    </span><span class=cF1>POPFD</span><span class=cF0>
-<a name="l40"></a>}
+<a name="l28"></a>        </span><span class=cF6>&quot;%h*cDisplay Flags:    0x%04X\n&quot;</span><span class=cF0>, indent + </span><span class=cFE>2</span><span class=cF0>, </span><span class=cF3>CH_SPACE</span><span class=cF0>, task-&gt;display_flags;
+<a name="l29"></a>        </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cF3>DISPLAYf_FLAGS_NUM</span><span class=cF0>; i++)
+<a name="l30"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;task-&gt;display_flags, i</span><span class=cF7>)</span><span class=cF0>)
+<a name="l31"></a>                </span><span class=cF6>&quot;%h*c+ %Z\n&quot;</span><span class=cF0>, indent + </span><span class=cFE>4</span><span class=cF0>, </span><span class=cF3>CH_SPACE</span><span class=cF0>, i, </span><span class=cF6>&quot;ST_DISPLAY_FLAGS&quot;</span><span class=cF0>;
+<a name="l32"></a>
+<a name="l33"></a>        </span><span class=cF6>&quot;%h*cWindow Inhibit:   0x%08X\n&quot;</span><span class=cF0>, indent + </span><span class=cFE>2</span><span class=cF0>, </span><span class=cF3>CH_SPACE</span><span class=cF0>, task-&gt;win_inhibit;
+<a name="l34"></a>        </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cF3>WIf_FLAGS_NUM</span><span class=cF0>; i++)
+<a name="l35"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;task-&gt;win_inhibit, i</span><span class=cF7>)</span><span class=cF0>)
+<a name="l36"></a>                </span><span class=cF6>&quot;%h*c- %Z\n&quot;</span><span class=cF0>, indent + </span><span class=cFE>4</span><span class=cF0>, </span><span class=cF3>CH_SPACE</span><span class=cF0>, i, </span><span class=cF6>&quot;ST_WIN_INHIBIT_FLAGS&quot;</span><span class=cF0>;
+<a name="l37"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l38"></a>
+<a name="l39"></a>    task1 = task-&gt;next_child_task;
+<a name="l40"></a>    </span><span class=cF1>while</span><span class=cF0> (task1 != </span><span class=cF7>(</span><span class=cF0>&amp;task-&gt;next_child_task</span><span class=cF7>)(</span><span class=cF1>U8</span><span class=cF0> *</span><span class=cF7>)</span><span class=cF0> - </span><span class=cF1>offset</span><span class=cF7>(</span><span class=cF9>CTask</span><span class=cF0>.next_sibling_task</span><span class=cF7>)</span><span class=cF0>)
+<a name="l41"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l42"></a>        </span><span class=cF5>TaskRepTask</span><span class=cF0>(task1, indent + </span><span class=cFE>2</span><span class=cF0>, verbose);
+<a name="l43"></a>        task1 = task1-&gt;next_sibling_task;
+<a name="l44"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l45"></a>}
+<a name="l46"></a>
+<a name="l47"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>TaskRep</span><span class=cF0>(</span><span class=cF1>Bool</span><span class=cF0> verbose=</span><span class=cF3>FALSE</span><span class=cF0>)
+<a name="l48"></a>{</span><span class=cF2>//Report current tasks on all cores.</span><span class=cF0>
+<a name="l49"></a>    </span><span class=cF9>I64</span><span class=cF0> i;
+<a name="l50"></a>    </span><span class=cF9>CCPU</span><span class=cF0> *c;
+<a name="l51"></a>
+<a name="l52"></a>    </span><span class=cF1>PUSHFD</span><span class=cF0>
+<a name="l53"></a>    </span><span class=cF1>CLI</span><span class=cF0>
+<a name="l54"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cFB>mp_count</span><span class=cF0>; i++)
+<a name="l55"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l56"></a>        c = &amp;</span><span class=cFB>cpu_structs</span><span class=cF0>[i];
+<a name="l57"></a>        </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
+<a name="l58"></a>            </span><span class=cF6>&quot;$PURPLE$CPU%02X$FG$\n&quot;</span><span class=cF0>, i;
+<a name="l59"></a>        </span><span class=cF1>else</span><span class=cF0>
+<a name="l60"></a>            </span><span class=cF6>&quot;CPU%02X\n&quot;</span><span class=cF0>, i;
+<a name="l61"></a>        </span><span class=cF5>TaskRepTask</span><span class=cF0>(c-&gt;executive_task, </span><span class=cFE>2</span><span class=cF0>, verbose);
+<a name="l62"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l63"></a>    </span><span class=cF1>POPFD</span><span class=cF0>
+<a name="l64"></a>}
 </span></pre></body>
 </html>

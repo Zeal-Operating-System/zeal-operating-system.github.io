@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.11">
+<meta name="generator" content="ZealOS V1.13">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -76,81 +76,80 @@ body {background-color:#1f1f1f;}
 <a name="l49"></a>    </span><span class=cF9>CTask</span><span class=cF0>       *task;
 <a name="l50"></a>    </span><span class=cF9>I64</span><span class=cF0>          i, atapi_port = -</span><span class=cFE>1</span><span class=cF0>, ata_port = -</span><span class=cFE>1</span><span class=cF0>;
 <a name="l51"></a>    </span><span class=cF9>CAHCIPort</span><span class=cF0>   *port;
-<a name="l52"></a>    </span><span class=cF1>U8</span><span class=cF0>          *in_str;
-<a name="l53"></a>
-<a name="l54"></a>    task = </span><span class=cF5>User</span><span class=cF0>;
-<a name="l55"></a>    </span><span class=cF5>TaskWait</span><span class=cF0>(task);
-<a name="l56"></a>    task-&gt;border_src    = </span><span class=cF3>BDS_CONST</span><span class=cF0>;
-<a name="l57"></a>    task-&gt;border_attr   = </span><span class=cF3>LTGRAY</span><span class=cF0> &lt;&lt; </span><span class=cFE>4</span><span class=cF0> + </span><span class=cF5>DriveTextAttrGet</span><span class=cF0>(</span><span class=cF6>':'</span><span class=cF0>) &amp; </span><span class=cFE>15</span><span class=cF0>;
-<a name="l58"></a>    task-&gt;text_attr     = </span><span class=cF3>LTGRAY</span><span class=cF0> &lt;&lt; </span><span class=cFE>4</span><span class=cF0> + </span><span class=cF3>BLUE</span><span class=cF0>;
-<a name="l59"></a>    task-&gt;win_inhibit   = </span><span class=cF3>WIG_TASK_DEFAULT</span><span class=cF0> - </span><span class=cF3>WIF_SELF_BORDER</span><span class=cF0>;
-<a name="l60"></a>    </span><span class=cF5>WinHorz</span><span class=cF0>(</span><span class=cF5>Fs</span><span class=cF0>-&gt;win_left, </span><span class=cF5>Fs</span><span class=cF0>-&gt;win_right, task);
-<a name="l61"></a>    </span><span class=cF5>WinVert</span><span class=cF0>(</span><span class=cF5>Fs</span><span class=cF0>-&gt;win_top,  </span><span class=cF7>(</span><span class=cF5>Fs</span><span class=cF0>-&gt;win_top + </span><span class=cF5>Fs</span><span class=cF0>-&gt;win_bottom</span><span class=cF7>)</span><span class=cF0> &gt;&gt; </span><span class=cFE>2</span><span class=cF0> - </span><span class=cFE>1</span><span class=cF0>, task);
-<a name="l62"></a>    </span><span class=cF5>WinVert</span><span class=cF0>(task-&gt;win_bottom + </span><span class=cFE>3</span><span class=cF0>, </span><span class=cF5>Fs</span><span class=cF0>-&gt;win_bottom);
-<a name="l63"></a>    </span><span class=cF5>WinToTop</span><span class=cF0>(</span><span class=cF5>Fs</span><span class=cF0>);
+<a name="l52"></a>
+<a name="l53"></a>    task = </span><span class=cF5>User</span><span class=cF0>;
+<a name="l54"></a>    </span><span class=cF5>TaskWait</span><span class=cF0>(task);
+<a name="l55"></a>    task-&gt;border_src    = </span><span class=cF3>BDS_CONST</span><span class=cF0>;
+<a name="l56"></a>    task-&gt;border_attr   = </span><span class=cF3>LTGRAY</span><span class=cF0> &lt;&lt; </span><span class=cFE>4</span><span class=cF0> + </span><span class=cF5>DriveTextAttrGet</span><span class=cF0>(</span><span class=cF6>':'</span><span class=cF0>) &amp; </span><span class=cFE>15</span><span class=cF0>;
+<a name="l57"></a>    task-&gt;text_attr     = </span><span class=cF3>LTGRAY</span><span class=cF0> &lt;&lt; </span><span class=cFE>4</span><span class=cF0> + </span><span class=cF3>BLUE</span><span class=cF0>;
+<a name="l58"></a>    task-&gt;win_inhibit   = </span><span class=cF3>WIG_TASK_DEFAULT</span><span class=cF0> - </span><span class=cF3>WIF_SELF_BORDER</span><span class=cF0>;
+<a name="l59"></a>    </span><span class=cF5>WinHorz</span><span class=cF0>(</span><span class=cF5>Fs</span><span class=cF0>-&gt;win_left, </span><span class=cF5>Fs</span><span class=cF0>-&gt;win_right, task);
+<a name="l60"></a>    </span><span class=cF5>WinVert</span><span class=cF0>(</span><span class=cF5>Fs</span><span class=cF0>-&gt;win_top,  </span><span class=cF7>(</span><span class=cF5>Fs</span><span class=cF0>-&gt;win_top + </span><span class=cF5>Fs</span><span class=cF0>-&gt;win_bottom</span><span class=cF7>)</span><span class=cF0> &gt;&gt; </span><span class=cFE>2</span><span class=cF0> - </span><span class=cFE>1</span><span class=cF0>, task);
+<a name="l61"></a>    </span><span class=cF5>WinVert</span><span class=cF0>(task-&gt;win_bottom + </span><span class=cFE>3</span><span class=cF0>, </span><span class=cF5>Fs</span><span class=cF0>-&gt;win_bottom);
+<a name="l62"></a>    </span><span class=cF5>WinToTop</span><span class=cF0>(</span><span class=cF5>Fs</span><span class=cF0>);
+<a name="l63"></a>
 <a name="l64"></a>
-<a name="l65"></a>
-<a name="l66"></a>    </span><span class=cF2>////////////////////////////////////</span><span class=cF0>
-<a name="l67"></a>    </span><span class=cF5>SATARep</span><span class=cF0>;
-<a name="l68"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cF3>AHCI_MAX_PORTS</span><span class=cF0>; i++)
-<a name="l69"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l70"></a>        </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports_implemented, i</span><span class=cF7>)</span><span class=cF0>)
-<a name="l71"></a>        {
-<a name="l72"></a>            port = &amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports[i];
-<a name="l73"></a>            </span><span class=cF1>if</span><span class=cF0> (port-&gt;signature == </span><span class=cF3>AHCI_PxSIG_ATA</span><span class=cF0>)
-<a name="l74"></a>            </span><span class=cF7>{</span><span class=cF0>
-<a name="l75"></a>                ata_port = i;
-<a name="l76"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l77"></a>            </span><span class=cF7>}</span><span class=cF0>
-<a name="l78"></a>        }
-<a name="l79"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l80"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cF3>AHCI_MAX_PORTS</span><span class=cF0>; i++)
-<a name="l81"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l82"></a>        </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports_implemented, i</span><span class=cF7>)</span><span class=cF0>)
-<a name="l83"></a>        {
-<a name="l84"></a>            port = &amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports[i];
-<a name="l85"></a>            </span><span class=cF1>if</span><span class=cF0> (port-&gt;signature == </span><span class=cF3>AHCI_PxSIG_ATAPI</span><span class=cF0>)
-<a name="l86"></a>            </span><span class=cF7>{</span><span class=cF0>
-<a name="l87"></a>                atapi_port = i;
-<a name="l88"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l89"></a>            </span><span class=cF7>}</span><span class=cF0>
-<a name="l90"></a>        }
-<a name="l91"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l92"></a>
-<a name="l93"></a>    </span><span class=cF1>if</span><span class=cF0> (VMPartDisk</span><span class=cF7>(</span><span class=cF0>task, ata_port</span><span class=cF7>)</span><span class=cF0>)
-<a name="l94"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l95"></a>        VMInstallDrive(task, </span><span class=cF6>'C'</span><span class=cF0>, ata_port, atapi_port);
-<a name="l96"></a>        </span><span class=cF5>BootMHDIns</span><span class=cF0>(</span><span class=cF6>'C'</span><span class=cF0>);
-<a name="l97"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l98"></a>
-<a name="l99"></a>    </span><span class=cF5>Copy</span><span class=cF0>(</span><span class=cF6>&quot;::/Misc/Auto/BootMHD2.ZC&quot;</span><span class=cF0>, </span><span class=cF6>&quot;C:/System/Boot/BootMHD2.ZC&quot;</span><span class=cF0>);
-<a name="l100"></a>
-<a name="l101"></a>    </span><span class=cF2>////////////////////////////////////</span><span class=cF0>
-<a name="l102"></a>
-<a name="l103"></a>    </span><span class=cF5>WinVert</span><span class=cF0>(task-&gt;win_top, </span><span class=cF5>Fs</span><span class=cF0>-&gt;win_bottom);
-<a name="l104"></a>    </span><span class=cF5>Kill</span><span class=cF0>(task);
-<a name="l105"></a>}
-<a name="l106"></a>
-<a name="l107"></a></span><span class=cF1>Bool</span><span class=cF0> DoInstall(</span><span class=cF1>Bool</span><span class=cF0> prompt_reboot)
-<a name="l108"></a>{
-<a name="l109"></a>    </span><span class=cF9>I64</span><span class=cF0> res = </span><span class=cF3>FALSE</span><span class=cF0>, vm_install = </span><span class=cF3>TRUE</span><span class=cF0>;
-<a name="l110"></a>
-<a name="l111"></a>    vm_install = </span><span class=cF3>TRUE</span><span class=cF0>;
-<a name="l112"></a>    </span><span class=cF5>DocBottom</span><span class=cF0>;
-<a name="l113"></a>    VMInstallWiz();
-<a name="l114"></a>    res = </span><span class=cF3>TRUE</span><span class=cF0>;
-<a name="l115"></a>    </span><span class=cF5>OnceDrive</span><span class=cF0>(</span><span class=cF6>'C'</span><span class=cF0>, </span><span class=cF6>&quot;PopUp(\&quot;#include \\\&quot;/Misc/Auto/AutoFullDistro0\\\&quot;;\&quot;);&quot;</span><span class=cF0>);
-<a name="l116"></a>    </span><span class=cF5>BootRAM</span><span class=cF0>(</span><span class=cF6>&quot;C:&quot;</span><span class=cF0> </span><span class=cF3>BOOT_DIR_KERNEL_ZXE</span><span class=cF0>);
-<a name="l117"></a>    </span><span class=cF1>return</span><span class=cF0> res;
-<a name="l118"></a>}
-<a name="l119"></a>
-<a name="l120"></a></span><span class=cF1>Bool</span><span class=cF0> OSInstall(</span><span class=cF1>Bool</span><span class=cF0> prompt_reboot=</span><span class=cF3>TRUE</span><span class=cF0>)
-<a name="l121"></a>{
-<a name="l122"></a>    </span><span class=cF1>return</span><span class=cF0> DoInstall(prompt_reboot);
-<a name="l123"></a>}
-<a name="l124"></a>
-<a name="l125"></a>#</span><span class=cF1>if</span><span class=cF0> </span><span class=cF3>__CMD_LINE__</span><span class=cF0>
-<a name="l126"></a>OSInstall(</span><span class=cF3>TRUE</span><span class=cF0>);
-<a name="l127"></a>#</span><span class=cF1>endif</span><span class=cF0>
+<a name="l65"></a>    </span><span class=cF2>////////////////////////////////////</span><span class=cF0>
+<a name="l66"></a>    </span><span class=cF5>SATARep</span><span class=cF0>;
+<a name="l67"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cF3>AHCI_MAX_PORTS</span><span class=cF0>; i++)
+<a name="l68"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l69"></a>        </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports_implemented, i</span><span class=cF7>)</span><span class=cF0>)
+<a name="l70"></a>        {
+<a name="l71"></a>            port = &amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports[i];
+<a name="l72"></a>            </span><span class=cF1>if</span><span class=cF0> (port-&gt;signature == </span><span class=cF3>AHCI_PxSIG_ATA</span><span class=cF0>)
+<a name="l73"></a>            </span><span class=cF7>{</span><span class=cF0>
+<a name="l74"></a>                ata_port = i;
+<a name="l75"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l76"></a>            </span><span class=cF7>}</span><span class=cF0>
+<a name="l77"></a>        }
+<a name="l78"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l79"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cF3>AHCI_MAX_PORTS</span><span class=cF0>; i++)
+<a name="l80"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l81"></a>        </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports_implemented, i</span><span class=cF7>)</span><span class=cF0>)
+<a name="l82"></a>        {
+<a name="l83"></a>            port = &amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports[i];
+<a name="l84"></a>            </span><span class=cF1>if</span><span class=cF0> (port-&gt;signature == </span><span class=cF3>AHCI_PxSIG_ATAPI</span><span class=cF0>)
+<a name="l85"></a>            </span><span class=cF7>{</span><span class=cF0>
+<a name="l86"></a>                atapi_port = i;
+<a name="l87"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l88"></a>            </span><span class=cF7>}</span><span class=cF0>
+<a name="l89"></a>        }
+<a name="l90"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l91"></a>
+<a name="l92"></a>    </span><span class=cF1>if</span><span class=cF0> (VMPartDisk</span><span class=cF7>(</span><span class=cF0>task, ata_port</span><span class=cF7>)</span><span class=cF0>)
+<a name="l93"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l94"></a>        VMInstallDrive(task, </span><span class=cF6>'C'</span><span class=cF0>, ata_port, atapi_port);
+<a name="l95"></a>        </span><span class=cF5>BootMHDIns</span><span class=cF0>(</span><span class=cF6>'C'</span><span class=cF0>);
+<a name="l96"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l97"></a>
+<a name="l98"></a>    </span><span class=cF5>Copy</span><span class=cF0>(</span><span class=cF6>&quot;::/Misc/Auto/BootMHD2.ZC&quot;</span><span class=cF0>, </span><span class=cF6>&quot;C:/System/Boot/BootMHD2.ZC&quot;</span><span class=cF0>);
+<a name="l99"></a>
+<a name="l100"></a>    </span><span class=cF2>////////////////////////////////////</span><span class=cF0>
+<a name="l101"></a>
+<a name="l102"></a>    </span><span class=cF5>WinVert</span><span class=cF0>(task-&gt;win_top, </span><span class=cF5>Fs</span><span class=cF0>-&gt;win_bottom);
+<a name="l103"></a>    </span><span class=cF5>Kill</span><span class=cF0>(task);
+<a name="l104"></a>}
+<a name="l105"></a>
+<a name="l106"></a></span><span class=cF1>Bool</span><span class=cF0> DoInstall()
+<a name="l107"></a>{
+<a name="l108"></a>    </span><span class=cF9>I64</span><span class=cF0> res = </span><span class=cF3>FALSE</span><span class=cF0>, vm_install = </span><span class=cF3>TRUE</span><span class=cF0>;
+<a name="l109"></a>
+<a name="l110"></a>    vm_install = </span><span class=cF3>TRUE</span><span class=cF0>;
+<a name="l111"></a>    </span><span class=cF5>DocBottom</span><span class=cF0>;
+<a name="l112"></a>    VMInstallWiz();
+<a name="l113"></a>    res = </span><span class=cF3>TRUE</span><span class=cF0>;
+<a name="l114"></a>    </span><span class=cF5>OnceDrive</span><span class=cF0>(</span><span class=cF6>'C'</span><span class=cF0>, </span><span class=cF6>&quot;PopUp(\&quot;#include \\\&quot;/Misc/Auto/AutoFullDistro0\\\&quot;;\&quot;);&quot;</span><span class=cF0>);
+<a name="l115"></a>    </span><span class=cF5>BootRAM</span><span class=cF0>(</span><span class=cF6>&quot;C:&quot;</span><span class=cF0> </span><span class=cF3>BOOT_DIR_KERNEL_ZXE</span><span class=cF0>);
+<a name="l116"></a>    </span><span class=cF1>return</span><span class=cF0> res;
+<a name="l117"></a>}
+<a name="l118"></a>
+<a name="l119"></a></span><span class=cF1>Bool</span><span class=cF0> OSInstall()
+<a name="l120"></a>{
+<a name="l121"></a>    </span><span class=cF1>return</span><span class=cF0> DoInstall();
+<a name="l122"></a>}
+<a name="l123"></a>
+<a name="l124"></a>#</span><span class=cF1>if</span><span class=cF0> </span><span class=cF3>__CMD_LINE__</span><span class=cF0>
+<a name="l125"></a>OSInstall();
+<a name="l126"></a>#</span><span class=cF1>endif</span><span class=cF0>
 </span></pre></body>
 </html>

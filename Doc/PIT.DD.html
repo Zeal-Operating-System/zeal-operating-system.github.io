@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.11">
+<meta name="generator" content="ZealOS V1.13">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -29,7 +29,7 @@ body {background-color:#1f1f1f;}
 <a name="l2"></a>
 <a name="l3"></a>It has 3 channels:
 <a name="l4"></a></span><span class=cF4>
-<a name="l5"></a></span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l686"><span class=cF4>Channel 0</span></a><span class=cF0> can generate an interrupt, IRQ 0, at a defined frequency. We set it up in </span><a href="https://zeal-operating-system.github.io/Kernel/KMain.ZC.html#l116"><span class=cF4>TimerInit</span></a><span class=cF0>(), and use it in </span><a href="https://zeal-operating-system.github.io/Kernel/KMisc.ZC.html#l22"><span class=cF4>SysTimerRead</span></a><span class=cF0>().
+<a name="l5"></a></span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l686"><span class=cF4>Channel 0</span></a><span class=cF0> can generate an interrupt, IRQ 0, at a defined frequency. We set it up in </span><a href="https://zeal-operating-system.github.io/Kernel/KMain.ZC.html#l118"><span class=cF4>TimerInit</span></a><span class=cF0>(), and use it in </span><a href="https://zeal-operating-system.github.io/Kernel/KMisc.ZC.html#l22"><span class=cF4>SysTimerRead</span></a><span class=cF0>().
 <a name="l6"></a>
 <a name="l7"></a>Channel 1 was used historically to refresh the DRAM, but now it is obsolete as the hardware does this itself.  Channel 1 is 
 <a name="l8"></a>useless and might not even be implemented anymore on modern machines.

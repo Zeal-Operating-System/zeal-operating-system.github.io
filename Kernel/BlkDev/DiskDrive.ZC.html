@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.11">
+<meta name="generator" content="ZealOS V1.13">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -218,7 +218,7 @@ body {background-color:#1f1f1f;}
 <a name="l191"></a>}
 <a name="l192"></a>
 <a name="l193"></a></span><span class=cF9>I64</span><span class=cF0> </span><span class=cF5>Letter2BlkDevType</span><span class=cF0>(</span><span class=cF1>U8</span><span class=cF0> drv_let)
-<a name="l194"></a>{</span><span class=cF2>//Drive letter to BlkDev Type. drv_let=0 not allowed. See </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3277"><span class=cF4>BDT_NULL</span></a><span class=cF2>.</span><span class=cF0>
+<a name="l194"></a>{</span><span class=cF2>//Drive letter to BlkDev Type. drv_let=0 not allowed. See </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3305"><span class=cF4>BDT_NULL</span></a><span class=cF2>.</span><span class=cF0>
 <a name="l195"></a>    drv_let = </span><span class=cF5>Letter2Letter</span><span class=cF0>(drv_let);
 <a name="l196"></a>
 <a name="l197"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF6>'A'</span><span class=cF0> &lt;= drv_let &lt;= </span><span class=cF6>'B'</span><span class=cF0>)
@@ -329,115 +329,116 @@ body {background-color:#1f1f1f;}
 <a name="l302"></a>    </span><span class=cF1>switch</span><span class=cF0> (drive-&gt;fs_type)
 <a name="l303"></a>    </span><span class=cF7>{</span><span class=cF0>
 <a name="l304"></a>        </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>FSt_REDSEA</span><span class=cF0>:
-<a name="l305"></a>        </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>FSt_FAT32</span><span class=cF0>:
-<a name="l306"></a>            </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>TRUE</span><span class=cF0>;
-<a name="l307"></a>
-<a name="l308"></a>        </span><span class=cF1>default</span><span class=cF0>:
-<a name="l309"></a>            </span><span class=cF5>PrintErr</span><span class=cF0>(</span><span class=cF6>&quot;File System Not Supported\n&quot;</span><span class=cF0>);
-<a name="l310"></a>            </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>FALSE</span><span class=cF0>;
-<a name="l311"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l312"></a>}
-<a name="l313"></a>
-<a name="l314"></a></span><span class=cF1>U8</span><span class=cF0> *</span><span class=cF5>DriveSerialNum</span><span class=cF0>(</span><span class=cF1>U8</span><span class=cF0> drv_let=</span><span class=cFE>0</span><span class=cF0>)
-<a name="l315"></a>{</span><span class=cF2>//20 bytes max.</span><span class=cF0>
-<a name="l316"></a>    </span><span class=cF9>CBlkDev</span><span class=cF0> *bd = </span><span class=cF5>Letter2BlkDev</span><span class=cF0>(drv_let);
-<a name="l317"></a>    </span><span class=cF9>U16</span><span class=cF0>     *st, *res = </span><span class=cF3>NULL</span><span class=cF0>;
-<a name="l318"></a>    </span><span class=cF9>I64</span><span class=cF0>      i;
-<a name="l319"></a>
-<a name="l320"></a>    </span><span class=cF1>if</span><span class=cF0> (bd-&gt;dev_id_record)
-<a name="l321"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l322"></a>        st = </span><span class=cF5>CAlloc</span><span class=cF0>(</span><span class=cFE>20</span><span class=cF0> + </span><span class=cFE>1</span><span class=cF0>);
-<a name="l323"></a>        </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cFE>10</span><span class=cF0>; i++)
-<a name="l324"></a>            st[i] = </span><span class=cF5>EndianU16</span><span class=cF0>(bd-&gt;dev_id_record[</span><span class=cFE>10</span><span class=cF0> + i]);
-<a name="l325"></a>        res = </span><span class=cF5>MStrUtil</span><span class=cF0>(st, </span><span class=cF3>SUF_REM_LEADING</span><span class=cF0> | </span><span class=cF3>SUF_REM_TRAILING</span><span class=cF0>);
-<a name="l326"></a>        </span><span class=cF5>Free</span><span class=cF0>(st);
-<a name="l327"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l328"></a>
-<a name="l329"></a>    </span><span class=cF1>return</span><span class=cF0> res;
-<a name="l330"></a>}
-<a name="l331"></a>
-<a name="l332"></a></span><span class=cF1>U8</span><span class=cF0> *</span><span class=cF5>DriveModelNum</span><span class=cF0>(</span><span class=cF1>U8</span><span class=cF0> drv_let=</span><span class=cFE>0</span><span class=cF0>)
-<a name="l333"></a>{</span><span class=cF2>//40 bytes max.</span><span class=cF0>
-<a name="l334"></a>    </span><span class=cF9>CBlkDev</span><span class=cF0> *bd = </span><span class=cF5>Letter2BlkDev</span><span class=cF0>(drv_let);
-<a name="l335"></a>    </span><span class=cF9>U16</span><span class=cF0>     *st, *res = </span><span class=cF3>NULL</span><span class=cF0>;
-<a name="l336"></a>    </span><span class=cF9>I64</span><span class=cF0>      i;
-<a name="l337"></a>
-<a name="l338"></a>    </span><span class=cF1>if</span><span class=cF0> (bd-&gt;dev_id_record)
-<a name="l339"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l340"></a>        st = </span><span class=cF5>CAlloc</span><span class=cF0>(</span><span class=cFE>40</span><span class=cF0> + </span><span class=cFE>1</span><span class=cF0>);
-<a name="l341"></a>        </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cFE>20</span><span class=cF0>; i++)
-<a name="l342"></a>            st[i] = </span><span class=cF5>EndianU16</span><span class=cF0>(bd-&gt;dev_id_record[</span><span class=cFE>27</span><span class=cF0> + i]);
-<a name="l343"></a>        res = </span><span class=cF5>MStrUtil</span><span class=cF0>(st, </span><span class=cF3>SUF_REM_LEADING</span><span class=cF0> | </span><span class=cF3>SUF_REM_TRAILING</span><span class=cF0>);
-<a name="l344"></a>        </span><span class=cF5>Free</span><span class=cF0>(st);
-<a name="l345"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l346"></a>    </span><span class=cF1>return</span><span class=cF0> res;
-<a name="l347"></a>}
-<a name="l348"></a>
-<a name="l349"></a></span><span class=cF1>U8</span><span class=cF0> </span><span class=cFD>blkdev_text_attr</span><span class=cF0>[</span><span class=cF3>BDT_TYPES_NUM</span><span class=cF0>]  = {</span><span class=cF3>BLACK</span><span class=cF0>, </span><span class=cF3>LTCYAN</span><span class=cF0>, </span><span class=cF3>WHITE</span><span class=cF0>, </span><span class=cF3>LTGREEN</span><span class=cF0>, </span><span class=cF3>LTRED</span><span class=cF0>, </span><span class=cF3>LTBLUE</span><span class=cF0>};
-<a name="l350"></a></span><span class=cF1>U8</span><span class=cF0> </span><span class=cFD>drv_text_attr</span><span class=cF0>[</span><span class=cFE>3</span><span class=cF0>]                 = {</span><span class=cF3>BLACK</span><span class=cF0>, </span><span class=cF3>BLUE</span><span class=cF0>, </span><span class=cF3>RED</span><span class=cF0>};
-<a name="l351"></a>
-<a name="l352"></a></span><span class=cF1>U8</span><span class=cF0> </span><span class=cF5>DriveTextAttrGet</span><span class=cF0>(</span><span class=cF1>U8</span><span class=cF0> drv_let=</span><span class=cFE>0</span><span class=cF0>)
-<a name="l353"></a>{</span><span class=cF2>//Get color of drive.</span><span class=cF0>
-<a name="l354"></a>    drv_let = </span><span class=cF5>Letter2Letter</span><span class=cF0>(drv_let);
-<a name="l355"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF6>'A'</span><span class=cF0> &lt;= drv_let &lt;= </span><span class=cF6>'Z'</span><span class=cF0>)
-<a name="l356"></a>        </span><span class=cF1>return</span><span class=cF0> </span><span class=cFD>blkdev_text_attr</span><span class=cF0>[</span><span class=cF5>Letter2BlkDevType</span><span class=cF0>(drv_let)] &lt;&lt; </span><span class=cFE>4</span><span class=cF0> | </span><span class=cFD>drv_text_attr</span><span class=cF0>[drv_let % </span><span class=cF1>sizeof</span><span class=cF0>(</span><span class=cFD>drv_text_attr</span><span class=cF0>)];
-<a name="l357"></a>    </span><span class=cF1>else</span><span class=cF0>
-<a name="l358"></a>        </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>BLACK</span><span class=cF0> &lt;&lt; </span><span class=cFE>4</span><span class=cF0> | </span><span class=cF3>WHITE</span><span class=cF0>;
-<a name="l359"></a>}
-<a name="l360"></a>
-<a name="l361"></a></span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>DriveRep</span><span class=cF0>()
-<a name="l362"></a>{</span><span class=cF2>//Drive report.</span><span class=cF0>
-<a name="l363"></a>    </span><span class=cF9>CDrive</span><span class=cF0>  *drive;
-<a name="l364"></a>    </span><span class=cF9>CBlkDev</span><span class=cF0> *bd;
-<a name="l365"></a>    </span><span class=cF9>I64</span><span class=cF0>      ch, i, drv_let, attr;
-<a name="l366"></a>    </span><span class=cF1>U8</span><span class=cF0>      *st;
-<a name="l367"></a>
-<a name="l368"></a>    </span><span class=cF6>&quot;\nDefined Drives:\n&quot;</span><span class=cF0>;
-<a name="l369"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>, drive = </span><span class=cFB>blkdev</span><span class=cF0>.drvs; i &lt; </span><span class=cF3>DRIVES_NUM</span><span class=cF0>; i++, drive++)
-<a name="l370"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l371"></a>        </span><span class=cF1>if</span><span class=cF0> (drive-&gt;drive_signature == </span><span class=cF3>DRIVE_SIGNATURE_VAL</span><span class=cF0>)
-<a name="l372"></a>        {
-<a name="l373"></a>            bd = drive-&gt;bd;
-<a name="l374"></a>            drv_let = </span><span class=cF5>Drive2Letter</span><span class=cF0>(drive);
-<a name="l375"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;drive-&gt;fs_type, </span><span class=cF3>FStf_DISABLE</span><span class=cF7>)</span><span class=cF0>)
-<a name="l376"></a>                ch = </span><span class=cF6>'-'</span><span class=cF0>;
-<a name="l377"></a>            </span><span class=cF1>else</span><span class=cF0> </span><span class=cF1>if</span><span class=cF0> (drv_let == </span><span class=cFB>blkdev</span><span class=cF0>.boot_drive_let)
-<a name="l378"></a>                ch = </span><span class=cF6>':'</span><span class=cF0>;
-<a name="l379"></a>            </span><span class=cF1>else</span><span class=cF0>
-<a name="l380"></a>                ch = </span><span class=cF6>'+'</span><span class=cF0>;
-<a name="l381"></a>            attr = </span><span class=cF5>DriveTextAttrGet</span><span class=cF0>(drv_let);
-<a name="l382"></a>
-<a name="l383"></a>            </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
-<a name="l384"></a>                </span><span class=cF6>&quot;$FG,%d$$BG,%d$&quot;</span><span class=cF0>, attr &amp; </span><span class=cFE>15</span><span class=cF0>, attr &gt;&gt; </span><span class=cFE>4</span><span class=cF0>;
-<a name="l385"></a>
-<a name="l386"></a>            </span><span class=cF6>&quot;%C %-9Z %-10Z &quot;</span><span class=cF0>,   drv_let,
-<a name="l387"></a>                                drive-&gt;fs_type &amp; </span><span class=cF3>FSG_TYPE_MASK</span><span class=cF0>,
-<a name="l388"></a>                                </span><span class=cF6>&quot;ST_DRIVE_TYPES&quot;</span><span class=cF0>,
-<a name="l389"></a>                                bd-&gt;type,
-<a name="l390"></a>                                </span><span class=cF6>&quot;ST_BLKDEV_TYPES&quot;</span><span class=cF0>;
-<a name="l391"></a>            </span><span class=cF1>if</span><span class=cF0> (bd-&gt;ahci_port)
-<a name="l392"></a>                </span><span class=cF6>&quot;SATA Port: %02d&quot;</span><span class=cF0>, bd-&gt;port_num;
-<a name="l393"></a>            </span><span class=cF6>'\n'</span><span class=cF0>;
-<a name="l394"></a>
-<a name="l395"></a>            </span><span class=cF1>if</span><span class=cF0> (st = </span><span class=cF5>DriveModelNum</span><span class=cF7>(</span><span class=cF0>drv_let</span><span class=cF7>)</span><span class=cF0>)
-<a name="l396"></a>            </span><span class=cF7>{</span><span class=cF0>
-<a name="l397"></a>                </span><span class=cF6>&quot;   Model:   %s\n&quot;</span><span class=cF0>, st;
-<a name="l398"></a>                </span><span class=cF5>Free</span><span class=cF0>(st);
-<a name="l399"></a>            </span><span class=cF7>}</span><span class=cF0>
-<a name="l400"></a>            </span><span class=cF1>if</span><span class=cF0> (st = </span><span class=cF5>DriveSerialNum</span><span class=cF7>(</span><span class=cF0>drv_let</span><span class=cF7>)</span><span class=cF0>)
-<a name="l401"></a>            </span><span class=cF7>{</span><span class=cF0>
-<a name="l402"></a>                </span><span class=cF6>&quot;   Serial:  %s\n&quot;</span><span class=cF0>, st;
-<a name="l403"></a>                </span><span class=cF5>Free</span><span class=cF0>(st);
-<a name="l404"></a>            </span><span class=cF7>}</span><span class=cF0>
-<a name="l405"></a>            </span><span class=cF1>if</span><span class=cF0> (bd-&gt;type == </span><span class=cF3>BDT_ISO_FILE_READ</span><span class=cF0> || bd-&gt;type == </span><span class=cF3>BDT_ISO_FILE_WRITE</span><span class=cF0>)
-<a name="l406"></a>                </span><span class=cF6>&quot;   File=\&quot;%s\&quot;\n&quot;</span><span class=cF0>, bd-&gt;file_disk_name;
-<a name="l407"></a>            </span><span class=cF6>&quot;   Offset:\t\t\tOffset + Size:\n&quot;</span><span class=cF0>;
-<a name="l408"></a>            </span><span class=cF6>&quot;   %016X-%016X\n&quot;</span><span class=cF0>, drive-&gt;drv_offset, drive-&gt;drv_offset + drive-&gt;size - </span><span class=cFE>1</span><span class=cF0>;
-<a name="l409"></a>            </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
-<a name="l410"></a>                </span><span class=cF6>&quot;$FG$$BG$&quot;</span><span class=cF0>;
-<a name="l411"></a>        }
-<a name="l412"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l413"></a>    </span><span class=cF6>&quot;Home Dir:\&quot;%s\&quot;\n&quot;</span><span class=cF0>, </span><span class=cFB>blkdev</span><span class=cF0>.home_dir;
-<a name="l414"></a>}
+<a name="l305"></a>        </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>FSt_ISO9660</span><span class=cF0>:
+<a name="l306"></a>        </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>FSt_FAT32</span><span class=cF0>:
+<a name="l307"></a>            </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>TRUE</span><span class=cF0>;
+<a name="l308"></a>
+<a name="l309"></a>        </span><span class=cF1>default</span><span class=cF0>:
+<a name="l310"></a>            </span><span class=cF5>PrintErr</span><span class=cF0>(</span><span class=cF6>&quot;File System Not Supported\n&quot;</span><span class=cF0>);
+<a name="l311"></a>            </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>FALSE</span><span class=cF0>;
+<a name="l312"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l313"></a>}
+<a name="l314"></a>
+<a name="l315"></a></span><span class=cF1>U8</span><span class=cF0> *</span><span class=cF5>DriveSerialNum</span><span class=cF0>(</span><span class=cF1>U8</span><span class=cF0> drv_let=</span><span class=cFE>0</span><span class=cF0>)
+<a name="l316"></a>{</span><span class=cF2>//20 bytes max.</span><span class=cF0>
+<a name="l317"></a>    </span><span class=cF9>CBlkDev</span><span class=cF0> *bd = </span><span class=cF5>Letter2BlkDev</span><span class=cF0>(drv_let);
+<a name="l318"></a>    </span><span class=cF9>U16</span><span class=cF0>     *st, *res = </span><span class=cF3>NULL</span><span class=cF0>;
+<a name="l319"></a>    </span><span class=cF9>I64</span><span class=cF0>      i;
+<a name="l320"></a>
+<a name="l321"></a>    </span><span class=cF1>if</span><span class=cF0> (bd-&gt;dev_id_record)
+<a name="l322"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l323"></a>        st = </span><span class=cF5>CAlloc</span><span class=cF0>(</span><span class=cFE>20</span><span class=cF0> + </span><span class=cFE>1</span><span class=cF0>);
+<a name="l324"></a>        </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cFE>10</span><span class=cF0>; i++)
+<a name="l325"></a>            st[i] = </span><span class=cF5>EndianU16</span><span class=cF0>(bd-&gt;dev_id_record[</span><span class=cFE>10</span><span class=cF0> + i]);
+<a name="l326"></a>        res = </span><span class=cF5>MStrUtil</span><span class=cF0>(st, </span><span class=cF3>SUF_REM_LEADING</span><span class=cF0> | </span><span class=cF3>SUF_REM_TRAILING</span><span class=cF0>);
+<a name="l327"></a>        </span><span class=cF5>Free</span><span class=cF0>(st);
+<a name="l328"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l329"></a>
+<a name="l330"></a>    </span><span class=cF1>return</span><span class=cF0> res;
+<a name="l331"></a>}
+<a name="l332"></a>
+<a name="l333"></a></span><span class=cF1>U8</span><span class=cF0> *</span><span class=cF5>DriveModelNum</span><span class=cF0>(</span><span class=cF1>U8</span><span class=cF0> drv_let=</span><span class=cFE>0</span><span class=cF0>)
+<a name="l334"></a>{</span><span class=cF2>//40 bytes max.</span><span class=cF0>
+<a name="l335"></a>    </span><span class=cF9>CBlkDev</span><span class=cF0> *bd = </span><span class=cF5>Letter2BlkDev</span><span class=cF0>(drv_let);
+<a name="l336"></a>    </span><span class=cF9>U16</span><span class=cF0>     *st, *res = </span><span class=cF3>NULL</span><span class=cF0>;
+<a name="l337"></a>    </span><span class=cF9>I64</span><span class=cF0>      i;
+<a name="l338"></a>
+<a name="l339"></a>    </span><span class=cF1>if</span><span class=cF0> (bd-&gt;dev_id_record)
+<a name="l340"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l341"></a>        st = </span><span class=cF5>CAlloc</span><span class=cF0>(</span><span class=cFE>40</span><span class=cF0> + </span><span class=cFE>1</span><span class=cF0>);
+<a name="l342"></a>        </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cFE>20</span><span class=cF0>; i++)
+<a name="l343"></a>            st[i] = </span><span class=cF5>EndianU16</span><span class=cF0>(bd-&gt;dev_id_record[</span><span class=cFE>27</span><span class=cF0> + i]);
+<a name="l344"></a>        res = </span><span class=cF5>MStrUtil</span><span class=cF0>(st, </span><span class=cF3>SUF_REM_LEADING</span><span class=cF0> | </span><span class=cF3>SUF_REM_TRAILING</span><span class=cF0>);
+<a name="l345"></a>        </span><span class=cF5>Free</span><span class=cF0>(st);
+<a name="l346"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l347"></a>    </span><span class=cF1>return</span><span class=cF0> res;
+<a name="l348"></a>}
+<a name="l349"></a>
+<a name="l350"></a></span><span class=cF1>U8</span><span class=cF0> </span><span class=cFD>blkdev_text_attr</span><span class=cF0>[</span><span class=cF3>BDT_TYPES_NUM</span><span class=cF0>]  = {</span><span class=cF3>BLACK</span><span class=cF0>, </span><span class=cF3>LTCYAN</span><span class=cF0>, </span><span class=cF3>WHITE</span><span class=cF0>, </span><span class=cF3>LTGREEN</span><span class=cF0>, </span><span class=cF3>LTRED</span><span class=cF0>, </span><span class=cF3>LTBLUE</span><span class=cF0>};
+<a name="l351"></a></span><span class=cF1>U8</span><span class=cF0> </span><span class=cFD>drv_text_attr</span><span class=cF0>[</span><span class=cFE>3</span><span class=cF0>]                 = {</span><span class=cF3>BLACK</span><span class=cF0>, </span><span class=cF3>BLUE</span><span class=cF0>, </span><span class=cF3>RED</span><span class=cF0>};
+<a name="l352"></a>
+<a name="l353"></a></span><span class=cF1>U8</span><span class=cF0> </span><span class=cF5>DriveTextAttrGet</span><span class=cF0>(</span><span class=cF1>U8</span><span class=cF0> drv_let=</span><span class=cFE>0</span><span class=cF0>)
+<a name="l354"></a>{</span><span class=cF2>//Get color of drive.</span><span class=cF0>
+<a name="l355"></a>    drv_let = </span><span class=cF5>Letter2Letter</span><span class=cF0>(drv_let);
+<a name="l356"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF6>'A'</span><span class=cF0> &lt;= drv_let &lt;= </span><span class=cF6>'Z'</span><span class=cF0>)
+<a name="l357"></a>        </span><span class=cF1>return</span><span class=cF0> </span><span class=cFD>blkdev_text_attr</span><span class=cF0>[</span><span class=cF5>Letter2BlkDevType</span><span class=cF0>(drv_let)] &lt;&lt; </span><span class=cFE>4</span><span class=cF0> | </span><span class=cFD>drv_text_attr</span><span class=cF0>[drv_let % </span><span class=cF1>sizeof</span><span class=cF0>(</span><span class=cFD>drv_text_attr</span><span class=cF0>)];
+<a name="l358"></a>    </span><span class=cF1>else</span><span class=cF0>
+<a name="l359"></a>        </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>BLACK</span><span class=cF0> &lt;&lt; </span><span class=cFE>4</span><span class=cF0> | </span><span class=cF3>WHITE</span><span class=cF0>;
+<a name="l360"></a>}
+<a name="l361"></a>
+<a name="l362"></a></span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>DriveRep</span><span class=cF0>()
+<a name="l363"></a>{</span><span class=cF2>//Drive report.</span><span class=cF0>
+<a name="l364"></a>    </span><span class=cF9>CDrive</span><span class=cF0>  *drive;
+<a name="l365"></a>    </span><span class=cF9>CBlkDev</span><span class=cF0> *bd;
+<a name="l366"></a>    </span><span class=cF9>I64</span><span class=cF0>      ch, i, drv_let, attr;
+<a name="l367"></a>    </span><span class=cF1>U8</span><span class=cF0>      *st;
+<a name="l368"></a>
+<a name="l369"></a>    </span><span class=cF6>&quot;\nDefined Drives:\n&quot;</span><span class=cF0>;
+<a name="l370"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>, drive = </span><span class=cFB>blkdev</span><span class=cF0>.drvs; i &lt; </span><span class=cF3>DRIVES_NUM</span><span class=cF0>; i++, drive++)
+<a name="l371"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l372"></a>        </span><span class=cF1>if</span><span class=cF0> (drive-&gt;drive_signature == </span><span class=cF3>DRIVE_SIGNATURE_VAL</span><span class=cF0>)
+<a name="l373"></a>        {
+<a name="l374"></a>            bd = drive-&gt;bd;
+<a name="l375"></a>            drv_let = </span><span class=cF5>Drive2Letter</span><span class=cF0>(drive);
+<a name="l376"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;drive-&gt;fs_type, </span><span class=cF3>FStf_DISABLE</span><span class=cF7>)</span><span class=cF0>)
+<a name="l377"></a>                ch = </span><span class=cF6>'-'</span><span class=cF0>;
+<a name="l378"></a>            </span><span class=cF1>else</span><span class=cF0> </span><span class=cF1>if</span><span class=cF0> (drv_let == </span><span class=cFB>blkdev</span><span class=cF0>.boot_drive_let)
+<a name="l379"></a>                ch = </span><span class=cF6>':'</span><span class=cF0>;
+<a name="l380"></a>            </span><span class=cF1>else</span><span class=cF0>
+<a name="l381"></a>                ch = </span><span class=cF6>'+'</span><span class=cF0>;
+<a name="l382"></a>            attr = </span><span class=cF5>DriveTextAttrGet</span><span class=cF0>(drv_let);
+<a name="l383"></a>
+<a name="l384"></a>            </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
+<a name="l385"></a>                </span><span class=cF6>&quot;$FG,%d$$BG,%d$&quot;</span><span class=cF0>, attr &amp; </span><span class=cFE>15</span><span class=cF0>, attr &gt;&gt; </span><span class=cFE>4</span><span class=cF0>;
+<a name="l386"></a>
+<a name="l387"></a>            </span><span class=cF6>&quot;%C %-9Z %-10Z &quot;</span><span class=cF0>,   drv_let,
+<a name="l388"></a>                                drive-&gt;fs_type &amp; </span><span class=cF3>FSG_TYPE_MASK</span><span class=cF0>,
+<a name="l389"></a>                                </span><span class=cF6>&quot;ST_DRIVE_TYPES&quot;</span><span class=cF0>,
+<a name="l390"></a>                                bd-&gt;type,
+<a name="l391"></a>                                </span><span class=cF6>&quot;ST_BLKDEV_TYPES&quot;</span><span class=cF0>;
+<a name="l392"></a>            </span><span class=cF1>if</span><span class=cF0> (bd-&gt;ahci_port)
+<a name="l393"></a>                </span><span class=cF6>&quot;SATA Port: %02d&quot;</span><span class=cF0>, bd-&gt;port_num;
+<a name="l394"></a>            </span><span class=cF6>'\n'</span><span class=cF0>;
+<a name="l395"></a>
+<a name="l396"></a>            </span><span class=cF1>if</span><span class=cF0> (st = </span><span class=cF5>DriveModelNum</span><span class=cF7>(</span><span class=cF0>drv_let</span><span class=cF7>)</span><span class=cF0>)
+<a name="l397"></a>            </span><span class=cF7>{</span><span class=cF0>
+<a name="l398"></a>                </span><span class=cF6>&quot;   Model:   %s\n&quot;</span><span class=cF0>, st;
+<a name="l399"></a>                </span><span class=cF5>Free</span><span class=cF0>(st);
+<a name="l400"></a>            </span><span class=cF7>}</span><span class=cF0>
+<a name="l401"></a>            </span><span class=cF1>if</span><span class=cF0> (st = </span><span class=cF5>DriveSerialNum</span><span class=cF7>(</span><span class=cF0>drv_let</span><span class=cF7>)</span><span class=cF0>)
+<a name="l402"></a>            </span><span class=cF7>{</span><span class=cF0>
+<a name="l403"></a>                </span><span class=cF6>&quot;   Serial:  %s\n&quot;</span><span class=cF0>, st;
+<a name="l404"></a>                </span><span class=cF5>Free</span><span class=cF0>(st);
+<a name="l405"></a>            </span><span class=cF7>}</span><span class=cF0>
+<a name="l406"></a>            </span><span class=cF1>if</span><span class=cF0> (bd-&gt;type == </span><span class=cF3>BDT_ISO_FILE_READ</span><span class=cF0> || bd-&gt;type == </span><span class=cF3>BDT_ISO_FILE_WRITE</span><span class=cF0>)
+<a name="l407"></a>                </span><span class=cF6>&quot;   File=\&quot;%s\&quot;\n&quot;</span><span class=cF0>, bd-&gt;file_disk_name;
+<a name="l408"></a>            </span><span class=cF6>&quot;   Offset:\t\t\tOffset + Size:\n&quot;</span><span class=cF0>;
+<a name="l409"></a>            </span><span class=cF6>&quot;   %016X-%016X\n&quot;</span><span class=cF0>, drive-&gt;drv_offset, drive-&gt;drv_offset + drive-&gt;size - </span><span class=cFE>1</span><span class=cF0>;
+<a name="l410"></a>            </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
+<a name="l411"></a>                </span><span class=cF6>&quot;$FG$$BG$&quot;</span><span class=cF0>;
+<a name="l412"></a>        }
+<a name="l413"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l414"></a>    </span><span class=cF6>&quot;Home Dir:\&quot;%s\&quot;\n&quot;</span><span class=cF0>, </span><span class=cFB>blkdev</span><span class=cF0>.home_dir;
+<a name="l415"></a>}
 </span></pre></body>
 </html>

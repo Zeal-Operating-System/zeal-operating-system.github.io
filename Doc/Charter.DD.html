@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.11">
+<meta name="generator" content="ZealOS V1.13">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -38,56 +38,57 @@ body {background-color:#1f1f1f;}
 <a name="l11"></a>* Low line count and code complexity is the highest good, so it is easy to learn the whole thing.  Users should see the light 
 <a name="l12"></a>at the end of the tunnel.  One file system, for example, is better than many file systems.
 <a name="l13"></a>
-<a name="l14"></a>* There is a limit of 100,000 lines of code for all time, not including applications and demos. Currently, there are 97,299 
+<a name="l14"></a>* There is a limit of 100,000 lines of code for all time, not including applications and demos. Currently, there are 98,216 
 <a name="l15"></a>lines of code.  </span><span class=cF4>3rd party libraries are banned</span><span class=cF0> because they circumvent the intent of this limit.  The vision is a Commodore 64 
 <a name="l16"></a>ROM -- a fixed core API that is the only dependency of applications. Dependency on components and libraries creates a hell 
 <a name="l17"></a>that is no longer blissful.
 <a name="l18"></a>
-<a name="l19"></a>* The metric for resolving all ZealOS code governance issues is how fast the compiler compiles itself and the kernel with </span><span class=cF4>
-<a name="l20"></a></span><a href="https://zeal-operating-system.github.io/System/Boot/BootHDIns.ZC.html#l25"><span class=cF4>BootHDIns</span></a><span class=cF0>(). The </span><a href="https://zeal-operating-system.github.io/Doc/ZealC.DD.html#l1"><span class=cF4>ZealC</span></a><span class=cF0> language should be changed to optimize this metric, as Terry Davis did when he changed type casting 
-<a name="l21"></a>from prefix standard C to postfix </span><a href="https://zeal-operating-system.github.io/Doc/ZealC.DD.html#l1"><span class=cF4>ZealC</span></a><span class=cF0>, but we need a rule to prevent degenerating into a brainfuck language.
-<a name="l22"></a> 
-<a name="l23"></a>* Minimal abstraction is a goal. Sheep are fools. They always respect a design that is more complicated than another.  Any 
-<a name="l24"></a>genius can make it complicated. Like in physics, it takes a supra-genius to make it simple.
-<a name="l25"></a>
-<a name="l26"></a>* It is for one platform -- </span><a href="http://en.wikipedia.org/wiki/Amd64#AMD64"><span class=cF4>x86_64</span></a><span class=cF0> desktop PC compatibles, more like super-computers than battery efficient wimpy mobiles.
-<a name="l27"></a>
-<a name="l28"></a>* One driver for each class of device. Limited exceptions are allowed. With divergent device capabilities, it is a nightmare 
-<a name="l29"></a>for user applications and what is gained? 
-<a name="l30"></a>
-<a name="l31"></a>* </span><span class=cF2>Ring-0-only</span><span class=cF0>.  Everything runs in kernel mode, including user applications.
-<a name="l32"></a>
-<a name="l33"></a>* </span><span class=cF4>No wireless</span><span class=cF0> communications. Only wired communications like Ethernet and Serial IO will be used.
-<a name="l34"></a>
-<a name="l35"></a>* </span><span class=cF4>No GPU</span><span class=cF0>. We want one processing platform, the CPU, for everything.
-<a name="l36"></a>
-<a name="l37"></a>* Full access to everything.    All memory, I/O ports, instructions, and similar things must never be off limits.  All 
-<a name="l38"></a>functions, variables and class members will be accessible.  There are no C++ </span><span class=cF2>public</span><span class=cF0>/</span><span class=cF2>private</span><span class=cF0> protections and all functions, 
-<a name="l39"></a>even secondary ones in the kernel, can be called.
-<a name="l40"></a>
-<a name="l41"></a>* </span><span class=cF2>Single-address-map</span><span class=cF0> as though paging is not used.  Long mode requires paging, however, so the nearest thing is keeping all 
-<a name="l42"></a>memory </span><span class=cF2>identity-mapped</span><span class=cF0>.
-<a name="l43"></a>
-<a name="l44"></a>* </span><span class=cF2>Free</span><span class=cF0> and </span><span class=cF2>public domain</span><span class=cF0>.
-<a name="l45"></a>
-<a name="l46"></a>* </span><span class=cF2>100% open source</span><span class=cF0> with all source included.
-<a name="l47"></a>
-<a name="l48"></a>* Documents are not for printing. They're dynamic, intended for the screen.
-<a name="l49"></a>
-<a name="l50"></a>* Just one 8x8 fixed-width font. </span><span class=cF4>No Unicode, just Extended ASCII</span><span class=cF0>. Other countries can make their own versions. The versions 
-<a name="l51"></a>should be just for one language and platform.
-<a name="l52"></a>
-<a name="l53"></a>* </span><span class=cF4>No multimedia</span><span class=cF0>. Sounds and images will be primarily calculated in real-time, not fetched from storage.
-<a name="l54"></a>
-<a name="l55"></a></span><span class=cF8>
-<a name="l56"></a>* &quot;Commodore 64&quot; is a trademark owned by Polabe Holding NV.
-<a name="l57"></a>* &quot;Windows&quot; is a trademark owned by MicroSoft Corp.
-<a name="l58"></a></span><span class=cF0>
-<a name="l59"></a>
-<a name="l60"></a></span><span class=cF5>                                                     Possible Amendments</span><span class=cF0>
-<a name="l61"></a>
-<a name="l62"></a>The compiler's parser makes RISC code which it optimizes to CISC.  Terry Davis discovered this does not matter because the CPU 
-<a name="l63"></a>converts it back to RISC and schedules it, internally.  A ZealOS zealot with more zeal might say we should save lines-of-code 
-<a name="l64"></a>by removing the CISC optimizing.
+<a name="l19"></a>* The primary metric for resolving all ZealOS code governance issues is how fast the compiler compiles itself and the kernel 
+<a name="l20"></a>with </span><a href="https://zeal-operating-system.github.io/System/Boot/BootHDIns.ZC.html#l25"><span class=cF4>BootHDIns</span></a><span class=cF0>(). The secondary metric is how understandable the code is. The </span><a href="https://zeal-operating-system.github.io/Doc/ZealC.DD.html#l1"><span class=cF4>ZealC</span></a><span class=cF0> language should be changed to optimize 
+<a name="l21"></a>these metrics, as Terry Davis did when he changed type casting from prefix standard C to postfix </span><a href="https://zeal-operating-system.github.io/Doc/ZealC.DD.html#l1"><span class=cF4>ZealC</span></a><span class=cF0>, but we need a rule to 
+<a name="l22"></a>prevent degenerating into a brainfuck language.
+<a name="l23"></a> 
+<a name="l24"></a>* Minimal abstraction is a goal. Sheep are fools. They always respect a design that is more complicated than another.  Any 
+<a name="l25"></a>genius can make it complicated. Like in physics, it takes a supra-genius to make it simple.
+<a name="l26"></a>
+<a name="l27"></a>* It is for one platform -- </span><a href="http://en.wikipedia.org/wiki/Amd64#AMD64"><span class=cF4>x86_64</span></a><span class=cF0> desktop PC compatibles, more like super-computers than battery efficient wimpy mobiles.
+<a name="l28"></a>
+<a name="l29"></a>* One driver for each class of device. Limited exceptions are allowed. With divergent device capabilities, it is a nightmare 
+<a name="l30"></a>for user applications and what is gained? 
+<a name="l31"></a>
+<a name="l32"></a>* </span><span class=cF2>Ring-0-only</span><span class=cF0>.  Everything runs in kernel mode, including user applications.
+<a name="l33"></a>
+<a name="l34"></a>* </span><span class=cF4>No wireless</span><span class=cF0> communications. Only wired communications like Ethernet and Serial IO will be used.
+<a name="l35"></a>
+<a name="l36"></a>* </span><span class=cF4>No GPU</span><span class=cF0>. We want one processing platform, the CPU, for everything.
+<a name="l37"></a>
+<a name="l38"></a>* Full access to everything.    All memory, I/O ports, instructions, and similar things must never be off limits.  All 
+<a name="l39"></a>functions, variables and class members will be accessible.  There are no C++ </span><span class=cF2>public</span><span class=cF0>/</span><span class=cF2>private</span><span class=cF0> protections and all functions, 
+<a name="l40"></a>even secondary ones in the kernel, can be called.
+<a name="l41"></a>
+<a name="l42"></a>* </span><span class=cF2>Single-address-map</span><span class=cF0> as though paging is not used.  Long mode requires paging, however, so the nearest thing is keeping all 
+<a name="l43"></a>memory </span><span class=cF2>identity-mapped</span><span class=cF0>.
+<a name="l44"></a>
+<a name="l45"></a>* </span><span class=cF2>Free</span><span class=cF0> and </span><span class=cF2>public domain</span><span class=cF0>.
+<a name="l46"></a>
+<a name="l47"></a>* </span><span class=cF2>100% open source</span><span class=cF0> with all source included.
+<a name="l48"></a>
+<a name="l49"></a>* Documents are not for printing. They're dynamic, intended for the screen.
+<a name="l50"></a>
+<a name="l51"></a>* Just one 8x8 fixed-width font. </span><span class=cF4>No Unicode, just Extended ASCII</span><span class=cF0>. Other countries can make their own versions. The versions 
+<a name="l52"></a>should be just for one language and platform.
+<a name="l53"></a>
+<a name="l54"></a>* </span><span class=cF4>No multimedia</span><span class=cF0>. Sounds and images will be primarily calculated in real-time, not fetched from storage.
+<a name="l55"></a>
+<a name="l56"></a></span><span class=cF8>
+<a name="l57"></a>* &quot;Commodore 64&quot; is a trademark owned by Polabe Holding NV.
+<a name="l58"></a>* &quot;Windows&quot; is a trademark owned by MicroSoft Corp.
+<a name="l59"></a></span><span class=cF0>
+<a name="l60"></a>
+<a name="l61"></a></span><span class=cF5>                                                     Possible Amendments</span><span class=cF0>
+<a name="l62"></a>
+<a name="l63"></a>The compiler's parser makes RISC code which it optimizes to CISC.  Terry Davis discovered this does not matter because the CPU 
+<a name="l64"></a>converts it back to RISC and schedules it, internally.  A ZealOS zealot with more zeal might say we should save lines-of-code 
+<a name="l65"></a>by removing the CISC optimizing.
 </span></pre></body>
 </html>

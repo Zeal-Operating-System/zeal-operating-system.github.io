@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.11">
+<meta name="generator" content="ZealOS V1.13">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -190,7 +190,7 @@ body {background-color:#1f1f1f;}
 <a name="l163"></a>            </span><span class=cF6>&quot;$BLUE$Ctrl-S$FG$ to save image.\n&quot;</span><span class=cF0>
 <a name="l164"></a>            </span><span class=cF6>&quot;$BLUE$Ctrl-L$FG$ to load image.\n\n&quot;</span><span class=cF0>
 <a name="l165"></a>            </span><span class=cF6>&quot;$GREEN$Left-click or SPACE$FG$ to draw.\n\n&quot;</span><span class=cF0>
-<a name="l166"></a>            </span><span class=cF6>&quot;$RED$ENTER$FG$ to clear image.\n&quot;</span><span class=cF0>
+<a name="l166"></a>            </span><span class=cF6>&quot;$RED$END$FG$ to clear image.\n&quot;</span><span class=cF0>
 <a name="l167"></a>            </span><span class=cF6>&quot;$RED$Shift-Esc or Double Right-Click$FG$ to exit.&quot;</span><span class=cF0>);
 <a name="l168"></a>    </span><span class=cF5>Sleep</span><span class=cF0>(</span><span class=cFE>250</span><span class=cF0>); </span><span class=cF2>// help ensure SPACE press doesn't draw early</span><span class=cF0>
 <a name="l169"></a>
@@ -242,76 +242,79 @@ body {background-color:#1f1f1f;}
 <a name="l215"></a>                        </span><span class=cF1>break</span><span class=cF0>;
 <a name="l216"></a>
 <a name="l217"></a>                    </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_LEFT</span><span class=cF0>:
-<a name="l218"></a>                        </span><span class=cF1>break</span><span class=cF0>;
-<a name="l219"></a>
-<a name="l220"></a>                    </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_RIGHT</span><span class=cF0>:
-<a name="l221"></a>                        </span><span class=cF1>break</span><span class=cF0>;
-<a name="l222"></a>
-<a name="l223"></a>                    </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_UP</span><span class=cF0>:
-<a name="l224"></a>                        </span><span class=cF1>break</span><span class=cF0>;
-<a name="l225"></a>
-<a name="l226"></a>                    </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_DOWN</span><span class=cF0>:
+<a name="l218"></a>                        </span><span class=cFB>mouse</span><span class=cF0>.pos.x--;
+<a name="l219"></a>                        </span><span class=cF1>break</span><span class=cF0>;
+<a name="l220"></a>
+<a name="l221"></a>                    </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_RIGHT</span><span class=cF0>:
+<a name="l222"></a>                        </span><span class=cFB>mouse</span><span class=cF0>.pos.x++;
+<a name="l223"></a>                        </span><span class=cF1>break</span><span class=cF0>;
+<a name="l224"></a>
+<a name="l225"></a>                    </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_UP</span><span class=cF0>:
+<a name="l226"></a>                        </span><span class=cFB>mouse</span><span class=cF0>.pos.y--;
 <a name="l227"></a>                        </span><span class=cF1>break</span><span class=cF0>;
 <a name="l228"></a>
-<a name="l229"></a>                </span><span class=cF7>}</span><span class=cF0>
-<a name="l230"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l231"></a>
-<a name="l232"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'+'</span><span class=cF0>:
-<a name="l233"></a>                paint.thick++;
-<a name="l234"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l235"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'-'</span><span class=cF0>:
-<a name="l236"></a>                paint.thick--;
-<a name="l237"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l238"></a>
-<a name="l239"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'r'</span><span class=cF0>:
-<a name="l240"></a>                paint.color.r++;
-<a name="l241"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l242"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'g'</span><span class=cF0>:
-<a name="l243"></a>                paint.color.g++;
-<a name="l244"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l245"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'b'</span><span class=cF0>:
-<a name="l246"></a>                paint.color.b++;
-<a name="l247"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l248"></a>
-<a name="l249"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'R'</span><span class=cF0>:
-<a name="l250"></a>                paint.color.r--;
-<a name="l251"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l252"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'G'</span><span class=cF0>:
-<a name="l253"></a>                paint.color.g--;
-<a name="l254"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l255"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'B'</span><span class=cF0>:
-<a name="l256"></a>                paint.color.b--;
-<a name="l257"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l258"></a>
-<a name="l259"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'0'</span><span class=cF0>...</span><span class=cF6>'9'</span><span class=cF0>:
-<a name="l260"></a>                paint.color = </span><span class=cFB>gr_palette</span><span class=cF0>[ch - </span><span class=cF6>'0'</span><span class=cF0>];
-<a name="l261"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l262"></a>
-<a name="l263"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'\n'</span><span class=cF0>:
-<a name="l264"></a>                </span><span class=cF5>MemSet</span><span class=cF0>(paint.fb,        </span><span class=cF3>WHITE32</span><span class=cF0>, </span><span class=cFB>text</span><span class=cF0>.buffer_size);
-<a name="l265"></a>                </span><span class=cF5>MemSet</span><span class=cF0>(</span><span class=cFB>text</span><span class=cF0>.fb_alias,   </span><span class=cF3>WHITE32</span><span class=cF0>, </span><span class=cFB>text</span><span class=cF0>.buffer_size);
-<a name="l266"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l267"></a>
-<a name="l268"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>CH_CTRLS</span><span class=cF0>:
-<a name="l269"></a>                PaintSaveImage;
-<a name="l270"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l271"></a>
-<a name="l272"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>CH_CTRLL</span><span class=cF0>:
-<a name="l273"></a>                PaintLoadImage;
-<a name="l274"></a>                </span><span class=cF1>break</span><span class=cF0>;
-<a name="l275"></a>
-<a name="l276"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>CH_SHIFT_ESC</span><span class=cF0>:
-<a name="l277"></a>                </span><span class=cF1>goto</span><span class=cF0> paint_done;
-<a name="l278"></a>        }
-<a name="l279"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l280"></a>
-<a name="l281"></a>paint_done:
-<a name="l282"></a>    </span><span class=cFB>text</span><span class=cF0>.is_fb_busy = </span><span class=cF3>FALSE</span><span class=cF0>;
-<a name="l283"></a>    </span><span class=cF5>LFBFlush</span><span class=cF0>;
-<a name="l284"></a>    </span><span class=cF5>SettingsPop</span><span class=cF0>;
-<a name="l285"></a>    </span><span class=cF5>MenuPop</span><span class=cF0>;
-<a name="l286"></a>}
-<a name="l287"></a>
-<a name="l288"></a>PaintGlobalsInit;
-<a name="l289"></a>Paint32;</span></pre></body>
+<a name="l229"></a>                    </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_DOWN</span><span class=cF0>:
+<a name="l230"></a>                        </span><span class=cFB>mouse</span><span class=cF0>.pos.y++;
+<a name="l231"></a>                        </span><span class=cF1>break</span><span class=cF0>;
+<a name="l232"></a>
+<a name="l233"></a>                    </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_END</span><span class=cF0>:
+<a name="l234"></a>                        </span><span class=cF5>MemSet</span><span class=cF0>(paint.fb,        </span><span class=cF3>WHITE32</span><span class=cF0>, </span><span class=cFB>text</span><span class=cF0>.buffer_size);
+<a name="l235"></a>                        </span><span class=cF5>MemSet</span><span class=cF0>(</span><span class=cFB>text</span><span class=cF0>.fb_alias,   </span><span class=cF3>WHITE32</span><span class=cF0>, </span><span class=cFB>text</span><span class=cF0>.buffer_size);
+<a name="l236"></a>                        </span><span class=cF1>break</span><span class=cF0>;
+<a name="l237"></a>                </span><span class=cF7>}</span><span class=cF0>
+<a name="l238"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l239"></a>
+<a name="l240"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'+'</span><span class=cF0>:
+<a name="l241"></a>                paint.thick++;
+<a name="l242"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l243"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'-'</span><span class=cF0>:
+<a name="l244"></a>                paint.thick--;
+<a name="l245"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l246"></a>
+<a name="l247"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'r'</span><span class=cF0>:
+<a name="l248"></a>                paint.color.r++;
+<a name="l249"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l250"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'g'</span><span class=cF0>:
+<a name="l251"></a>                paint.color.g++;
+<a name="l252"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l253"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'b'</span><span class=cF0>:
+<a name="l254"></a>                paint.color.b++;
+<a name="l255"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l256"></a>
+<a name="l257"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'R'</span><span class=cF0>:
+<a name="l258"></a>                paint.color.r--;
+<a name="l259"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l260"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'G'</span><span class=cF0>:
+<a name="l261"></a>                paint.color.g--;
+<a name="l262"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l263"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'B'</span><span class=cF0>:
+<a name="l264"></a>                paint.color.b--;
+<a name="l265"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l266"></a>
+<a name="l267"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'0'</span><span class=cF0>...</span><span class=cF6>'9'</span><span class=cF0>:
+<a name="l268"></a>                paint.color = </span><span class=cFB>gr_palette</span><span class=cF0>[ch - </span><span class=cF6>'0'</span><span class=cF0>];
+<a name="l269"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l270"></a>
+<a name="l271"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>CH_CTRLS</span><span class=cF0>:
+<a name="l272"></a>                PaintSaveImage;
+<a name="l273"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l274"></a>
+<a name="l275"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>CH_CTRLL</span><span class=cF0>:
+<a name="l276"></a>                PaintLoadImage;
+<a name="l277"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l278"></a>
+<a name="l279"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>CH_SHIFT_ESC</span><span class=cF0>:
+<a name="l280"></a>                </span><span class=cF1>goto</span><span class=cF0> paint_done;
+<a name="l281"></a>        }
+<a name="l282"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l283"></a>
+<a name="l284"></a>paint_done:
+<a name="l285"></a>    </span><span class=cFB>text</span><span class=cF0>.is_fb_busy = </span><span class=cF3>FALSE</span><span class=cF0>;
+<a name="l286"></a>    </span><span class=cF5>LFBFlush</span><span class=cF0>;
+<a name="l287"></a>    </span><span class=cF5>SettingsPop</span><span class=cF0>;
+<a name="l288"></a>    </span><span class=cF5>MenuPop</span><span class=cF0>;
+<a name="l289"></a>}
+<a name="l290"></a>
+<a name="l291"></a>PaintGlobalsInit;
+<a name="l292"></a>Paint32;</span></pre></body>
 </html>

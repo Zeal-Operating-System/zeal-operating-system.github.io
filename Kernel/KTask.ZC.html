@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.11">
+<meta name="generator" content="ZealOS V1.13">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -276,7 +276,7 @@ body {background-color:#1f1f1f;}
 <a name="l249"></a>    task-&gt;win_bottom            = </span><span class=cFB>text</span><span class=cF0>.rows - </span><span class=cFE>2</span><span class=cF0>;
 <a name="l250"></a>
 <a name="l251"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cFB>blkdev</span><span class=cF0>.home_dir)
-<a name="l252"></a>    </span><span class=cF7>{</span><span class=cF2>//Beware System </span><a href="https://zeal-operating-system.github.io/Kernel/KStart64.ZC.html#l46"><span class=cF4>TaskInit</span></a><span class=cF2>. Maybe ok until </span><a href="https://zeal-operating-system.github.io/Kernel/KMain.ZC.html#l191"><span class=cF4>DiskChange</span></a><span class=cF2>().</span><span class=cF0>
+<a name="l252"></a>    </span><span class=cF7>{</span><span class=cF2>//Beware System </span><a href="https://zeal-operating-system.github.io/Kernel/KStart64.ZC.html#l46"><span class=cF4>TaskInit</span></a><span class=cF2>. Maybe ok until </span><a href="https://zeal-operating-system.github.io/Kernel/KMain.ZC.html#l193"><span class=cF4>DiskChange</span></a><span class=cF2>().</span><span class=cF0>
 <a name="l253"></a>        task-&gt;cur_dv    = </span><span class=cFB>blkdev</span><span class=cF0>.let_to_drive[*</span><span class=cFB>blkdev</span><span class=cF0>.home_dir - </span><span class=cF6>'A'</span><span class=cF0>];
 <a name="l254"></a>        task-&gt;cur_dir   = </span><span class=cF5>StrNew</span><span class=cF0>(</span><span class=cFB>blkdev</span><span class=cF0>.home_dir + </span><span class=cFE>2</span><span class=cF0>, task);
 <a name="l255"></a>    </span><span class=cF7>}</span><span class=cF0>
@@ -294,7 +294,7 @@ body {background-color:#1f1f1f;}
 <a name="l267"></a>                </span><span class=cF9>I64</span><span class=cF0> stack_size=</span><span class=cFE>0</span><span class=cF0>,   </span><span class=cF2>// 0=default</span><span class=cF0>
 <a name="l268"></a>                </span><span class=cF9>I64</span><span class=cF0> flags=</span><span class=cFE>1</span><span class=cF0> &lt;&lt; </span><span class=cF3>JOBf_ADD_TO_QUE</span><span class=cF0>)
 <a name="l269"></a>{</span><span class=cF2>//Create task on core running at address.</span><span class=cF0>
-<a name="l270"></a></span><span class=cF2>//Alloc </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3977"><span class=cF4>CTask</span></a><span class=cF2> structure from code heap so address will be short.</span><span class=cF0>
+<a name="l270"></a></span><span class=cF2>//Alloc </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l4007"><span class=cF4>CTask</span></a><span class=cF2> structure from code heap so address will be short.</span><span class=cF0>
 <a name="l271"></a>    </span><span class=cF2>//Could be alloced off of data heap.</span><span class=cF0>
 <a name="l272"></a>    </span><span class=cF9>CTask</span><span class=cF0> *task;
 <a name="l273"></a>

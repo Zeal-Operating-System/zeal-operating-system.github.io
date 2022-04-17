@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.11">
+<meta name="generator" content="ZealOS V1.13">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -53,7 +53,7 @@ body {background-color:#1f1f1f;}
 <a name="l26"></a></span><span class=cF2>//If you set write to TRUE, the cluster will</span><span class=cF0>
 <a name="l27"></a>    </span><span class=cF2>//be written when you press &lt;ESC&gt;.</span><span class=cF0>
 <a name="l28"></a>    </span><span class=cF2>//See </span><a href="https://zeal-operating-system.github.io/Demo/Disk/DiskRaw.ZC.html#l1"><span class=cF4>::/Demo/Disk/DiskRaw.ZC</span></a><span class=cF2>.</span><span class=cF0>
-<a name="l29"></a>    </span><span class=cF2>//Do </span><a href="https://zeal-operating-system.github.io/Kernel/BlkDev/DiskDirB.ZC.html#l120"><span class=cF4>Dir</span></a><span class=cF2>(&quot;*&quot;,TRUE); to get cluster numbers of files.</span><span class=cF0>
+<a name="l29"></a>    </span><span class=cF2>//Do </span><a href="https://zeal-operating-system.github.io/Kernel/BlkDev/DiskDirB.ZC.html#l122"><span class=cF4>Dir</span></a><span class=cF2>(&quot;*&quot;,TRUE); to get cluster numbers of files.</span><span class=cF0>
 <a name="l30"></a>    </span><span class=cF1>U8</span><span class=cF0> *buf = </span><span class=cF5>MAlloc</span><span class=cF0>(</span><span class=cF5>Fs</span><span class=cF0>-&gt;cur_dv-&gt;spc &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0>);
 <a name="l31"></a>
 <a name="l32"></a>    c = </span><span class=cF5>ClusNumNext</span><span class=cF0>(</span><span class=cF5>Fs</span><span class=cF0>-&gt;cur_dv, c, num);
@@ -306,7 +306,7 @@ body {background-color:#1f1f1f;}
 <a name="l279"></a></span><span class=cF2>Default lists attributes.</span><span class=cF0>
 <a name="l280"></a></span><span class=cF2>attr: &quot;+?&quot; =show current</span><span class=cF0>
 <a name="l281"></a></span><span class=cF2>&quot;+T&quot; =resident</span><span class=cF4>
-<a name="l282"></a></span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3183"><span class=cF4>RS_ATTR_READ_ONLY</span></a><span class=cF2>  </span><a href="https://zeal-operating-system.github.io/Kernel/KDefine.ZC.html#l187"><span class=cF4>ST_FILE_ATTRS</span></a><span class=cF0>
+<a name="l282"></a></span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3211"><span class=cF4>RS_ATTR_READ_ONLY</span></a><span class=cF2>  </span><a href="https://zeal-operating-system.github.io/Kernel/KDefine.ZC.html#l187"><span class=cF4>ST_FILE_ATTRS</span></a><span class=cF0>
 <a name="l283"></a></span><span class=cF2>To Set DateL:</span><span class=cF0>
 <a name="l284"></a></span><span class=cF2>Touch(filename,&quot;&quot;,,datetime);</span><span class=cF0>
 <a name="l285"></a></span><span class=cF2>*/</span><span class=cF0>

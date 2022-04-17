@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.11">
+<meta name="generator" content="ZealOS V1.13">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -254,7 +254,7 @@ body {background-color:#1f1f1f;}
 <a name="l227"></a>        </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;port-&gt;cmd_issue, cmd_slot</span><span class=cF7>)</span><span class=cF0>) </span><span class=cF2>//When command has been processed</span><span class=cF0>
 <a name="l228"></a>            </span><span class=cF1>break</span><span class=cF0>;
 <a name="l229"></a>
-<a name="l230"></a>        </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;port-&gt;interrupt_status, </span><span class=cF3>AHCI_PxIf_TFE</span><span class=cF7>)</span><span class=cF0>) </span><span class=cF2>//Task File Error (</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l2995"><span class=cF4>ATAS_ERR</span></a><span class=cF2>)</span><span class=cF0>
+<a name="l230"></a>        </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;port-&gt;interrupt_status, </span><span class=cF3>AHCI_PxIf_TFE</span><span class=cF7>)</span><span class=cF0>) </span><span class=cF2>//Task File Error (</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l2996"><span class=cF4>ATAS_ERR</span></a><span class=cF2>)</span><span class=cF0>
 <a name="l231"></a>        {
 <a name="l232"></a>error:
 <a name="l233"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cFD>AHCI_DEBUG</span><span class=cF0>)
@@ -1180,23 +1180,23 @@ body {background-color:#1f1f1f;}
 <a name="l1153"></a>                    </span><span class=cF5>AHCIPortInit</span><span class=cF0>(bd, port, i);
 <a name="l1154"></a>
 <a name="l1155"></a>                    </span><span class=cF5>AHCIAtapiBlksRead</span><span class=cF0>(bd, buf, </span><span class=cFB>sys_boot_blk</span><span class=cF0>, </span><span class=cFE>1</span><span class=cF0>, </span><span class=cF3>FALSE</span><span class=cF0>);
-<a name="l1156"></a>                }
-<a name="l1157"></a>                </span><span class=cF1>catch</span><span class=cF0>
-<a name="l1158"></a>                {
-<a name="l1159"></a>                    </span><span class=cF5>Fs</span><span class=cF0>-&gt;catch_except = </span><span class=cF3>TRUE</span><span class=cF0>;
-<a name="l1160"></a>                    </span><span class=cF6>&quot;AHCI: Error at Port %d&quot;</span><span class=cF0>, i;
-<a name="l1161"></a>                }
-<a name="l1162"></a>
-<a name="l1163"></a>                kernel = buf + </span><span class=cFB>sys_boot_src</span><span class=cF0>.u16[</span><span class=cFE>1</span><span class=cF0>] &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0>;
-<a name="l1164"></a>
-<a name="l1165"></a>                </span><span class=cF1>if</span><span class=cF0> (kernel-&gt;compile_time == </span><span class=cFB>sys_compile_time</span><span class=cF0>)
-<a name="l1166"></a>                {
-<a name="l1167"></a>                    </span><span class=cF6>&quot;AHCI: Found sys_compile_time at BLK %d on Port %d\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_boot_blk</span><span class=cF0>, i;
-<a name="l1168"></a>                    </span><span class=cF6>&quot;______________________\n&quot;</span><span class=cF0>;
-<a name="l1169"></a>                    </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>TRUE</span><span class=cF0>;
-<a name="l1170"></a>                }
-<a name="l1171"></a>                </span><span class=cF1>else</span><span class=cF0>
-<a name="l1172"></a>                    </span><span class=cF6>&quot;AHCI: Did not find matching sys_compile_time on Port %d\n&quot;</span><span class=cF0>, i;
+<a name="l1156"></a>
+<a name="l1157"></a>                    kernel = buf + </span><span class=cFB>sys_boot_src</span><span class=cF0>.u16[</span><span class=cFE>1</span><span class=cF0>] &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0>;
+<a name="l1158"></a>
+<a name="l1159"></a>                    </span><span class=cF1>if</span><span class=cF0> (kernel-&gt;compile_time == </span><span class=cFB>sys_compile_time</span><span class=cF0>)
+<a name="l1160"></a>                    </span><span class=cF7>{</span><span class=cF0>
+<a name="l1161"></a>                        </span><span class=cF6>&quot;AHCI: Found sys_compile_time at BLK %d on Port %d\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_boot_blk</span><span class=cF0>, i;
+<a name="l1162"></a>                        </span><span class=cF6>&quot;______________________\n&quot;</span><span class=cF0>;
+<a name="l1163"></a>                        </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>TRUE</span><span class=cF0>;
+<a name="l1164"></a>                    </span><span class=cF7>}</span><span class=cF0>
+<a name="l1165"></a>                    </span><span class=cF1>else</span><span class=cF0>
+<a name="l1166"></a>                        </span><span class=cF6>&quot;AHCI: Did not find matching sys_compile_time on Port %d\n&quot;</span><span class=cF0>, i;
+<a name="l1167"></a>                }
+<a name="l1168"></a>                </span><span class=cF1>catch</span><span class=cF0>
+<a name="l1169"></a>                {
+<a name="l1170"></a>                    </span><span class=cF5>Fs</span><span class=cF0>-&gt;catch_except = </span><span class=cF3>TRUE</span><span class=cF0>;
+<a name="l1171"></a>                    </span><span class=cF6>&quot;AHCI: Error at Port %d\n&quot;</span><span class=cF0>, i;
+<a name="l1172"></a>                }
 <a name="l1173"></a>            </span><span class=cF7>}</span><span class=cF0>
 <a name="l1174"></a>        }
 <a name="l1175"></a>    </span><span class=cF7>}</span><span class=cF0>

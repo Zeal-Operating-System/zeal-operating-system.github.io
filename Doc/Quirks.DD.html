@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.11">
+<meta name="generator" content="ZealOS V1.13">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -35,13 +35,13 @@ body {background-color:#1f1f1f;}
 <a name="l8"></a></span><a href="https://zeal-operating-system.github.io/Kernel/BlkDev/DiskAddDev.ZC.html#l209"><span class=cF4>DriveEnable</span></a><span class=cF0>(OFF), or they will generate error messages. </span><span class=cF2>FAT32</span><span class=cF0> involves a long and short name for each file.
 <a name="l9"></a>
 <a name="l10"></a>* The stack does not grow because virtual mem is not used.  It is recommended that you allocate large local variables from the 
-<a name="l11"></a>heap.   You can change </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3540"><span class=cF4>MEM_DEFAULT_STACK</span></a><span class=cF0> and recompile </span><span class=cF2>Kernel</span><span class=cF0> or request more when doing a </span><a href="https://zeal-operating-system.github.io/Kernel/KTask.ZC.html#l264"><span class=cF4>Spawn</span></a><span class=cF0>().
+<a name="l11"></a>heap.   You can change </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3568"><span class=cF4>MEM_DEFAULT_STACK</span></a><span class=cF0> and recompile </span><span class=cF2>Kernel</span><span class=cF0> or request more when doing a </span><a href="https://zeal-operating-system.github.io/Kernel/KTask.ZC.html#l264"><span class=cF4>Spawn</span></a><span class=cF0>().
 <a name="l12"></a>
 <a name="l13"></a>* The syntax highlighting occassionally glitches.  The compiler doesn't.
 <a name="l14"></a>
 <a name="l15"></a>* Call </span><a href="https://zeal-operating-system.github.io/Kernel/BlkDev/DiskDrive.ZC.html#l269"><span class=cF4>DiskChange</span></a><span class=cF0>() when you insert a new removable media.
 <a name="l16"></a>
-<a name="l17"></a>* Accessing CD/DVD's is flacky.  Try </span><a href="https://zeal-operating-system.github.io/Kernel/BlkDev/DiskDrive.ZC.html#l286"><span class=cF4>Drive</span></a><span class=cF0>() or </span><a href="https://zeal-operating-system.github.io/Kernel/BlkDev/DiskDrive.ZC.html#l269"><span class=cF4>DiskChange</span></a><span class=cF0>() twice.
+<a name="l17"></a>* Accessing CD/DVD's is flaky.  Try </span><a href="https://zeal-operating-system.github.io/Kernel/BlkDev/DiskDrive.ZC.html#l286"><span class=cF4>Drive</span></a><span class=cF0>() or </span><a href="https://zeal-operating-system.github.io/Kernel/BlkDev/DiskDrive.ZC.html#l269"><span class=cF4>DiskChange</span></a><span class=cF0>() twice.
 <a name="l18"></a>
 <a name="l19"></a>* You can only </span><span class=cF2>extern</span><span class=cF0> something once.  There is a varient called </span><span class=cF2>_extern</span><span class=cF0> which binds a ZealC definition to a asm symbol.    Th
 <a name="l20"></a>is, too, can only be done once.

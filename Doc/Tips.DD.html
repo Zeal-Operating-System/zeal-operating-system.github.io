@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.11">
+<meta name="generator" content="ZealOS V1.13">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -83,11 +83,11 @@ body {background-color:#1f1f1f;}
 <a name="l56"></a>
 <a name="l57"></a>* Use </span><a href="https://zeal-operating-system.github.io/System/DolDoc/DocRecalcLib.ZC.html#l203"><span class=cF4>DocMax</span></a><span class=cF0>() to adjust the size of the cmd line buf. It counts </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1502"><span class=cF4>CDoc</span></a><span class=cF0> entries, not lines.
 <a name="l58"></a>
-<a name="l59"></a>* Many data structures have a </span><span class=cF2>user_data</span><span class=cF0> member. Those are available for you to store a data item, for convenience. </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3977"><span class=cF4>CTask</span></a><span class=cF0>, </span><span class=cF4>
-<a name="l60"></a></span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1326"><span class=cF4>CDocEntry</span></a><span class=cF0> and </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3204"><span class=cF4>CDirEntry</span></a><span class=cF0> have them. You shouldn't encounter conflicts with ZealOS using them.
+<a name="l59"></a>* Many data structures have a </span><span class=cF2>user_data</span><span class=cF0> member. Those are available for you to store a data item, for convenience. </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l4007"><span class=cF4>CTask</span></a><span class=cF0>, </span><span class=cF4>
+<a name="l60"></a></span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1326"><span class=cF4>CDocEntry</span></a><span class=cF0> and </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3232"><span class=cF4>CDirEntry</span></a><span class=cF0> have them. You shouldn't encounter conflicts with ZealOS using them.
 <a name="l61"></a>
 <a name="l62"></a>* If, for some strange reason, you wanted to reduce mem usage, make a smaller disk cache when you recompile the kernel; 
-<a name="l63"></a>disabling </span><span class=cF2>AutoComplete</span><span class=cF0>; Specify smaller stack sizes when doing </span><a href="https://zeal-operating-system.github.io/Kernel/KTask.ZC.html#l264"><span class=cF4>Spawn</span></a><span class=cF0>(), change </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3540"><span class=cF4>MEM_DEFAULT_STACK</span></a><span class=cF0>, and using </span><a href="https://zeal-operating-system.github.io/System/DolDoc/DocRecalcLib.ZC.html#l203"><span class=cF4>DocMax</span></a><span class=cF0>() to reduce 
+<a name="l63"></a>disabling </span><span class=cF2>AutoComplete</span><span class=cF0>; Specify smaller stack sizes when doing </span><a href="https://zeal-operating-system.github.io/Kernel/KTask.ZC.html#l264"><span class=cF4>Spawn</span></a><span class=cF0>(), change </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3568"><span class=cF4>MEM_DEFAULT_STACK</span></a><span class=cF0>, and using </span><a href="https://zeal-operating-system.github.io/System/DolDoc/DocRecalcLib.ZC.html#l203"><span class=cF4>DocMax</span></a><span class=cF0>() to reduce 
 <a name="l64"></a>the cmd line buffer size.
 <a name="l65"></a>
 <a name="l66"></a>* </span><a href="https://zeal-operating-system.github.io/System/Utils/Merge.ZC.html#l45"><span class=cF4>Merge</span></a><span class=cF0>() can be used to see what's changed. The </span><span class=cF2>+d</span><span class=cF0> flag will show differences of files which have changed and allow you to 
@@ -95,11 +95,11 @@ body {background-color:#1f1f1f;}
 <a name="l68"></a>
 <a name="l69"></a>* There is a utility </span><a href="https://zeal-operating-system.github.io/System/Utils/LinkCheck.ZC.html#l58"><span class=cF4>LinkCheck</span></a><span class=cF0>() which will check for broken links in documentation.
 <a name="l70"></a>
-<a name="l71"></a>* You can use </span><a href="https://zeal-operating-system.github.io/Compiler/CMisc.ZC.html#l1"><span class=cF4>Option</span></a><span class=cF0>(</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1679"><span class=cF4>OPTf_WARN_PAREN</span></a><span class=cF0>, ON) to find unnecessary parentheses in code.
+<a name="l71"></a>* You can use </span><a href="https://zeal-operating-system.github.io/Compiler/CMisc.ZC.html#l1"><span class=cF4>Option</span></a><span class=cF0>(</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1680"><span class=cF4>OPTf_WARN_PAREN</span></a><span class=cF0>, ON) to find unnecessary parentheses in code.
 <a name="l72"></a>
-<a name="l73"></a>* You can use </span><a href="https://zeal-operating-system.github.io/Compiler/CMisc.ZC.html#l1"><span class=cF4>Option</span></a><span class=cF0>(</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1680"><span class=cF4>OPTf_WARN_DUP_TYPES</span></a><span class=cF0>, ON) to find unnecessary local variable type statements.
+<a name="l73"></a>* You can use </span><a href="https://zeal-operating-system.github.io/Compiler/CMisc.ZC.html#l1"><span class=cF4>Option</span></a><span class=cF0>(</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1681"><span class=cF4>OPTf_WARN_DUP_TYPES</span></a><span class=cF0>, ON) to find unnecessary local variable type statements.
 <a name="l74"></a>
-<a name="l75"></a>* </span><a href="https://zeal-operating-system.github.io/Compiler/CMisc.ZC.html#l1"><span class=cF4>Option</span></a><span class=cF0>(</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1676"><span class=cF4>OPTf_ECHO</span></a><span class=cF0>, ON) can be placed in </span><a href="https://zeal-operating-system.github.io/StartOS.ZC.html#l1"><span class=cF4>StartOS.ZC</span></a><span class=cF0> to echo start-up scripts.
+<a name="l75"></a>* </span><a href="https://zeal-operating-system.github.io/Compiler/CMisc.ZC.html#l1"><span class=cF4>Option</span></a><span class=cF0>(</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1677"><span class=cF4>OPTf_ECHO</span></a><span class=cF0>, ON) can be placed in </span><a href="https://zeal-operating-system.github.io/StartOS.ZC.html#l1"><span class=cF4>StartOS.ZC</span></a><span class=cF0> to echo start-up scripts.
 <a name="l76"></a>
 <a name="l77"></a>* Use </span><a href="https://zeal-operating-system.github.io/System/DolDoc/DocEd.ZC.html#l283"><span class=cF4>Plain</span></a><span class=cF0>() to edit a plain text file. You'll need this if your file has </span><span class=cF2>$</span><span class=cF0>'s. Use the </span><a href="https://zeal-operating-system.github.io/System/Utils/ToDolDoc.ZC.html#l3"><span class=cF4>ToDolDoc</span></a><span class=cF0>() utility to convert plain 
 <a name="l78"></a>text to DolDoc's by doubling </span><span class=cF2>$</span><span class=cF0>'s.
@@ -139,13 +139,13 @@ body {background-color:#1f1f1f;}
 <a name="l112"></a>automatically based on other entries.
 <a name="l113"></a>
 <a name="l114"></a>* There is a feature of the precompiler that allows code to be executed in the middle of compilation and data inserted into 
-<a name="l115"></a>the compilation stream. Click here for an example: </span><a href="https://zeal-operating-system.github.io/Kernel/KMain.ZC.html#l257"><span class=cF4>#exe {</span></a><span class=cF0>.
+<a name="l115"></a>the compilation stream. Click here for an example: </span><a href="https://zeal-operating-system.github.io/Kernel/KMain.ZC.html#l259"><span class=cF4>#exe {</span></a><span class=cF0>.
 <a name="l116"></a>
 <a name="l117"></a>* If you output to the cmd line and wish to allow users to scroll around and view data, you can use </span><a href="https://zeal-operating-system.github.io/System/DolDoc/DocEd.ZC.html#l3"><span class=cF4>View</span></a><span class=cF0>().
 <a name="l118"></a>
 <a name="l119"></a>* Use </span><a href="https://zeal-operating-system.github.io/System/DolDoc/DocEd.ZC.html#l3"><span class=cF4>View</span></a><span class=cF0>() in Pop-up macros to linger until the user presses </span><span class=cF2>&lt;ESC&gt;</span><span class=cF0> or </span><span class=cF2>&lt;SHIFT-ESC&gt;</span><span class=cF0>.
 <a name="l120"></a>
-<a name="l121"></a>* You can access the word under the cursor at </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1627"><span class=cF4>ac.cur_word</span></a><span class=cF0>.
+<a name="l121"></a>* You can access the word under the cursor at </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1628"><span class=cF4>ac.cur_word</span></a><span class=cF0>.
 <a name="l122"></a>
 <a name="l123"></a>* You can reactivate </span><span class=cF2>AutoComplete</span><span class=cF0> after closing it by pressing </span><span class=cF2>&lt;CTRL-Function Key&gt;</span><span class=cF0> or </span><span class=cF2>&lt;ALT-a&gt;</span><span class=cF0>.
 <a name="l124"></a>
@@ -189,7 +189,7 @@ body {background-color:#1f1f1f;}
 <a name="l162"></a>* Use </span><a href="https://zeal-operating-system.github.io/System/Utils/HeapLog.ZC.html#l83"><span class=cF4>HeapLog</span></a><span class=cF0>(), </span><a href="https://zeal-operating-system.github.io/System/Utils/HeapLog.ZC.html#l139"><span class=cF4>HeapLogAddrRep</span></a><span class=cF0>() and </span><a href="https://zeal-operating-system.github.io/System/Utils/HeapLog.ZC.html#l175"><span class=cF4>HeapLogSizeRep</span></a><span class=cF0>() to find leaks. Don't be confused by </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1502"><span class=cF4>CDoc</span></a><span class=cF0> allocations. Those are 
 <a name="l163"></a>generated when text is written to the cmd line buffer.
 <a name="l164"></a>
-<a name="l165"></a>* For advanced heap debugging, play with </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3470"><span class=cF4>_CONFIG_HEAP_DEBUG</span></a><span class=cF0>. You're on your own.
+<a name="l165"></a>* For advanced heap debugging, play with </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3498"><span class=cF4>_CONFIG_HEAP_DEBUG</span></a><span class=cF0>. You're on your own.
 <a name="l166"></a>
 <a name="l167"></a>* You can use </span><a href="https://zeal-operating-system.github.io/System/DolDoc/DocFile.ZC.html#l378"><span class=cF4>Type</span></a><span class=cF0>() to display </span><span class=cF2>.GR</span><span class=cF0> files.
 <a name="l168"></a>
@@ -199,13 +199,11 @@ body {background-color:#1f1f1f;}
 <a name="l172"></a>
 <a name="l173"></a>* You can use </span><span class=cF2>&lt;CTRL-SHIFT-L&gt;</span><span class=cF0> to do a check for compile errors.
 <a name="l174"></a>
-<a name="l175"></a>* You can use </span><a href="https://zeal-operating-system.github.io/System/Utils/DocUtils.ZC.html#l151"><span class=cF4>DocOpt</span></a><span class=cF0>() to optimize links.
+<a name="l175"></a>* With </span><span class=cF2>start</span><span class=cF0>/</span><span class=cF2>end</span><span class=cF0>, common trailing code is fast. Common leading code is slow.
 <a name="l176"></a>
-<a name="l177"></a>* With </span><span class=cF2>start</span><span class=cF0>/</span><span class=cF2>end</span><span class=cF0>, common trailing code is fast. Common leading code is slow.
-<a name="l178"></a>
-<a name="l179"></a>* The first line of the </span><span class=cF9><u>Psalmody</u></span><span class=cF0> </span><a href="https://zeal-operating-system.github.io/Doc/ZealC.DD.html#l1"><span class=cF4>ZealC</span></a><span class=cF0> song files is a comment with a category recognized by </span><a href="https://zeal-operating-system.github.io/Apps/Psalmody/JukeBox.ZC.html#l121"><span class=cF4>JukeBox</span></a><span class=cF0>(). The categories are </span><span class=cF2>&quot;no 
-<a name="l180"></a>nothing&quot;</span><span class=cF0>, </span><span class=cF2>&quot;has words&quot;</span><span class=cF0>, </span><span class=cF2>&quot;has graphics&quot;</span><span class=cF0>, or </span><span class=cF2>&quot;special&quot;</span><span class=cF0>. The third character in the song comment is a digit rating number, shown 
-<a name="l181"></a>in </span><a href="https://zeal-operating-system.github.io/Apps/Psalmody/JukeBox.ZC.html#l121"><span class=cF4>JukeBox</span></a><span class=cF0>(). You can set the song rating in </span><a href="https://zeal-operating-system.github.io/Apps/Psalmody/JukeBox.ZC.html#l121"><span class=cF4>JukeBox</span></a><span class=cF0>() by pressing </span><span class=cF2>0</span><span class=cF0>-</span><span class=cF2>9</span><span class=cF0>. You can press </span><span class=cF2>&lt;DEL&gt;</span><span class=cF0> to delete songs.
-<a name="l182"></a>
-<a name="l183"></a>* </span><span class=cF8>&quot;Linux&quot; is a trademark owned by Linus Torvalds.</span></pre></body>
+<a name="l177"></a>* The first line of the </span><span class=cF9><u>Psalmody</u></span><span class=cF0> </span><a href="https://zeal-operating-system.github.io/Doc/ZealC.DD.html#l1"><span class=cF4>ZealC</span></a><span class=cF0> song files is a comment with a category recognized by </span><a href="https://zeal-operating-system.github.io/Apps/Psalmody/JukeBox.ZC.html#l121"><span class=cF4>JukeBox</span></a><span class=cF0>(). The categories are </span><span class=cF2>&quot;no 
+<a name="l178"></a>nothing&quot;</span><span class=cF0>, </span><span class=cF2>&quot;has words&quot;</span><span class=cF0>, </span><span class=cF2>&quot;has graphics&quot;</span><span class=cF0>, or </span><span class=cF2>&quot;special&quot;</span><span class=cF0>. The third character in the song comment is a digit rating number, shown 
+<a name="l179"></a>in </span><a href="https://zeal-operating-system.github.io/Apps/Psalmody/JukeBox.ZC.html#l121"><span class=cF4>JukeBox</span></a><span class=cF0>(). You can set the song rating in </span><a href="https://zeal-operating-system.github.io/Apps/Psalmody/JukeBox.ZC.html#l121"><span class=cF4>JukeBox</span></a><span class=cF0>() by pressing </span><span class=cF2>0</span><span class=cF0>-</span><span class=cF2>9</span><span class=cF0>. You can press </span><span class=cF2>&lt;DEL&gt;</span><span class=cF0> to delete songs.
+<a name="l180"></a>
+<a name="l181"></a>* </span><span class=cF8>&quot;Linux&quot; is a trademark owned by Linus Torvalds.</span></pre></body>
 </html>

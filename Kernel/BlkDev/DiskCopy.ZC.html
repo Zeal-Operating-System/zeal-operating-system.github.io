@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.11">
+<meta name="generator" content="ZealOS V1.13">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -140,13 +140,17 @@ body {background-color:#1f1f1f;}
 <a name="l113"></a>                res = </span><span class=cFD>FAT32FilesDel</span><span class=cF0>(dirc-&gt;drive, </span><span class=cF5>Fs</span><span class=cF0>-&gt;cur_dir, dirc-&gt;mask, </span><span class=cFE>0</span><span class=cF0>, del_dir, print_message);
 <a name="l114"></a>                </span><span class=cF1>break</span><span class=cF0>;
 <a name="l115"></a>
-<a name="l116"></a>            </span><span class=cF1>default</span><span class=cF0>:
-<a name="l117"></a>                </span><span class=cF5>PrintErr</span><span class=cF0>(</span><span class=cF6>&quot;File System Not Supported\n&quot;</span><span class=cF0>);
-<a name="l118"></a>        }
-<a name="l119"></a>        </span><span class=cF5>DirContextDel</span><span class=cF0>(dirc);
-<a name="l120"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l121"></a>
-<a name="l122"></a>    </span><span class=cF1>return</span><span class=cF0> res;
-<a name="l123"></a>}
+<a name="l116"></a>            </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>FSt_ISO9660</span><span class=cF0>:
+<a name="l117"></a>                </span><span class=cF5>PrintErr</span><span class=cF0>(</span><span class=cF6>&quot;File System Not Writable\n&quot;</span><span class=cF0>);
+<a name="l118"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l119"></a>
+<a name="l120"></a>            </span><span class=cF1>default</span><span class=cF0>:
+<a name="l121"></a>                </span><span class=cF5>PrintErr</span><span class=cF0>(</span><span class=cF6>&quot;File System Not Supported\n&quot;</span><span class=cF0>);
+<a name="l122"></a>        }
+<a name="l123"></a>        </span><span class=cF5>DirContextDel</span><span class=cF0>(dirc);
+<a name="l124"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l125"></a>
+<a name="l126"></a>    </span><span class=cF1>return</span><span class=cF0> res;
+<a name="l127"></a>}
 </span></pre></body>
 </html>

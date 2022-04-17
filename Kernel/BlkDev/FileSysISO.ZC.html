@@ -1,0 +1,305 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<meta name="generator" content="ZealOS V1.13">
+<style type="text/css">
+body {background-color:#1f1f1f;}
+.cF0{color:#e3e3e3;background-color:#1f1f1f;}
+.cF1{color:#4f84a6;background-color:#1f1f1f;}
+.cF2{color:#73a255;background-color:#1f1f1f;}
+.cF3{color:#297582;background-color:#1f1f1f;}
+.cF4{color:#b34f4b;background-color:#1f1f1f;}
+.cF5{color:#8a52c3;background-color:#1f1f1f;}
+.cF6{color:#b7822f;background-color:#1f1f1f;}
+.cF7{color:#444444;background-color:#1f1f1f;}
+.cF8{color:#6d6d6d;background-color:#1f1f1f;}
+.cF9{color:#94bfde;background-color:#1f1f1f;}
+.cFA{color:#a1ce97;background-color:#1f1f1f;}
+.cFB{color:#6db4be;background-color:#1f1f1f;}
+.cFC{color:#e88e88;background-color:#1f1f1f;}
+.cFD{color:#ca94e8;background-color:#1f1f1f;}
+.cFE{color:#d4b475;background-color:#1f1f1f;}
+.cFF{color:#1f1f1f;background-color:#1f1f1f;}
+</style>
+</head>
+<body>
+<pre style="font-family:monospace;font-size:12pt">
+<a name="l1"></a><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>Date2ISO</span><span class=cF0>(</span><span class=cF9>CISODate</span><span class=cF0> *dst, </span><span class=cF9>CDate</span><span class=cF0> cdt)
+<a name="l2"></a>{
+<a name="l3"></a>    </span><span class=cF9>CDateStruct</span><span class=cF0> ds;
+<a name="l4"></a>
+<a name="l5"></a>    </span><span class=cF5>Date2Struct</span><span class=cF0>(&amp;ds, cdt);
+<a name="l6"></a>    dst-&gt;year   = ds.year - </span><span class=cF3>ISO_BASE_YEAR</span><span class=cF0>;
+<a name="l7"></a>    dst-&gt;mon    = ds.mon;
+<a name="l8"></a>    dst-&gt;day    = ds.day_of_mon;
+<a name="l9"></a>    dst-&gt;hour   = ds.hour;
+<a name="l10"></a>    dst-&gt;min    = ds.min;
+<a name="l11"></a>    dst-&gt;sec    = ds.sec;
+<a name="l12"></a>    dst-&gt;sec100 = ds.sec100;
+<a name="l13"></a>}
+<a name="l14"></a>
+<a name="l15"></a></span><span class=cF9>CDate</span><span class=cF0> </span><span class=cFD>ISODateStruct2CDate</span><span class=cF0>(</span><span class=cF9>CISODate</span><span class=cF0> *dt)
+<a name="l16"></a>{
+<a name="l17"></a>    </span><span class=cF9>CDateStruct</span><span class=cF0> ds;
+<a name="l18"></a>
+<a name="l19"></a>    </span><span class=cF5>MemSet</span><span class=cF0>(&amp;ds, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cF1>sizeof</span><span class=cF7>(</span><span class=cF9>CDateStruct</span><span class=cF7>)</span><span class=cF0>);
+<a name="l20"></a>    ds.day_of_mon   = dt-&gt;day;
+<a name="l21"></a>    ds.mon          = dt-&gt;mon;
+<a name="l22"></a>    ds.year         = dt-&gt;year + </span><span class=cF3>ISO_BASE_YEAR</span><span class=cF0>;
+<a name="l23"></a>    ds.sec100       = dt-&gt;sec100;
+<a name="l24"></a>    ds.sec          = dt-&gt;sec;
+<a name="l25"></a>    ds.min          = dt-&gt;min;
+<a name="l26"></a>    ds.hour         = dt-&gt;hour;
+<a name="l27"></a>
+<a name="l28"></a>    </span><span class=cF1>return</span><span class=cF0> </span><span class=cF5>Struct2Date</span><span class=cF0>(&amp;ds);
+<a name="l29"></a>}
+<a name="l30"></a>
+<a name="l31"></a></span><span class=cF1>Bool</span><span class=cF0> </span><span class=cFD>ISOFromName</span><span class=cF0>(</span><span class=cF1>U8</span><span class=cF0> *dst, </span><span class=cF1>U8</span><span class=cF0> *src)
+<a name="l32"></a>{
+<a name="l33"></a>    </span><span class=cF9>I64</span><span class=cF0> i, j, n;
+<a name="l34"></a>
+<a name="l35"></a>    </span><span class=cF5>MemSet</span><span class=cF0>(dst, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cF3>CDIR_FILENAME_LEN</span><span class=cF0>);
+<a name="l36"></a>    n = *src++;
+<a name="l37"></a>    </span><span class=cF1>if</span><span class=cF0> (n == </span><span class=cFE>1</span><span class=cF0> &amp;&amp; ! *src)
+<a name="l38"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l39"></a>        *dst = </span><span class=cF6>'.'</span><span class=cF0>;
+<a name="l40"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l41"></a>    </span><span class=cF1>else</span><span class=cF0> </span><span class=cF1>if</span><span class=cF0> (n == </span><span class=cFE>1</span><span class=cF0> &amp;&amp; *src == </span><span class=cFE>1</span><span class=cF0>)
+<a name="l42"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l43"></a>        *dst = </span><span class=cF6>'.'</span><span class=cF0>;
+<a name="l44"></a>        dst[</span><span class=cFE>1</span><span class=cF0>] = </span><span class=cF6>'.'</span><span class=cF0>;
+<a name="l45"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l46"></a>    </span><span class=cF1>else</span><span class=cF0>
+<a name="l47"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l48"></a>        n &gt;&gt;= </span><span class=cFE>1</span><span class=cF0>;
+<a name="l49"></a>        j = </span><span class=cFE>0</span><span class=cF0>;
+<a name="l50"></a>        </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; n; i++)
+<a name="l51"></a>        {
+<a name="l52"></a>            src++;
+<a name="l53"></a>            </span><span class=cF1>if</span><span class=cF0> (*src == </span><span class=cF6>';'</span><span class=cF0>)
+<a name="l54"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l55"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cFB>char_bmp_filename</span><span class=cF0>, *src</span><span class=cF7>)</span><span class=cF0>)
+<a name="l56"></a>            </span><span class=cF7>{</span><span class=cF0>
+<a name="l57"></a>                </span><span class=cF1>if</span><span class=cF0> (j &gt;= </span><span class=cF3>CDIR_FILENAME_LEN</span><span class=cF0> - </span><span class=cFE>1</span><span class=cF0>)
+<a name="l58"></a>                    </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>FALSE</span><span class=cF0>;
+<a name="l59"></a>                dst[j++] = *src++;
+<a name="l60"></a>            </span><span class=cF7>}</span><span class=cF0>
+<a name="l61"></a>            </span><span class=cF1>else</span><span class=cF0>
+<a name="l62"></a>                </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>FALSE</span><span class=cF0>;
+<a name="l63"></a>        }
+<a name="l64"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l65"></a>    </span><span class=cF1>return</span><span class=cF0> </span><span class=cF5>FileNameCheck</span><span class=cF0>(dst);
+<a name="l66"></a>}
+<a name="l67"></a>
+<a name="l68"></a></span><span class=cF1>Bool</span><span class=cF0> </span><span class=cFD>ISOCDirFill</span><span class=cF0>(</span><span class=cF9>CDirEntry</span><span class=cF0> *tmpde, </span><span class=cF9>CISODirEntry</span><span class=cF0> *de)
+<a name="l69"></a>{
+<a name="l70"></a>    </span><span class=cF1>Bool</span><span class=cF0> res;
+<a name="l71"></a>
+<a name="l72"></a>    </span><span class=cF5>MemSet</span><span class=cF0>(tmpde, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cF1>sizeof</span><span class=cF7>(</span><span class=cF9>CDirEntry</span><span class=cF7>)</span><span class=cF0>);
+<a name="l73"></a>    res = </span><span class=cFD>ISOFromName</span><span class=cF0>(tmpde-&gt;name, &amp;de-&gt;name_len);
+<a name="l74"></a>    tmpde-&gt;clus = de-&gt;loc.little;
+<a name="l75"></a>    tmpde-&gt;size = de-&gt;size.little;
+<a name="l76"></a>    tmpde-&gt;attr = </span><span class=cF5>FileAttr</span><span class=cF0>(tmpde-&gt;name);
+<a name="l77"></a>    </span><span class=cF1>if</span><span class=cF0> (de-&gt;flags &amp; </span><span class=cF3>ISO_ATTR_DIR</span><span class=cF0>)
+<a name="l78"></a>        tmpde-&gt;attr |= </span><span class=cF3>RS_ATTR_DIR</span><span class=cF0>;
+<a name="l79"></a>    tmpde-&gt;datetime = </span><span class=cFD>ISODateStruct2CDate</span><span class=cF0>(&amp;de-&gt;date);
+<a name="l80"></a>
+<a name="l81"></a>    </span><span class=cF1>return</span><span class=cF0> res;
+<a name="l82"></a>}
+<a name="l83"></a>
+<a name="l84"></a></span><span class=cF1>Bool</span><span class=cF0> </span><span class=cFD>ISOFileFind</span><span class=cF0>(</span><span class=cF9>CDrive</span><span class=cF0> *drive, </span><span class=cF9>I64</span><span class=cF0> cur_dir_clus, </span><span class=cF1>U8</span><span class=cF0> *name, </span><span class=cF9>CDirEntry</span><span class=cF0> *_res, </span><span class=cF9>I64</span><span class=cF0> fuf_flags = </span><span class=cFE>0</span><span class=cF0>)
+<a name="l85"></a>{
+<a name="l86"></a>    </span><span class=cF2>//</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3284"><span class=cF4>FUF_JUST_DIRS</span></a><span class=cF2>, </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3285"><span class=cF4>FUF_JUST_FILES</span></a><span class=cF0>
+<a name="l87"></a>    </span><span class=cF9>CISODirEntry</span><span class=cF0>    *isoptr, *buf;
+<a name="l88"></a>    </span><span class=cF1>U8</span><span class=cF0>               dname[</span><span class=cF3>CDIR_FILENAME_LEN</span><span class=cF0>];
+<a name="l89"></a>    </span><span class=cF1>Bool</span><span class=cF0>             res = </span><span class=cF3>FALSE</span><span class=cF0>, unlock;
+<a name="l90"></a>    </span><span class=cF9>I64</span><span class=cF0>              i;
+<a name="l91"></a>
+<a name="l92"></a>    </span><span class=cF1>if</span><span class=cF0> (fuf_flags &amp; ~</span><span class=cF3>FUG_FILE_FIND</span><span class=cF0>)
+<a name="l93"></a>        </span><span class=cF5>throw</span><span class=cF0> (</span><span class=cF6>'FUF'</span><span class=cF0>);
+<a name="l94"></a>    </span><span class=cF5>DriveCheck</span><span class=cF0>(drive);
+<a name="l95"></a>    </span><span class=cF1>if</span><span class=cF0> (drive-&gt;fs_type != </span><span class=cF3>FSt_ISO9660</span><span class=cF0>)
+<a name="l96"></a>        </span><span class=cF5>PrintErr</span><span class=cF0>(</span><span class=cF6>&quot;Not ISO9660 Drive\n&quot;</span><span class=cF0>);
+<a name="l97"></a>    </span><span class=cF1>else</span><span class=cF0>
+<a name="l98"></a>        </span><span class=cF1>try</span><span class=cF0>
+<a name="l99"></a>        </span><span class=cF7>{</span><span class=cF0>
+<a name="l100"></a>            unlock = </span><span class=cF5>DriveLock</span><span class=cF0>(drive);
+<a name="l101"></a>            isoptr = </span><span class=cF5>MAlloc</span><span class=cF0>(drive-&gt;spc &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0>);
+<a name="l102"></a>            </span><span class=cF5>ClusRead</span><span class=cF0>(drive, isoptr, cur_dir_clus, </span><span class=cFE>1</span><span class=cF0>);
+<a name="l103"></a>            </span><span class=cF1>if</span><span class=cF0> (isoptr-&gt;name_len == </span><span class=cFE>1</span><span class=cF0> &amp;&amp; !isoptr-&gt;name)
+<a name="l104"></a>            {
+<a name="l105"></a>                </span><span class=cF2>//curdir</span><span class=cF0>
+<a name="l106"></a>                i = (isoptr-&gt;size.little + drive-&gt;spc &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0> - </span><span class=cFE>1</span><span class=cF0>) / drive-&gt;spc &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0>;
+<a name="l107"></a>                buf = </span><span class=cF5>MAlloc</span><span class=cF0>(drive-&gt;spc &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0> * i);
+<a name="l108"></a>                </span><span class=cF5>ClusRead</span><span class=cF0>(drive, buf, cur_dir_clus, i);
+<a name="l109"></a>                </span><span class=cF5>Free</span><span class=cF0>(isoptr);
+<a name="l110"></a>            }
+<a name="l111"></a>            </span><span class=cF1>else</span><span class=cF0>
+<a name="l112"></a>            {
+<a name="l113"></a>                buf = isoptr;
+<a name="l114"></a>                i = </span><span class=cFE>1</span><span class=cF0>;
+<a name="l115"></a>            }
+<a name="l116"></a>            i *= drive-&gt;spc &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0>;
+<a name="l117"></a>            isoptr = buf;
+<a name="l118"></a>            </span><span class=cF1>while</span><span class=cF0> (i &gt; </span><span class=cFE>0</span><span class=cF0>)
+<a name="l119"></a>            {
+<a name="l120"></a>                </span><span class=cF1>if</span><span class=cF0> (!isoptr-&gt;len)
+<a name="l121"></a>                </span><span class=cF7>{</span><span class=cF0>
+<a name="l122"></a>                    isoptr(</span><span class=cF1>U8</span><span class=cF0> *)++;
+<a name="l123"></a>                    i--;
+<a name="l124"></a>                </span><span class=cF7>}</span><span class=cF0>
+<a name="l125"></a>                </span><span class=cF1>else</span><span class=cF0>
+<a name="l126"></a>                </span><span class=cF7>{</span><span class=cF0>
+<a name="l127"></a>                    </span><span class=cFD>ISOFromName</span><span class=cF0>(dname, &amp;isoptr-&gt;name_len);
+<a name="l128"></a>                    </span><span class=cF1>if</span><span class=cF0> (*dname)
+<a name="l129"></a>                    {
+<a name="l130"></a>                        </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>StrCompare</span><span class=cF7>(</span><span class=cF0>name, dname</span><span class=cF7>)</span><span class=cF0>)
+<a name="l131"></a>                        </span><span class=cF7>{</span><span class=cF0>
+<a name="l132"></a>                            res = </span><span class=cFD>ISOCDirFill</span><span class=cF0>(_res, isoptr);
+<a name="l133"></a>                            </span><span class=cF1>if</span><span class=cF0> (res &amp;&amp;
+<a name="l134"></a>                                    !</span><span class=cF7>(</span><span class=cF0>fuf_flags &amp; </span><span class=cF3>FUF_JUST_DIRS</span><span class=cF0> &amp;&amp; !(_res-&gt;attr &amp; </span><span class=cF3>RS_ATTR_DIR</span><span class=cF0>)</span><span class=cF7>)</span><span class=cF0> &amp;&amp;
+<a name="l135"></a>                                    !</span><span class=cF7>(</span><span class=cF0>fuf_flags &amp; </span><span class=cF3>FUF_JUST_FILES</span><span class=cF0> &amp;&amp; _res-&gt;attr &amp; </span><span class=cF3>RS_ATTR_DIR</span><span class=cF7>)</span><span class=cF0>)
+<a name="l136"></a>                                </span><span class=cF1>goto</span><span class=cF0> iff_done;
+<a name="l137"></a>                            </span><span class=cF1>else</span><span class=cF0>
+<a name="l138"></a>                                res = </span><span class=cF3>FALSE</span><span class=cF0>;
+<a name="l139"></a>                        </span><span class=cF7>}</span><span class=cF0>
+<a name="l140"></a>                    }
+<a name="l141"></a>                    i -= isoptr-&gt;len;
+<a name="l142"></a>                    isoptr(</span><span class=cF1>U8</span><span class=cF0> *) += isoptr-&gt;len;
+<a name="l143"></a>                </span><span class=cF7>}</span><span class=cF0>
+<a name="l144"></a>            }
+<a name="l145"></a>iff_done:
+<a name="l146"></a>                </span><span class=cF5>Free</span><span class=cF0>(buf);
+<a name="l147"></a>            </span><span class=cF1>if</span><span class=cF0> (unlock)
+<a name="l148"></a>                </span><span class=cF5>DriveUnlock</span><span class=cF0>(drive);
+<a name="l149"></a>        </span><span class=cF7>}</span><span class=cF0>
+<a name="l150"></a>    </span><span class=cF1>catch</span><span class=cF0>
+<a name="l151"></a>    </span><span class=cF1>if</span><span class=cF0> (unlock)
+<a name="l152"></a>        </span><span class=cF5>DriveUnlock</span><span class=cF0>(drive);
+<a name="l153"></a>
+<a name="l154"></a>    </span><span class=cF1>return</span><span class=cF0> res;
+<a name="l155"></a>}
+<a name="l156"></a>
+<a name="l157"></a></span><span class=cF1>U8</span><span class=cF0> *</span><span class=cFD>ISOFileRead</span><span class=cF0>(</span><span class=cF9>CDrive</span><span class=cF0> *drive, </span><span class=cF1>U8</span><span class=cF0> *cur_dir, </span><span class=cF1>U8</span><span class=cF0> *filename, </span><span class=cF9>I64</span><span class=cF0> *_size, </span><span class=cF9>I64</span><span class=cF0> *_attr)
+<a name="l158"></a>{
+<a name="l159"></a>    </span><span class=cF1>U8</span><span class=cF0>          *buf = </span><span class=cF3>NULL</span><span class=cF0>;
+<a name="l160"></a>    </span><span class=cF9>CDirEntry</span><span class=cF0>    de;
+<a name="l161"></a>    </span><span class=cF9>I64</span><span class=cF0>          c, blk_cnt, cur_dir_clus;
+<a name="l162"></a>
+<a name="l163"></a>    </span><span class=cF5>DriveCheck</span><span class=cF0>(drive);
+<a name="l164"></a>    *_size = </span><span class=cFE>0</span><span class=cF0>;
+<a name="l165"></a>    *_attr = </span><span class=cFE>0</span><span class=cF0>;
+<a name="l166"></a>    </span><span class=cF1>if</span><span class=cF0> (drive-&gt;fs_type != </span><span class=cF3>FSt_ISO9660</span><span class=cF0>)
+<a name="l167"></a>        </span><span class=cF5>PrintErr</span><span class=cF0>(</span><span class=cF6>&quot;Not ISO9660 Drive\n&quot;</span><span class=cF0>);
+<a name="l168"></a>    </span><span class=cF1>else</span><span class=cF0>
+<a name="l169"></a>        </span><span class=cF1>try</span><span class=cF0>
+<a name="l170"></a>        </span><span class=cF7>{</span><span class=cF0>
+<a name="l171"></a>            </span><span class=cF5>DriveLock</span><span class=cF0>(drive);
+<a name="l172"></a>            cur_dir_clus = </span><span class=cF5>Name2DirClus</span><span class=cF0>(drive, cur_dir);
+<a name="l173"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cFD>ISOFileFind</span><span class=cF7>(</span><span class=cF0>drive, cur_dir_clus, filename, &amp;de, </span><span class=cF3>FUF_JUST_FILES</span><span class=cF7>)</span><span class=cF0>)
+<a name="l174"></a>            {
+<a name="l175"></a>                blk_cnt = (de.size + </span><span class=cF3>BLK_SIZE</span><span class=cF0> - </span><span class=cFE>1</span><span class=cF0>) &gt;&gt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0>;
+<a name="l176"></a>                buf = </span><span class=cF5>MAlloc</span><span class=cF0>(blk_cnt &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0> + </span><span class=cFE>1</span><span class=cF0>);
+<a name="l177"></a>                c = de.clus;
+<a name="l178"></a>                c = </span><span class=cF5>ClusBlkRead</span><span class=cF0>(drive, buf, c, blk_cnt);
+<a name="l179"></a>                buf[de.size] = </span><span class=cFE>0</span><span class=cF0>;   </span><span class=cF2>//Terminate *_size = de.size;</span><span class=cF0>
+<a name="l180"></a>                *_attr = </span><span class=cF5>FileAttr</span><span class=cF0>(de.name, de.attr);
+<a name="l181"></a>            }
+<a name="l182"></a>            </span><span class=cF5>DriveUnlock</span><span class=cF0>(drive);
+<a name="l183"></a>        </span><span class=cF7>}</span><span class=cF0>
+<a name="l184"></a>    </span><span class=cF1>catch</span><span class=cF0>
+<a name="l185"></a>    </span><span class=cF5>DriveUnlock</span><span class=cF0>(drive);
+<a name="l186"></a>
+<a name="l187"></a>    </span><span class=cF1>return</span><span class=cF0> buf;
+<a name="l188"></a>}
+<a name="l189"></a>
+<a name="l190"></a></span><span class=cF1>Bool</span><span class=cF0> </span><span class=cFD>ISOCd</span><span class=cF0>(</span><span class=cF1>U8</span><span class=cF0> *name, </span><span class=cF9>I64</span><span class=cF0> cur_dir_clus)
+<a name="l191"></a>{
+<a name="l192"></a>    </span><span class=cF9>CDirEntry</span><span class=cF0> de;
+<a name="l193"></a>
+<a name="l194"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Fs</span><span class=cF0>-&gt;cur_dv-&gt;fs_type != </span><span class=cF3>FSt_ISO9660</span><span class=cF0>)
+<a name="l195"></a>        </span><span class=cF5>PrintErr</span><span class=cF0>(</span><span class=cF6>&quot;Not ISO9660 Drive\n&quot;</span><span class=cF0>);
+<a name="l196"></a>    </span><span class=cF1>else</span><span class=cF0> </span><span class=cF1>if</span><span class=cF0> (</span><span class=cFD>ISOFileFind</span><span class=cF7>(</span><span class=cF5>Fs</span><span class=cF0>-&gt;cur_dv, cur_dir_clus, name, &amp;de, </span><span class=cF3>FUF_JUST_DIRS</span><span class=cF7>)</span><span class=cF0>)
+<a name="l197"></a>        </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>TRUE</span><span class=cF0>;
+<a name="l198"></a>    </span><span class=cF1>else</span><span class=cF0>
+<a name="l199"></a>        </span><span class=cF5>PrintErr</span><span class=cF0>(</span><span class=cF6>&quot;File not found: \&quot;%s\&quot;.\n&quot;</span><span class=cF0>, name);
+<a name="l200"></a>
+<a name="l201"></a>    </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>FALSE</span><span class=cF0>;
+<a name="l202"></a>}
+<a name="l203"></a>
+<a name="l204"></a></span><span class=cF9>CDirEntry</span><span class=cF0> *</span><span class=cFD>ISOFilesFind</span><span class=cF0>(</span><span class=cF1>U8</span><span class=cF0> *files_find_mask, </span><span class=cF9>I64</span><span class=cF0> fuf_flags, </span><span class=cF9>CDirEntry</span><span class=cF0> *parent = </span><span class=cF3>NULL</span><span class=cF0>)
+<a name="l205"></a>{
+<a name="l206"></a>    </span><span class=cF9>CDrive</span><span class=cF0>          *drive = </span><span class=cF5>Fs</span><span class=cF0>-&gt;cur_dv;
+<a name="l207"></a>    </span><span class=cF9>CISODirEntry</span><span class=cF0>    *buf, *buf2, *isoptr;
+<a name="l208"></a>    </span><span class=cF9>I64</span><span class=cF0>              i, cur_dir_clus = </span><span class=cF5>Name2DirClus</span><span class=cF0>(drive, </span><span class=cF5>Fs</span><span class=cF0>-&gt;cur_dir);
+<a name="l209"></a>    </span><span class=cF9>CDirEntry</span><span class=cF0>       *res = </span><span class=cF3>NULL</span><span class=cF0>, *tmpde;
+<a name="l210"></a>
+<a name="l211"></a>    </span><span class=cF1>if</span><span class=cF0> (fuf_flags &amp; ~</span><span class=cF3>FUG_FILES_FIND</span><span class=cF0>)
+<a name="l212"></a>        </span><span class=cF5>throw</span><span class=cF0> (</span><span class=cF6>'FUF'</span><span class=cF0>);
+<a name="l213"></a>    isoptr = </span><span class=cF5>MAlloc</span><span class=cF0>(drive-&gt;spc &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0>);
+<a name="l214"></a>    </span><span class=cF5>ClusRead</span><span class=cF0>(drive, isoptr, cur_dir_clus, </span><span class=cFE>1</span><span class=cF0>);
+<a name="l215"></a>    </span><span class=cF1>if</span><span class=cF0> (isoptr-&gt;name_len == </span><span class=cFE>1</span><span class=cF0> &amp;&amp; !isoptr-&gt;name)
+<a name="l216"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l217"></a>        </span><span class=cF2>//curdir</span><span class=cF0>
+<a name="l218"></a>        i = (isoptr-&gt;size.little + drive-&gt;spc &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0> - </span><span class=cFE>1</span><span class=cF0>) / drive-&gt;spc &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0>;
+<a name="l219"></a>        buf = </span><span class=cF5>MAlloc</span><span class=cF0>(drive-&gt;spc &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0> * i);
+<a name="l220"></a>        </span><span class=cF5>ClusRead</span><span class=cF0>(drive, buf, cur_dir_clus, i);
+<a name="l221"></a>        </span><span class=cF5>Free</span><span class=cF0>(isoptr);
+<a name="l222"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l223"></a>    </span><span class=cF1>else</span><span class=cF0>
+<a name="l224"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l225"></a>        buf = isoptr;
+<a name="l226"></a>        i = </span><span class=cFE>1</span><span class=cF0>;
+<a name="l227"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l228"></a>    buf2 = buf;
+<a name="l229"></a>    i *= drive-&gt;spc &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0>;
+<a name="l230"></a>    </span><span class=cF1>while</span><span class=cF0> (i &gt; </span><span class=cFE>0</span><span class=cF0>)
+<a name="l231"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l232"></a>        </span><span class=cF1>if</span><span class=cF0> (!buf-&gt;len)
+<a name="l233"></a>        {
+<a name="l234"></a>            buf(</span><span class=cF1>U8</span><span class=cF0> *) ++;
+<a name="l235"></a>            i--;
+<a name="l236"></a>        }
+<a name="l237"></a>        </span><span class=cF1>else</span><span class=cF0>
+<a name="l238"></a>        {
+<a name="l239"></a>            tmpde = </span><span class=cF5>MAlloc</span><span class=cF0>(</span><span class=cF1>sizeof</span><span class=cF7>(</span><span class=cF9>CDirEntry</span><span class=cF7>)</span><span class=cF0>);
+<a name="l240"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cFD>ISOCDirFill</span><span class=cF7>(</span><span class=cF0>tmpde, buf</span><span class=cF7>)</span><span class=cF0>)
+<a name="l241"></a>            </span><span class=cF7>{</span><span class=cF0>
+<a name="l242"></a>                tmpde-&gt;parent = parent;
+<a name="l243"></a>                </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;fuf_flags, </span><span class=cF3>FUf_RECURSE</span><span class=cF7>)</span><span class=cF0> &amp;&amp; tmpde-&gt;attr &amp; </span><span class=cF3>RS_ATTR_DIR</span><span class=cF0> &amp;&amp; *tmpde-&gt;name != </span><span class=cF6>'.'</span><span class=cF0>)
+<a name="l244"></a>                {
+<a name="l245"></a>                    tmpde-&gt;next = res;
+<a name="l246"></a>                    res = tmpde;
+<a name="l247"></a>                    tmpde-&gt;full_name = </span><span class=cF5>DirNameAbs</span><span class=cF0>(tmpde-&gt;name);
+<a name="l248"></a>                    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Cd</span><span class=cF7>(</span><span class=cF0>tmpde-&gt;name</span><span class=cF7>)</span><span class=cF0>)
+<a name="l249"></a>                    </span><span class=cF7>{</span><span class=cF0>
+<a name="l250"></a>                        tmpde-&gt;sub = </span><span class=cFD>ISOFilesFind</span><span class=cF0>(files_find_mask, fuf_flags, tmpde);
+<a name="l251"></a>                        </span><span class=cF5>Cd</span><span class=cF0>(</span><span class=cF6>&quot;..&quot;</span><span class=cF0>);
+<a name="l252"></a>                    </span><span class=cF7>}</span><span class=cF0>
+<a name="l253"></a>                }
+<a name="l254"></a>                </span><span class=cF1>else</span><span class=cF0>
+<a name="l255"></a>                {
+<a name="l256"></a>                    tmpde-&gt;full_name = </span><span class=cF5>FileNameAbs</span><span class=cF0>(tmpde-&gt;name);
+<a name="l257"></a>                    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF7>(</span><span class=cF0>tmpde-&gt;attr &amp; </span><span class=cF3>RS_ATTR_DIR</span><span class=cF0> || !</span><span class=cF5>Bt</span><span class=cF0>(&amp;fuf_flags, </span><span class=cF3>FUf_JUST_DIRS</span><span class=cF0>)</span><span class=cF7>)</span><span class=cF0> &amp;&amp;
+<a name="l258"></a>                        !</span><span class=cF7>(</span><span class=cF5>Bt</span><span class=cF0>(&amp;fuf_flags, </span><span class=cF3>FUf_RECURSE</span><span class=cF0>) &amp;&amp; *tmpde-&gt;name == </span><span class=cF6>'.'</span><span class=cF0> &amp;&amp; tmpde-&gt;attr &amp; </span><span class=cF3>RS_ATTR_DIR</span><span class=cF7>)</span><span class=cF0> &amp;&amp;
+<a name="l259"></a>                        </span><span class=cF5>FilesFindMatch</span><span class=cF7>(</span><span class=cF0>tmpde-&gt;full_name, files_find_mask, fuf_flags</span><span class=cF7>)</span><span class=cF0>)
+<a name="l260"></a>                    </span><span class=cF7>{</span><span class=cF0>
+<a name="l261"></a>                        tmpde-&gt;next = res;
+<a name="l262"></a>                        res = tmpde;
+<a name="l263"></a>                    </span><span class=cF7>}</span><span class=cF0>
+<a name="l264"></a>                    </span><span class=cF1>else</span><span class=cF0>
+<a name="l265"></a>                        </span><span class=cF5>DirEntryDel</span><span class=cF0>(tmpde);
+<a name="l266"></a>                }
+<a name="l267"></a>            </span><span class=cF7>}</span><span class=cF0>
+<a name="l268"></a>            </span><span class=cF1>else</span><span class=cF0>
+<a name="l269"></a>                </span><span class=cF5>DirEntryDel</span><span class=cF0>(tmpde);
+<a name="l270"></a>            i -= buf-&gt;len;
+<a name="l271"></a>            buf(</span><span class=cF1>U8</span><span class=cF0> *) += buf-&gt;len;
+<a name="l272"></a>        }
+<a name="l273"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l274"></a>    </span><span class=cF5>Free</span><span class=cF0>(buf2);
+<a name="l275"></a>    </span><span class=cF1>return</span><span class=cF0> res;
+<a name="l276"></a>}
+</span></pre></body>
+</html>
