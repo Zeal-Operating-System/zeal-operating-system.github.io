@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.13">
+<meta name="generator" content="ZealOS V2.00">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -27,13 +27,13 @@ body {background-color:#1f1f1f;}
 <pre style="font-family:monospace;font-size:12pt">
 <a name="l1"></a><span class=cF5>                                                           Credits</span><span class=cF0>
 <a name="l2"></a>
-<a name="l3"></a></span><span class=cF2>Terry A. Davis</span><span class=cF0> wrote all of TempleOS over a span of </span><span class=cF2>15.0</span><span class=cF0> years (full-time). ZealOS, written over a span of </span><span class=cF2>2.6</span><span class=cF0> years, is a 
-<a name="l4"></a>fork of TempleOS.   It can run on some bare metal 64-bit PC's from about 2007-2019 with no layering, libraries, tools, modules 
-<a name="l5"></a>or anything from other sources. Otherwise, you run it in a virtual machine, like </span><span class=cF2>VMware</span><span class=cF0>, </span><span class=cF2>QEMU</span><span class=cF0> or </span><span class=cF2>VirtualBox</span><span class=cF0>.    It is 
-<a name="l6"></a>independent and stands alone.  100% of the src code is including on all distro's, from the kernel to the compiler to the boot 
-<a name="l7"></a>loaders!    It is public domain, not GPL.
+<a name="l3"></a></span><span class=cF2>Terry A. Davis</span><span class=cF0> wrote all of TempleOS over a span of </span><span class=cF2>15.0</span><span class=cF0> years (full-time). ZealOS, written over a span of </span><span class=cF2>3.2</span><span class=cF0> years 
+<a name="l4"></a>(part-time), is a fork of TempleOS. It can run on bare metal 64-bit PC's from about 2007-2019 with no layering, libraries, 
+<a name="l5"></a>tools, modules or anything from other sources.  Otherwise, you run it in a virtual machine, like </span><span class=cF2>VMware</span><span class=cF0>, </span><span class=cF2>QEMU</span><span class=cF0> or </span><span class=cF2>VirtualBox</span><span class=cF0>.    
+<a name="l6"></a>It is independent and can stand alone.  100% of the operating system source code is included on all distros, from the kernel 
+<a name="l7"></a>to the compiler to the applications, including public-domain BIOS-mode boot loaders!    It is public domain, not GPL.
 <a name="l8"></a>
-<a name="l9"></a>*) </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l2968"><span class=cF4>ATA Reg and Cmd Definitions</span></a><span class=cF0> are originally from Linux.  Later, Terry got the spec.
+<a name="l9"></a>*) </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l2974"><span class=cF4>ATA Reg and Cmd Definitions</span></a><span class=cF0> are originally from Linux.  Later, Terry got the spec.
 <a name="l10"></a>
 <a name="l11"></a>*) The heap algorithm, </span><a href="https://zeal-operating-system.github.io/Kernel/Memory/MAllocFree.ZC.html#l1"><span class=cF4>::/Kernel/Memory/MAllocFree.ZC</span></a><span class=cF0>, is adapted from one Terry saw at Ticketmaster when he worked on their 
 <a name="l12"></a>VAX operating system.
@@ -75,12 +75,15 @@ body {background-color:#1f1f1f;}
 <a name="l48"></a>
 <a name="l49"></a>*) The random number generator is from Donald Knuth in the wikipedia entry for </span><a href="http://en.wikipedia.org/wiki/Linear_congruential_generator"><span class=cF0>Linear_congruential_generator</span></a><span class=cF0>.
 <a name="l50"></a>
-<a name="l51"></a></span><span class=cF8>
-<a name="l52"></a>* &quot;MSDOS&quot;, &quot;Windows&quot;, and &quot;FAT32&quot; are trademarks owned by MicroSoft Corp.
-<a name="l53"></a>* &quot;MATLAB&quot; is a trademark owned by The Math Works, Inc.
-<a name="l54"></a>* &quot;QEMU&quot; is a trademark owned by Fabrice Bellard.
-<a name="l55"></a>* &quot;VAX&quot; is a trademark owned by Digital Equipment Corp.
-<a name="l56"></a>* &quot;Linux&quot; is a trademark owned by Linus Torvalds.
-<a name="l57"></a>* &quot;VAXTMOS&quot; is a trademark owned by Ticketmaster.
-<a name="l58"></a></span></pre></body>
+<a name="l51"></a>*) The </span><span class=cF4>optional</span><span class=cF0> UEFI-compatible Limine bootloader is copyrighted by GitHub user 'mintsuki' and project contributors, under the 
+<a name="l52"></a>BSD-2 License.  </span><span class=cF4>This bootloader is NOT included by default</span><span class=cF0>, and is only available on ZealOS distro ISO builds marked 
+<a name="l53"></a>&quot;BSD2-UEFI&quot; in the ISO filename.
+<a name="l54"></a></span><span class=cF8>
+<a name="l55"></a>* &quot;MSDOS&quot;, &quot;Windows&quot;, and &quot;FAT32&quot; are trademarks owned by MicroSoft Corp.
+<a name="l56"></a>* &quot;MATLAB&quot; is a trademark owned by The Math Works, Inc.
+<a name="l57"></a>* &quot;QEMU&quot; is a trademark owned by Fabrice Bellard.
+<a name="l58"></a>* &quot;VAX&quot; is a trademark owned by Digital Equipment Corp.
+<a name="l59"></a>* &quot;Linux&quot; is a trademark owned by Linus Torvalds.
+<a name="l60"></a>* &quot;VAXTMOS&quot; is a trademark owned by Ticketmaster.
+<a name="l61"></a></span></pre></body>
 </html>

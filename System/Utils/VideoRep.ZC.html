@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.13">
+<meta name="generator" content="ZealOS V2.00">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -25,71 +25,73 @@ body {background-color:#1f1f1f;}
 </head>
 <body>
 <pre style="font-family:monospace;font-size:12pt">
-<a name="l1"></a><span class=cF1>public</span><span class=cF0> </span><span class=cF9>I64</span><span class=cF0> </span><span class=cF5>VideoRep</span><span class=cF0>(</span><span class=cF1>Bool</span><span class=cF0> full=</span><span class=cF3>TRUE</span><span class=cF0>)
-<a name="l2"></a>{</span><span class=cF2>//List available VBE modes as indicated by the BIOS. Show current mode;</span><span class=cF0>
-<a name="l3"></a>    </span><span class=cF9>I64</span><span class=cF0> i, mode_count = </span><span class=cFE>0</span><span class=cF0>;
-<a name="l4"></a>    </span><span class=cF9>CVBEModeShort</span><span class=cF0> *mode;
-<a name="l5"></a>
-<a name="l6"></a>    </span><span class=cF1>if</span><span class=cF0> (full)
-<a name="l7"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l8"></a>        </span><span class=cF6>&quot;\nVBE Version %X.%X\n\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_vbe_info</span><span class=cF0>.version.u8[</span><span class=cFE>1</span><span class=cF0>], </span><span class=cFB>sys_vbe_info</span><span class=cF0>.version.u8[</span><span class=cFE>0</span><span class=cF0>];
-<a name="l9"></a>        </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
-<a name="l10"></a>        {
-<a name="l11"></a>            </span><span class=cF6>&quot;$PURPLE$Manufacturer      $FG$: $BLACK$%s$FG$\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_vbe_info</span><span class=cF0>.oem;
-<a name="l12"></a>            </span><span class=cF6>&quot;$PURPLE$Vendor name       $FG$: $BLACK$%s$FG$\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_vbe_info</span><span class=cF0>.vendor;
-<a name="l13"></a>            </span><span class=cF6>&quot;$PURPLE$Product name      $FG$: $BLACK$%s$FG$\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_vbe_info</span><span class=cF0>.product_name;
-<a name="l14"></a>            </span><span class=cF6>&quot;$PURPLE$Product revision  $FG$: $BLACK$%s$FG$\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_vbe_info</span><span class=cF0>.product_revision;
-<a name="l15"></a>            </span><span class=cF6>&quot;$PURPLE$Software revision $FG$: $BLACK$%X.%X$FG$\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_vbe_info</span><span class=cF0>.software_revision.u8[</span><span class=cFE>1</span><span class=cF0>],  </span><span class=cFB>sys_vbe_info</span><span class=cF0>.software_revision.u8[</span><span class=cFE>0</span><span class=cF0>];
-<a name="l16"></a>            </span><span class=cF6>&quot;$PURPLE$Hardware memory   $FG$: $BLACK$%d MiB$FG$\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_vbe_info</span><span class=cF0>.total_memory * </span><span class=cFE>64</span><span class=cF0> / </span><span class=cFE>1024</span><span class=cF0>;
-<a name="l17"></a>        }
-<a name="l18"></a>        </span><span class=cF1>else</span><span class=cF0>
-<a name="l19"></a>        {
-<a name="l20"></a>            </span><span class=cF6>&quot;Manufacturer      : %s\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_vbe_info</span><span class=cF0>.oem;
-<a name="l21"></a>            </span><span class=cF6>&quot;Vendor name       : %s\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_vbe_info</span><span class=cF0>.vendor;
-<a name="l22"></a>            </span><span class=cF6>&quot;Product name      : %s\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_vbe_info</span><span class=cF0>.product_name;
-<a name="l23"></a>            </span><span class=cF6>&quot;Product revision  : %s\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_vbe_info</span><span class=cF0>.product_revision;
-<a name="l24"></a>            </span><span class=cF6>&quot;Software revision : %X.%X\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_vbe_info</span><span class=cF0>.software_revision.u8[</span><span class=cFE>1</span><span class=cF0>],  </span><span class=cFB>sys_vbe_info</span><span class=cF0>.software_revision.u8[</span><span class=cFE>0</span><span class=cF0>];
-<a name="l25"></a>            </span><span class=cF6>&quot;Hardware memory   : %d MiB\n&quot;</span><span class=cF0>, </span><span class=cFB>sys_vbe_info</span><span class=cF0>.total_memory * </span><span class=cFE>64</span><span class=cF0> / </span><span class=cFE>1024</span><span class=cF0>;
-<a name="l26"></a>        }
-<a name="l27"></a>        </span><span class=cF6>&quot;\n\nAll modes shown are 32-bit color.\n\n&quot;</span><span class=cF0>;
-<a name="l28"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l29"></a>
-<a name="l30"></a>    </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
-<a name="l31"></a>        </span><span class=cF6>&quot;$LTCYAN$ #    W  x   H\t\t Mode$FG$\n\n&quot;</span><span class=cF0>;
-<a name="l32"></a>    </span><span class=cF1>else</span><span class=cF0>
-<a name="l33"></a>        </span><span class=cF6>&quot; #\t\t  W  x   H\t\t Mode\n\n&quot;</span><span class=cF0>;
-<a name="l34"></a>
-<a name="l35"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cF3>VBE_MODES_NUM</span><span class=cF0>; i++)
-<a name="l36"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l37"></a>        mode = &amp;</span><span class=cFB>sys_vbe_modes</span><span class=cF0>[i];
-<a name="l38"></a>        </span><span class=cF1>if</span><span class=cF0> (mode-&gt;height)
-<a name="l39"></a>        {
-<a name="l40"></a>            </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
-<a name="l41"></a>                </span><span class=cF6>&quot;$PURPLE$ $BT+X,\&quot;%d\&quot;,LM=\&quot;%d\\n\&quot;$$FG$$LM,4$&quot;</span><span class=cF0>, i+</span><span class=cFE>1</span><span class=cF0>, i+</span><span class=cFE>1</span><span class=cF0>;
-<a name="l42"></a>            </span><span class=cF1>else</span><span class=cF0>
-<a name="l43"></a>                </span><span class=cF6>&quot; [%d]\t&quot;</span><span class=cF0>, i+</span><span class=cFE>1</span><span class=cF0>;
-<a name="l44"></a>
-<a name="l45"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cFB>sys_vbe_mode_num</span><span class=cF0> == mode-&gt;mode_num)
-<a name="l46"></a>            </span><span class=cF7>{</span><span class=cF0>
-<a name="l47"></a>                </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
-<a name="l48"></a>                    </span><span class=cF6>&quot;$RED$%4d x %4d </span><span class=cF0>    </span><span class=cF6>0x%X (Current mode)$FG$$LM,0$&quot;</span><span class=cF0>, mode-&gt;width, mode-&gt;height, mode-&gt;mode_num;
-<a name="l49"></a>                </span><span class=cF1>else</span><span class=cF0>
-<a name="l50"></a>                    </span><span class=cF6>&quot;%4d x %4d </span><span class=cF0> </span><span class=cF6>0x%X (Current mode)&quot;</span><span class=cF0>, mode-&gt;width, mode-&gt;height, mode-&gt;mode_num;
-<a name="l51"></a>            </span><span class=cF7>}</span><span class=cF0>
-<a name="l52"></a>            </span><span class=cF1>else</span><span class=cF0>
-<a name="l53"></a>            </span><span class=cF7>{</span><span class=cF0>
-<a name="l54"></a>                </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
-<a name="l55"></a>                    </span><span class=cF6>&quot;$BLACK$%4d x %4d </span><span class=cF0>  </span><span class=cF6>$FG$0x%X$LM,0$&quot;</span><span class=cF0>, mode-&gt;width, mode-&gt;height, mode-&gt;mode_num;
-<a name="l56"></a>                </span><span class=cF1>else</span><span class=cF0>
-<a name="l57"></a>                    </span><span class=cF6>&quot;%4d x %4d </span><span class=cF0> </span><span class=cF6>0x%X&quot;</span><span class=cF0>, mode-&gt;width, mode-&gt;height, mode-&gt;mode_num;
-<a name="l58"></a>            </span><span class=cF7>}</span><span class=cF0>
-<a name="l59"></a>
-<a name="l60"></a>            </span><span class=cF6>&quot;\n\n\n&quot;</span><span class=cF0>;
-<a name="l61"></a>            mode_count++;
-<a name="l62"></a>        }
-<a name="l63"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l64"></a>    </span><span class=cF1>return</span><span class=cF0> mode_count;
-<a name="l65"></a>}
+<a name="l1"></a><span class=cF0>
+<a name="l2"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF9>I64</span><span class=cF0> </span><span class=cF5>VideoRep</span><span class=cF0>()
+<a name="l3"></a>{ </span><span class=cF2>// List available screen resolutions, show current resolution.</span><span class=cF0>
+<a name="l4"></a>    </span><span class=cF9>I64</span><span class=cF0>         i, count = </span><span class=cFE>0</span><span class=cF0>, div, aspect_w, aspect_h;
+<a name="l5"></a>    </span><span class=cF9>CVideoInfo</span><span class=cF0> *info;
+<a name="l6"></a>
+<a name="l7"></a>    </span><span class=cF6>&quot;\n&quot;</span><span class=cF0>;
+<a name="l8"></a>    </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
+<a name="l9"></a>        </span><span class=cF6>&quot;$PURPLE$Framebuffer pointer: $BLACK$0x%8X$FG$ \n&quot;</span><span class=cF0>, </span><span class=cFB>sys_framebuffer_addr</span><span class=cF0>;
+<a name="l10"></a>    </span><span class=cF1>else</span><span class=cF0>
+<a name="l11"></a>        </span><span class=cF6>&quot;Framebuffer pointer: 0x%8X \n&quot;</span><span class=cF0>, </span><span class=cFB>sys_framebuffer_addr</span><span class=cF0>;
+<a name="l12"></a>
+<a name="l13"></a>    </span><span class=cF6>&quot;\nAll modes shown are 32-bit color.\n\n&quot;</span><span class=cF0>;
+<a name="l14"></a>
+<a name="l15"></a>    </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
+<a name="l16"></a>        </span><span class=cF6>&quot;$LTCYAN$ #    W  x   H     Aspect Ratio$FG$\n\n&quot;</span><span class=cF0>;
+<a name="l17"></a>    </span><span class=cF1>else</span><span class=cF0>
+<a name="l18"></a>        </span><span class=cF6>&quot;  #\t\t  W  x   H     Aspect Ratio\n\n&quot;</span><span class=cF0>;
+<a name="l19"></a>
+<a name="l20"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cF3>VBE_MODES_NUM</span><span class=cF0>; i++)
+<a name="l21"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l22"></a>        info = &amp;</span><span class=cFB>sys_framebuffer_list</span><span class=cF0>[i];
+<a name="l23"></a>        </span><span class=cF1>if</span><span class=cF0> (info-&gt;height)
+<a name="l24"></a>        {
+<a name="l25"></a>            </span><span class=cF2>// Determine aspect ratio</span><span class=cF0>
+<a name="l26"></a>            aspect_w = info-&gt;width;
+<a name="l27"></a>            aspect_h = info-&gt;height;
+<a name="l28"></a>            div = </span><span class=cFE>2</span><span class=cF0>;
+<a name="l29"></a>            </span><span class=cF1>while</span><span class=cF0> (</span><span class=cF3>TRUE</span><span class=cF0>)
+<a name="l30"></a>            </span><span class=cF7>{</span><span class=cF0>
+<a name="l31"></a>                </span><span class=cF1>while</span><span class=cF0> (aspect_w % div == </span><span class=cFE>0</span><span class=cF0> &amp;&amp; aspect_h % div == </span><span class=cFE>0</span><span class=cF0>)
+<a name="l32"></a>                {
+<a name="l33"></a>                    aspect_w /= div;
+<a name="l34"></a>                    aspect_h /= div;
+<a name="l35"></a>                    div = </span><span class=cFE>2</span><span class=cF0>;
+<a name="l36"></a>                }
+<a name="l37"></a>                div++;
+<a name="l38"></a>                </span><span class=cF1>if</span><span class=cF0> (div &gt;= aspect_h || div &gt;= aspect_w)
+<a name="l39"></a>                    </span><span class=cF1>break</span><span class=cF0>;
+<a name="l40"></a>            </span><span class=cF7>}</span><span class=cF0>
+<a name="l41"></a>
+<a name="l42"></a>            </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
+<a name="l43"></a>                </span><span class=cF6>&quot;$PURPLE$ $BT+X,\&quot;%d\&quot;,LM=\&quot;%d\\n\&quot;$$FG$$LM,4$&quot;</span><span class=cF0>, i+</span><span class=cFE>1</span><span class=cF0>, i+</span><span class=cFE>1</span><span class=cF0>;
+<a name="l44"></a>            </span><span class=cF1>else</span><span class=cF0>
+<a name="l45"></a>                </span><span class=cF6>&quot; [%d]\t&quot;</span><span class=cF0>, i+</span><span class=cFE>1</span><span class=cF0>;
+<a name="l46"></a>
+<a name="l47"></a>            </span><span class=cF1>if</span><span class=cF0> (info-&gt;width == </span><span class=cFB>sys_framebuffer_width</span><span class=cF0> &amp;&amp; info-&gt;height == </span><span class=cFB>sys_framebuffer_height</span><span class=cF0>)
+<a name="l48"></a>            </span><span class=cF7>{</span><span class=cF0>
+<a name="l49"></a>                </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
+<a name="l50"></a>                    </span><span class=cF6>&quot;$RED$%4d x %4d   %0.3f =%4d:%d (Current resolution)$FG$$LM,0$&quot;</span><span class=cF0>, info-&gt;width, info-&gt;height,  aspect_w / </span><span class=cF5>ToF64</span><span class=cF0>(aspect_h), aspect_w, aspect_h;
+<a name="l51"></a>                </span><span class=cF1>else</span><span class=cF0>
+<a name="l52"></a>                    </span><span class=cF6>&quot;%4d x %4d   %0.3f =%4d:%d (Current resolution)&quot;</span><span class=cF0>, info-&gt;width, info-&gt;height,  aspect_w / </span><span class=cF5>ToF64</span><span class=cF0>(aspect_h), aspect_w, aspect_h;
+<a name="l53"></a>            </span><span class=cF7>}</span><span class=cF0>
+<a name="l54"></a>            </span><span class=cF1>else</span><span class=cF0>
+<a name="l55"></a>            </span><span class=cF7>{</span><span class=cF0>
+<a name="l56"></a>                </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>IsRaw</span><span class=cF0>)
+<a name="l57"></a>                    </span><span class=cF6>&quot;$BLACK$%4d x %4d$FG$   %0.3f =%4d:%d $LM,0$&quot;</span><span class=cF0>, info-&gt;width, info-&gt;height,  aspect_w / </span><span class=cF5>ToF64</span><span class=cF0>(aspect_h), aspect_w, aspect_h;
+<a name="l58"></a>                </span><span class=cF1>else</span><span class=cF0>
+<a name="l59"></a>                    </span><span class=cF6>&quot;%4d x %4d   %0.3f =%4d:%d &quot;</span><span class=cF0>, info-&gt;width, info-&gt;height,  aspect_w / </span><span class=cF5>ToF64</span><span class=cF0>(aspect_h), aspect_w, aspect_h;
+<a name="l60"></a>            </span><span class=cF7>}</span><span class=cF0>
+<a name="l61"></a>
+<a name="l62"></a>            </span><span class=cF6>&quot;\n\n\n&quot;</span><span class=cF0>;
+<a name="l63"></a>            count++;
+<a name="l64"></a>        }
+<a name="l65"></a>    </span><span class=cF7>}</span><span class=cF0>
 <a name="l66"></a>
+<a name="l67"></a>    </span><span class=cF1>return</span><span class=cF0> count;
+<a name="l68"></a>}
 </span></pre></body>
 </html>

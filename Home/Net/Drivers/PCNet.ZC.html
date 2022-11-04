@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.13">
+<meta name="generator" content="ZealOS V2.00">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -226,7 +226,7 @@ body {background-color:#1f1f1f;}
 <a name="l199"></a>
 <a name="l200"></a>    csr &amp;= ~</span><span class=cFE>0xFF</span><span class=cF0>; </span><span class=cF2>// clears first 8 bits: SWSTYLE 8-bit register.</span><span class=cF0>
 <a name="l201"></a>    csr |= PCNET_SWSTYLE_SELECTION; </span><span class=cF2>// set SWSTYLE to PCNet-PCI mode.</span><span class=cF0>
-<a name="l202"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;csr, PCNET_SWSTYLE_SSIZE32); </span><span class=cF2>// set SSIZE32 bit 1</span><span class=cF0>
+<a name="l202"></a>    </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;csr, PCNET_SWSTYLE_SSIZE32); </span><span class=cF2>// set SSIZE32 bit 1</span><span class=cF0>
 <a name="l203"></a>
 <a name="l204"></a>    PCNetCSRWrite(PCNET_CSR_SOFTWARESTYLE, csr);
 <a name="l205"></a>}
@@ -266,7 +266,7 @@ body {background-color:#1f1f1f;}
 <a name="l239"></a>
 <a name="l240"></a>    </span><span class=cF2>//if this is a Receive DE, give ownership to the card so the PCNet can fill them.</span><span class=cF0>
 <a name="l241"></a>    </span><span class=cF1>if</span><span class=cF0> (is_rx)
-<a name="l242"></a>        </span><span class=cF5>Bts</span><span class=cF0>(&amp;entry-&gt;status1, PCNET_DESCRIPTORf_OWN);
+<a name="l242"></a>        </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;entry-&gt;status1, PCNET_DESCRIPTORf_OWN);
 <a name="l243"></a>}
 <a name="l244"></a>
 <a name="l245"></a></span><span class=cF1>U0</span><span class=cF0> PCNetBuffersAllocate()
@@ -424,11 +424,11 @@ body {background-color:#1f1f1f;}
 <a name="l397"></a>
 <a name="l398"></a>    </span><span class=cF9>U32</span><span class=cF0> csr = PCNetCSRRead(PCNET_CSR_INTERRUPTS);
 <a name="l399"></a>
-<a name="l400"></a>    </span><span class=cF5>Btr</span><span class=cF0>(&amp;csr, PCNET_INT_BSWP);
-<a name="l401"></a>    </span><span class=cF5>Btr</span><span class=cF0>(&amp;csr, PCNET_INT_RINTM);
+<a name="l400"></a>    </span><span class=cF5>PCIBtr</span><span class=cF0>(&amp;csr, PCNET_INT_BSWP);
+<a name="l401"></a>    </span><span class=cF5>PCIBtr</span><span class=cF0>(&amp;csr, PCNET_INT_RINTM);
 <a name="l402"></a>
-<a name="l403"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;csr, PCNET_INT_IDONM);
-<a name="l404"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;csr, PCNET_INT_TINTM);
+<a name="l403"></a>    </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;csr, PCNET_INT_IDONM);
+<a name="l404"></a>    </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;csr, PCNET_INT_TINTM);
 <a name="l405"></a>    
 <a name="l406"></a>    PCNetCSRWrite(PCNET_CSR_INTERRUPTS, csr);
 <a name="l407"></a>}
@@ -441,7 +441,7 @@ body {background-color:#1f1f1f;}
 <a name="l414"></a>
 <a name="l415"></a>    </span><span class=cF9>U32</span><span class=cF0> csr = PCNetCSRRead(PCNET_CSR_FEATURECTRL);
 <a name="l416"></a>
-<a name="l417"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;csr, PCNET_FEATURE_APADXMT);
+<a name="l417"></a>    </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;csr, PCNET_FEATURE_APADXMT);
 <a name="l418"></a>
 <a name="l419"></a>    PCNetCSRWrite(PCNET_CSR_FEATURECTRL, csr);
 <a name="l420"></a>}
@@ -456,10 +456,10 @@ body {background-color:#1f1f1f;}
 <a name="l429"></a>
 <a name="l430"></a>    </span><span class=cF9>U32</span><span class=cF0> csr = PCNetCSRRead(PCNET_CSR_CTRLSTATUS);
 <a name="l431"></a>
-<a name="l432"></a>    </span><span class=cF5>Btr</span><span class=cF0>(&amp;csr, PCNET_CTRL_INIT);
-<a name="l433"></a>    </span><span class=cF5>Btr</span><span class=cF0>(&amp;csr, PCNET_CTRL_STOP);
+<a name="l432"></a>    </span><span class=cF5>PCIBtr</span><span class=cF0>(&amp;csr, PCNET_CTRL_INIT);
+<a name="l433"></a>    </span><span class=cF5>PCIBtr</span><span class=cF0>(&amp;csr, PCNET_CTRL_STOP);
 <a name="l434"></a>
-<a name="l435"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;csr, PCNET_CTRL_STRT);
+<a name="l435"></a>    </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;csr, PCNET_CTRL_STRT);
 <a name="l436"></a>
 <a name="l437"></a>    PCNetCSRWrite(PCNET_CSR_CTRLSTATUS, csr);
 <a name="l438"></a>}
@@ -469,7 +469,7 @@ body {background-color:#1f1f1f;}
 <a name="l442"></a>    </span><span class=cF2>Descriptor Entry is zero. If 0, driver owns,</span><span class=cF0>
 <a name="l443"></a>    </span><span class=cF2>if 1, PCNet card owns it. */</span><span class=cF0>
 <a name="l444"></a>
-<a name="l445"></a>    </span><span class=cF1>return</span><span class=cF0> !</span><span class=cF5>Bt</span><span class=cF0>(&amp;entry-&gt;status1, PCNET_DESCRIPTORf_OWN);
+<a name="l445"></a>    </span><span class=cF1>return</span><span class=cF0> !</span><span class=cF5>PCIBt</span><span class=cF0>(&amp;entry-&gt;status1, PCNET_DESCRIPTORf_OWN);
 <a name="l446"></a>}
 <a name="l447"></a>
 <a name="l448"></a></span><span class=cF9>I64</span><span class=cF0> PCNetTransmitPacketAllocate(</span><span class=cF1>U8</span><span class=cF0> **packet_buffer_out, </span><span class=cF9>I64</span><span class=cF0> length)
@@ -501,9 +501,9 @@ body {background-color:#1f1f1f;}
 <a name="l474"></a>        NetLog(</span><span class=cF6>&quot;PCNET ALLOCATE TX PACKET: Driver owns TX DE at index %d.&quot;</span><span class=cF0>, de_index);
 <a name="l475"></a>    </span><span class=cF7>}</span><span class=cF0>
 <a name="l476"></a>
-<a name="l477"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;entry-&gt;status1, PCNET_DESCRIPTORf_STP);
+<a name="l477"></a>    </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;entry-&gt;status1, PCNET_DESCRIPTORf_STP);
 <a name="l478"></a>
-<a name="l479"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;entry-&gt;status1, PCNET_DESCRIPTORf_ENP);
+<a name="l479"></a>    </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;entry-&gt;status1, PCNET_DESCRIPTORf_ENP);
 <a name="l480"></a>
 <a name="l481"></a>    </span><span class=cF2>/*</span><span class=cF0>  </span><span class=cF2>AMD PCNet datasheet p.1-991.</span><span class=cF0>
 <a name="l482"></a>        </span><span class=cF2>BCNT is the usable buffer length, expressed as first</span><span class=cF0>
@@ -534,9 +534,9 @@ body {background-color:#1f1f1f;}
 <a name="l507"></a>
 <a name="l508"></a>    CPCNetDescriptorEntry *entry = &amp;pcnet.tx_de_buffer[de_index * </span><span class=cF1>sizeof</span><span class=cF0>(CPCNetDescriptorEntry)];
 <a name="l509"></a>
-<a name="l510"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;entry-&gt;status1, PCNET_DESCRIPTORf_OWN);
+<a name="l510"></a>    </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;entry-&gt;status1, PCNET_DESCRIPTORf_OWN);
 <a name="l511"></a>    NetLog(</span><span class=cF6>&quot;PCNET FINISH TX PACKET: TX DE index: %X, OWN bit of entry at entry: %b.&quot;</span><span class=cF0>,
-<a name="l512"></a>                de_index, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;entry-&gt;status1, PCNET_DESCRIPTORf_OWN</span><span class=cF7>)</span><span class=cF0>);
+<a name="l512"></a>                de_index, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;entry-&gt;status1, PCNET_DESCRIPTORf_OWN</span><span class=cF7>)</span><span class=cF0>);
 <a name="l513"></a>}
 <a name="l514"></a>
 <a name="l515"></a></span><span class=cF1>U0</span><span class=cF0> EthernetFrameFinish(</span><span class=cF9>I64</span><span class=cF0> de_index)
@@ -580,7 +580,7 @@ body {background-color:#1f1f1f;}
 <a name="l553"></a>
 <a name="l554"></a>    CPCNetDescriptorEntry *entry = &amp;pcnet.rx_de_buffer[de_index * </span><span class=cF1>sizeof</span><span class=cF0>(CPCNetDescriptorEntry)];
 <a name="l555"></a>
-<a name="l556"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;entry-&gt;status1, PCNET_DESCRIPTORf_OWN);
+<a name="l556"></a>    </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;entry-&gt;status1, PCNET_DESCRIPTORf_OWN);
 <a name="l557"></a>}
 <a name="l558"></a>
 <a name="l559"></a></span><span class=cF1>interrupt</span><span class=cF0> </span><span class=cF1>U0</span><span class=cF0> PCNetIRQ()
@@ -613,7 +613,7 @@ body {background-color:#1f1f1f;}
 <a name="l586"></a>            PCNetReceivePacketRelease(de_index);
 <a name="l587"></a>        }
 <a name="l588"></a>
-<a name="l589"></a>        </span><span class=cF5>Bts</span><span class=cF0>(&amp;csr, PCNET_CTRL_RINT);
+<a name="l589"></a>        </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;csr, PCNET_CTRL_RINT);
 <a name="l590"></a>
 <a name="l591"></a>        PCNetCSRWrite(PCNET_CSR_CTRLSTATUS, csr);
 <a name="l592"></a>
@@ -676,10 +676,10 @@ body {background-color:#1f1f1f;}
 <a name="l649"></a>    PCNet32BitModeEnable;
 <a name="l650"></a>
 <a name="l651"></a>    </span><span class=cF9>U32</span><span class=cF0> csr = PCNetCSRRead(PCNET_CSR_CTRLSTATUS);
-<a name="l652"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT START: what is INIT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_INIT</span><span class=cF7>)</span><span class=cF0>);
-<a name="l653"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT START: what is STRT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_STRT</span><span class=cF7>)</span><span class=cF0>);
-<a name="l654"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT START: what is STOP ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_STOP</span><span class=cF7>)</span><span class=cF0>);
-<a name="l655"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT START: what is RINT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_RINT</span><span class=cF7>)</span><span class=cF0>);
+<a name="l652"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT START: what is INIT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_INIT</span><span class=cF7>)</span><span class=cF0>);
+<a name="l653"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT START: what is STRT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_STRT</span><span class=cF7>)</span><span class=cF0>);
+<a name="l654"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT START: what is STOP ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_STOP</span><span class=cF7>)</span><span class=cF0>);
+<a name="l655"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT START: what is RINT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_RINT</span><span class=cF7>)</span><span class=cF0>);
 <a name="l656"></a>
 <a name="l657"></a>
 <a name="l658"></a>    PCNetSWStyleSet;
@@ -699,10 +699,10 @@ body {background-color:#1f1f1f;}
 <a name="l672"></a>    PCNetCSRWrite(</span><span class=cFE>0</span><span class=cF0>, PCNetCSRRead</span><span class=cF7>(</span><span class=cFE>0</span><span class=cF7>)</span><span class=cF0> | </span><span class=cFE>1</span><span class=cF0> | </span><span class=cFE>1</span><span class=cF0> &lt;&lt; </span><span class=cFE>6</span><span class=cF0>); </span><span class=cF2>// ?</span><span class=cF0>
 <a name="l673"></a>
 <a name="l674"></a>    csr = PCNetCSRRead(PCNET_CSR_CTRLSTATUS);
-<a name="l675"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT UPLOAD: what is INIT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_INIT</span><span class=cF7>)</span><span class=cF0>);
-<a name="l676"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT UPLOAD: what is STRT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_STRT</span><span class=cF7>)</span><span class=cF0>);
-<a name="l677"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT UPLOAD: what is STOP ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_STOP</span><span class=cF7>)</span><span class=cF0>);
-<a name="l678"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT UPLOAD: what is RINT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_RINT</span><span class=cF7>)</span><span class=cF0>);
+<a name="l675"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT UPLOAD: what is INIT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_INIT</span><span class=cF7>)</span><span class=cF0>);
+<a name="l676"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT UPLOAD: what is STRT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_STRT</span><span class=cF7>)</span><span class=cF0>);
+<a name="l677"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT UPLOAD: what is STOP ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_STOP</span><span class=cF7>)</span><span class=cF0>);
+<a name="l678"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT UPLOAD: what is RINT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_RINT</span><span class=cF7>)</span><span class=cF0>);
 <a name="l679"></a>
 <a name="l680"></a>    </span><span class=cF1>while</span><span class=cF0> (!</span><span class=cF7>(</span><span class=cF0>PCNetCSRRead(</span><span class=cFE>0</span><span class=cF0>) &amp; </span><span class=cFE>1</span><span class=cF0> &lt;&lt; </span><span class=cFE>8</span><span class=cF7>)</span><span class=cF0>) </span><span class=cF2>// ?</span><span class=cF0>
 <a name="l681"></a>        </span><span class=cF5>Yield</span><span class=cF0>;
@@ -712,15 +712,15 @@ body {background-color:#1f1f1f;}
 <a name="l685"></a>    </span><span class=cF5>Sleep</span><span class=cF0>(</span><span class=cFE>100</span><span class=cF0>); </span><span class=cF2>//? necessary?</span><span class=cF0>
 <a name="l686"></a>
 <a name="l687"></a>    csr = PCNetCSRRead(PCNET_CSR_CTRLSTATUS);
-<a name="l688"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: what is INIT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_INIT</span><span class=cF7>)</span><span class=cF0>);
-<a name="l689"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: what is STRT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_STRT</span><span class=cF7>)</span><span class=cF0>);
-<a name="l690"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: what is STOP ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_STOP</span><span class=cF7>)</span><span class=cF0>);
-<a name="l691"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: what is RINT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_RINT</span><span class=cF7>)</span><span class=cF0>);
-<a name="l692"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: what is TXON ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, </span><span class=cFE>4</span><span class=cF7>)</span><span class=cF0>);
-<a name="l693"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: what is RXON ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, </span><span class=cFE>5</span><span class=cF7>)</span><span class=cF0>);
+<a name="l688"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: what is INIT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_INIT</span><span class=cF7>)</span><span class=cF0>);
+<a name="l689"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: what is STRT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_STRT</span><span class=cF7>)</span><span class=cF0>);
+<a name="l690"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: what is STOP ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_STOP</span><span class=cF7>)</span><span class=cF0>);
+<a name="l691"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: what is RINT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_RINT</span><span class=cF7>)</span><span class=cF0>);
+<a name="l692"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: what is TXON ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, </span><span class=cFE>4</span><span class=cF7>)</span><span class=cF0>);
+<a name="l693"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: what is RXON ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, </span><span class=cFE>5</span><span class=cF7>)</span><span class=cF0>);
 <a name="l694"></a>
 <a name="l695"></a>    csr =  PCNetCSRRead(PCNET_CSR_POLLINT);
-<a name="l696"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: what is POLLINT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_RINT</span><span class=cF7>)</span><span class=cF0>);
+<a name="l696"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: what is POLLINT ?: %d&quot;</span><span class=cF0>, </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;csr, PCNET_CTRL_RINT</span><span class=cF7>)</span><span class=cF0>);
 <a name="l697"></a>
 <a name="l698"></a>    NetLog(</span><span class=cF6>&quot;PCNET INIT END: Redirecting interrupts.&quot;</span><span class=cF0>);
 <a name="l699"></a>    PCNetInterruptsSetup;
@@ -778,7 +778,7 @@ body {background-color:#1f1f1f;}
 <a name="l751"></a>{ </span><span class=cF2>// Halt network activity by setting STOP bit on Status CSR.</span><span class=cF0>
 <a name="l752"></a>    </span><span class=cF9>U32</span><span class=cF0> csr = PCNetCSRRead(PCNET_CSR_CTRLSTATUS);
 <a name="l753"></a>
-<a name="l754"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;csr, PCNET_CTRL_STOP);
+<a name="l754"></a>    </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;csr, PCNET_CTRL_STOP);
 <a name="l755"></a>
 <a name="l756"></a>    PCNetCSRWrite(PCNET_CSR_CTRLSTATUS, csr);
 <a name="l757"></a>
@@ -788,7 +788,7 @@ body {background-color:#1f1f1f;}
 <a name="l761"></a>{ </span><span class=cF2>// Continue network activity. Setting START bit clears STOP/INIT.</span><span class=cF0>
 <a name="l762"></a>    </span><span class=cF9>U32</span><span class=cF0> csr = PCNetCSRRead(PCNET_CSR_CTRLSTATUS);
 <a name="l763"></a>
-<a name="l764"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;csr, PCNET_CTRL_STRT);
+<a name="l764"></a>    </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;csr, PCNET_CTRL_STRT);
 <a name="l765"></a>
 <a name="l766"></a>    PCNetCSRWrite(PCNET_CSR_CTRLSTATUS, csr);
 <a name="l767"></a>}

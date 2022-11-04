@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.13">
+<meta name="generator" content="ZealOS V2.00">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -68,7 +68,7 @@ body {background-color:#1f1f1f;}
 <a name="l41"></a>        </span><span class=cF5>XTalkWait</span><span class=cF0>(task, </span><span class=cF6>&quot;C\n%d\n&quot;</span><span class=cF0>, ata_port);
 <a name="l42"></a>    </span><span class=cF1>if</span><span class=cF0> (atapi_port &gt; -</span><span class=cFE>1</span><span class=cF0>)
 <a name="l43"></a>        </span><span class=cF5>XTalkWait</span><span class=cF0>(task, </span><span class=cF6>&quot;T%d\n&quot;</span><span class=cF0>, atapi_port);
-<a name="l44"></a>    </span><span class=cF5>XTalkWait</span><span class=cF0>(task, </span><span class=cF6>&quot;\n1024\n768\n\n\n&quot;</span><span class=cF0>); </span><span class=cF2>//Exit Drives,  set Screen Resolution, skip Disk Cache and Options</span><span class=cF0>
+<a name="l44"></a>    </span><span class=cF5>XTalkWait</span><span class=cF0>(task, </span><span class=cF6>&quot;\n\n\n&quot;</span><span class=cF0>); </span><span class=cF2>//Exit Drives, skip Disk Cache and Options</span><span class=cF0>
 <a name="l45"></a>}
 <a name="l46"></a>
 <a name="l47"></a></span><span class=cF1>U0</span><span class=cF0> VMInstallWiz()
@@ -93,7 +93,7 @@ body {background-color:#1f1f1f;}
 <a name="l66"></a>    </span><span class=cF5>SATARep</span><span class=cF0>;
 <a name="l67"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cF3>AHCI_MAX_PORTS</span><span class=cF0>; i++)
 <a name="l68"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l69"></a>        </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports_implemented, i</span><span class=cF7>)</span><span class=cF0>)
+<a name="l69"></a>        </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports_implemented, i</span><span class=cF7>)</span><span class=cF0>)
 <a name="l70"></a>        {
 <a name="l71"></a>            port = &amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports[i];
 <a name="l72"></a>            </span><span class=cF1>if</span><span class=cF0> (port-&gt;signature == </span><span class=cF3>AHCI_PxSIG_ATA</span><span class=cF0>)
@@ -105,7 +105,7 @@ body {background-color:#1f1f1f;}
 <a name="l78"></a>    </span><span class=cF7>}</span><span class=cF0>
 <a name="l79"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cF3>AHCI_MAX_PORTS</span><span class=cF0>; i++)
 <a name="l80"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l81"></a>        </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports_implemented, i</span><span class=cF7>)</span><span class=cF0>)
+<a name="l81"></a>        </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports_implemented, i</span><span class=cF7>)</span><span class=cF0>)
 <a name="l82"></a>        {
 <a name="l83"></a>            port = &amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports[i];
 <a name="l84"></a>            </span><span class=cF1>if</span><span class=cF0> (port-&gt;signature == </span><span class=cF3>AHCI_PxSIG_ATAPI</span><span class=cF0>)

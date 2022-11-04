@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.13">
+<meta name="generator" content="ZealOS V2.00">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -133,7 +133,7 @@ body {background-color:#1f1f1f;}
 <a name="l106"></a>
 <a name="l107"></a></span><span class=cF9>I64</span><span class=cF0> </span><span class=cF5>ClusRead</span><span class=cF0>(</span><span class=cF9>CDrive</span><span class=cF0> *drive, </span><span class=cF1>U8</span><span class=cF0> *buf, </span><span class=cF9>I64</span><span class=cF0> c, </span><span class=cF9>I64</span><span class=cF0> count)
 <a name="l108"></a>{</span><span class=cF2>//Read cluster count from drive to buf.</span><span class=cF0>
-<a name="l109"></a>    </span><span class=cF1>return</span><span class=cF0> </span><span class=cF5>ClusBlkRead</span><span class=cF0>(drive, buf, c, count*drive-&gt;spc);
+<a name="l109"></a>    </span><span class=cF1>return</span><span class=cF0> </span><span class=cF5>ClusBlkRead</span><span class=cF0>(drive, buf, c, count * drive-&gt;spc);
 <a name="l110"></a>}
 <a name="l111"></a>
 <a name="l112"></a></span><span class=cF9>I64</span><span class=cF0> </span><span class=cF5>ClusBlkWrite</span><span class=cF0>(</span><span class=cF9>CDrive</span><span class=cF0> *drive, </span><span class=cF1>U8</span><span class=cF0> *buf, </span><span class=cF9>I64</span><span class=cF0> c, </span><span class=cF9>I64</span><span class=cF0> blks)

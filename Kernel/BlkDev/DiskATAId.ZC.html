@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.13">
+<meta name="generator" content="ZealOS V2.00">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -34,7 +34,7 @@ body {background-color:#1f1f1f;}
 <a name="l7"></a>        res = </span><span class=cF5>BlkDevNextFreeSlot</span><span class=cF0>(first_drive_let, type);
 <a name="l8"></a>        res-&gt;port_num = port_num;
 <a name="l9"></a>        res-&gt;ahci_port = &amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports[port_num];
-<a name="l10"></a>        res-&gt;ahci_port-&gt;cmd_list_base = </span><span class=cF3>NULL</span><span class=cF0>; </span><span class=cF2>// See </span><a href="https://zeal-operating-system.github.io/Kernel/BlkDev/DiskAHCI.ZC.html#l1021"><span class=cF4>AHCIAtaInit</span></a><span class=cF2> ...</span><span class=cF0>
+<a name="l10"></a>        res-&gt;ahci_port-&gt;cmd_list_base = </span><span class=cF3>NULL</span><span class=cF0>; </span><span class=cF2>// See </span><a href="https://zeal-operating-system.github.io/Kernel/BlkDev/DiskAHCI.ZC.html#l1009"><span class=cF4>AHCIAtaInit</span></a><span class=cF2> ...</span><span class=cF0>
 <a name="l11"></a>        </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>BlkDevAdd</span><span class=cF7>(</span><span class=cF0>res,, </span><span class=cF3>FALSE</span><span class=cF0>, </span><span class=cF3>FALSE</span><span class=cF7>)</span><span class=cF0>)
 <a name="l12"></a>            </span><span class=cF1>return</span><span class=cF0> res;
 <a name="l13"></a>    </span><span class=cF7>}</span><span class=cF0>
@@ -56,7 +56,7 @@ body {background-color:#1f1f1f;}
 <a name="l29"></a>        </span><span class=cF2>// if boot-drive blkdev exists, do a SATA port iteration to mount it first</span><span class=cF0>
 <a name="l30"></a>        </span><span class=cF6>&quot;( ':' BlkDev at 0x%0X )\n&quot;</span><span class=cF0>, bd;
 <a name="l31"></a>        </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cF3>AHCI_MAX_PORTS</span><span class=cF0>; i++)
-<a name="l32"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports_implemented, i</span><span class=cF7>)</span><span class=cF0>)
+<a name="l32"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports_implemented, i</span><span class=cF7>)</span><span class=cF0>)
 <a name="l33"></a>            {
 <a name="l34"></a>                port = &amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports[i];
 <a name="l35"></a>
@@ -82,7 +82,7 @@ body {background-color:#1f1f1f;}
 <a name="l55"></a>    </span><span class=cF2>// do a 2nd iteration to mount remaining drives</span><span class=cF0>
 <a name="l56"></a>    </span><span class=cF2>// (we will end up trying to boot off whichever drive/partition ends up at chosen letter)</span><span class=cF0>
 <a name="l57"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cF3>AHCI_MAX_PORTS</span><span class=cF0>; i++)
-<a name="l58"></a>        </span><span class=cF1>if</span><span class=cF0> (i != ata_port &amp;&amp; i != atapi_port &amp;&amp; </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports_implemented, i</span><span class=cF7>)</span><span class=cF0>)
+<a name="l58"></a>        </span><span class=cF1>if</span><span class=cF0> (i != ata_port &amp;&amp; i != atapi_port &amp;&amp; </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports_implemented, i</span><span class=cF7>)</span><span class=cF0>)
 <a name="l59"></a>        </span><span class=cF7>{</span><span class=cF0>
 <a name="l60"></a>            port = &amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports[i];
 <a name="l61"></a>

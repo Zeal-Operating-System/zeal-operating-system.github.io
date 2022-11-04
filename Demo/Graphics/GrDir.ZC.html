@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.13">
+<meta name="generator" content="ZealOS V2.00">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -177,7 +177,7 @@ body {background-color:#1f1f1f;}
 <a name="l150"></a>{
 <a name="l151"></a>    </span><span class=cF9>CDirEntry</span><span class=cF0>   *tmpde1, *tmpde2;
 <a name="l152"></a>    </span><span class=cF9>I64</span><span class=cF0>          res = </span><span class=cFE>0</span><span class=cF0>, i;
-<a name="l153"></a>    </span><span class=cF1>U8</span><span class=cF0>          *tag, *st,
+<a name="l153"></a>    </span><span class=cF1>U8</span><span class=cF0>          *tag, *st = </span><span class=cF3>NULL</span><span class=cF0>,
 <a name="l154"></a>                *tmpb, *tmpb0, *tmpb1, *tmpb2,  </span><span class=cF2>// sprite pointers</span><span class=cF0>
 <a name="l155"></a>                *tmpf0, *tmpf1, *tmpf2;         </span><span class=cF2>// filenames (for sprite links)</span><span class=cF0>
 <a name="l156"></a>    </span><span class=cF9>CDrive</span><span class=cF0>      *drive;
@@ -196,7 +196,7 @@ body {background-color:#1f1f1f;}
 <a name="l169"></a>        </span><span class=cF1>if</span><span class=cF0> (!st[</span><span class=cFE>2</span><span class=cF0>])
 <a name="l170"></a>            </span><span class=cF5>StrCopy</span><span class=cF0>(st + </span><span class=cFE>2</span><span class=cF0>, </span><span class=cF6>&quot;/&quot;</span><span class=cF0>);
 <a name="l171"></a>
-<a name="l172"></a>        </span><span class=cF6>&quot;%s&gt;$GREEN$GrDir(\&quot;%s\&quot;);$FG$\n\n&quot;</span><span class=cF0>, st, st;
+<a name="l172"></a>        </span><span class=cF6>&quot;\n\n$FG$%s&gt;$PT$GrDir(\&quot;%s\&quot;);$FG$\n\n&quot;</span><span class=cF0>, st, st;
 <a name="l173"></a>
 <a name="l174"></a>        </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>, drive = </span><span class=cFB>blkdev</span><span class=cF0>.drvs; i &lt; </span><span class=cF3>DRIVES_NUM</span><span class=cF0>; i++, drive++)
 <a name="l175"></a>        {
@@ -336,20 +336,26 @@ body {background-color:#1f1f1f;}
 <a name="l309"></a>            tmpde1 = tmpde2;
 <a name="l310"></a>        }
 <a name="l311"></a>
-<a name="l312"></a>        </span><span class=cF5>Free</span><span class=cF0>(st);
-<a name="l313"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l314"></a>    </span><span class=cF1>else</span><span class=cF0>
-<a name="l315"></a>        </span><span class=cF6>&quot;\nNo matching entries!!\n&quot;</span><span class=cF0>;
-<a name="l316"></a>
-<a name="l317"></a>    GrDirSprite(, tmpb0, tmpf0, </span><span class=cFE>0</span><span class=cF0>);
-<a name="l318"></a>    GrDirSprite(, tmpb1, tmpf1, </span><span class=cFE>1</span><span class=cF0>);
-<a name="l319"></a>    GrDirSprite(, tmpb2, tmpf2, </span><span class=cFE>2</span><span class=cF0>);
-<a name="l320"></a>    </span><span class=cF6>&quot;\n\n\n\n\n\n\n&quot;</span><span class=cF0>;
-<a name="l321"></a>
-<a name="l322"></a>
-<a name="l323"></a>    </span><span class=cF1>return</span><span class=cF0> res;
-<a name="l324"></a>}
-<a name="l325"></a>
-<a name="l326"></a></span><span class=cF5>Cd</span><span class=cF0>;
-<a name="l327"></a>GrDir;</span></pre></body>
+<a name="l312"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l313"></a>    </span><span class=cF1>else</span><span class=cF0>
+<a name="l314"></a>        </span><span class=cF6>&quot;\nNo matching entries!!\n&quot;</span><span class=cF0>;
+<a name="l315"></a>
+<a name="l316"></a>    GrDirSprite(, tmpb0, tmpf0, </span><span class=cFE>0</span><span class=cF0>);
+<a name="l317"></a>    GrDirSprite(, tmpb1, tmpf1, </span><span class=cFE>1</span><span class=cF0>);
+<a name="l318"></a>    GrDirSprite(, tmpb2, tmpf2, </span><span class=cFE>2</span><span class=cF0>);
+<a name="l319"></a>    </span><span class=cF6>&quot;\n\n\n\n\n\n\n&quot;</span><span class=cF0>;
+<a name="l320"></a>
+<a name="l321"></a>    </span><span class=cF1>if</span><span class=cF0> (GRDIR_CLEAR)
+<a name="l322"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l323"></a>        </span><span class=cF6>&quot;$FG$%s&gt;$PT$&quot;</span><span class=cF0>, st;
+<a name="l324"></a>        </span><span class=cF5>DocTop</span><span class=cF0>;
+<a name="l325"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l326"></a>
+<a name="l327"></a>    </span><span class=cF5>Free</span><span class=cF0>(st);
+<a name="l328"></a>
+<a name="l329"></a>    </span><span class=cF1>return</span><span class=cF0> res;
+<a name="l330"></a>}
+<a name="l331"></a>
+<a name="l332"></a></span><span class=cF5>Cd</span><span class=cF0>;
+<a name="l333"></a>GrDir;</span></pre></body>
 </html>

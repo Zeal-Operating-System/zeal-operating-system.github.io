@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.13">
+<meta name="generator" content="ZealOS V2.00">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -51,8 +51,8 @@ body {background-color:#1f1f1f;}
 <a name="l24"></a>        </span><span class=cFB>mouse</span><span class=cF0>.pos.z = </span><span class=cFB>mouse</span><span class=cF0>.presnap.z;
 <a name="l25"></a>    </span><span class=cF7>}</span><span class=cF0>
 <a name="l26"></a>
-<a name="l27"></a>    </span><span class=cFB>mouse</span><span class=cF0>.pos.x = </span><span class=cF5>ClampI64</span><span class=cF0>(</span><span class=cFB>mouse</span><span class=cF0>.pos.x, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.width  - </span><span class=cFE>1</span><span class=cF0>);
-<a name="l28"></a>    </span><span class=cFB>mouse</span><span class=cF0>.pos.y = </span><span class=cF5>ClampI64</span><span class=cF0>(</span><span class=cFB>mouse</span><span class=cF0>.pos.y, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.height - </span><span class=cFE>1</span><span class=cF0>);
+<a name="l27"></a>    </span><span class=cFB>mouse</span><span class=cF0>.pos.x = </span><span class=cF5>ClampI64</span><span class=cF0>(</span><span class=cFB>mouse</span><span class=cF0>.pos.x, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cFB>sys_framebuffer_width</span><span class=cF0>  - </span><span class=cFE>1</span><span class=cF0>);
+<a name="l28"></a>    </span><span class=cFB>mouse</span><span class=cF0>.pos.y = </span><span class=cF5>ClampI64</span><span class=cF0>(</span><span class=cFB>mouse</span><span class=cF0>.pos.y, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cFB>sys_framebuffer_height</span><span class=cF0> - </span><span class=cFE>1</span><span class=cF0>);
 <a name="l29"></a>    </span><span class=cFB>mouse</span><span class=cF0>.pos_text.x = </span><span class=cFB>mouse</span><span class=cF0>.pos.x / </span><span class=cF3>FONT_WIDTH</span><span class=cF0>;
 <a name="l30"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cFB>mouse</span><span class=cF0>.pos_text.x &gt;= </span><span class=cFB>text</span><span class=cF0>.cols)
 <a name="l31"></a>    </span><span class=cF7>{</span><span class=cF0>
@@ -73,9 +73,9 @@ body {background-color:#1f1f1f;}
 <a name="l46"></a>
 <a name="l47"></a></span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>MouseSet</span><span class=cF0>(</span><span class=cF9>I64</span><span class=cF0> x=</span><span class=cF3>I64_MAX</span><span class=cF0>, </span><span class=cF9>I64</span><span class=cF0> y=</span><span class=cF3>I64_MAX</span><span class=cF0>, </span><span class=cF9>I64</span><span class=cF0> z=</span><span class=cF3>I64_MAX</span><span class=cF0>, </span><span class=cF9>I64</span><span class=cF0> l=</span><span class=cF3>I64_MAX</span><span class=cF0>, </span><span class=cF9>I64</span><span class=cF0> r=</span><span class=cF3>I64_MAX</span><span class=cF0>)
 <a name="l48"></a>{</span><span class=cF2>//Note: Generates a message. See </span><a href="https://zeal-operating-system.github.io/Demo/Games/Zing.ZC.html#l94"><span class=cF4>MouseSet</span></a><span class=cF2>().</span><span class=cF0>
-<a name="l49"></a>    </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF7>(</span><span class=cFE>0</span><span class=cF0> &lt;= x &lt; </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.width</span><span class=cF7>)</span><span class=cF0>)
+<a name="l49"></a>    </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF7>(</span><span class=cFE>0</span><span class=cF0> &lt;= x &lt; </span><span class=cFB>sys_framebuffer_width</span><span class=cF7>)</span><span class=cF0>)
 <a name="l50"></a>        x = </span><span class=cFB>mouse</span><span class=cF0>.pos.x;
-<a name="l51"></a>    </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF7>(</span><span class=cFE>0</span><span class=cF0> &lt;= y &lt; </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.height</span><span class=cF7>)</span><span class=cF0>)
+<a name="l51"></a>    </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF7>(</span><span class=cFE>0</span><span class=cF0> &lt;= y &lt; </span><span class=cFB>sys_framebuffer_height</span><span class=cF7>)</span><span class=cF0>)
 <a name="l52"></a>        y = </span><span class=cFB>mouse</span><span class=cF0>.pos.y;
 <a name="l53"></a>    </span><span class=cF1>if</span><span class=cF0> (z == </span><span class=cF3>I64_MAX</span><span class=cF0>)
 <a name="l54"></a>        z = </span><span class=cFB>mouse</span><span class=cF0>.pos.z;
@@ -254,14 +254,14 @@ body {background-color:#1f1f1f;}
 <a name="l227"></a></span><span class=cF2>//TODO mouse_grid.x_offset?</span><span class=cF0>
 <a name="l228"></a>    </span><span class=cF1>if</span><span class=cF0> (i &lt; </span><span class=cFE>0</span><span class=cF0>)
 <a name="l229"></a>        </span><span class=cFB>mouse</span><span class=cF0>.</span><span class=cF1>offset</span><span class=cF0>.x -= i;
-<a name="l230"></a>    </span><span class=cF1>else</span><span class=cF0> </span><span class=cF1>if</span><span class=cF0> (i &gt;= </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.width)
-<a name="l231"></a>        </span><span class=cFB>mouse</span><span class=cF0>.</span><span class=cF1>offset</span><span class=cF0>.x += </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.width - </span><span class=cFE>1</span><span class=cF0> - i;
+<a name="l230"></a>    </span><span class=cF1>else</span><span class=cF0> </span><span class=cF1>if</span><span class=cF0> (i &gt;= </span><span class=cFB>sys_framebuffer_width</span><span class=cF0>)
+<a name="l231"></a>        </span><span class=cFB>mouse</span><span class=cF0>.</span><span class=cF1>offset</span><span class=cF0>.x += </span><span class=cFB>sys_framebuffer_width</span><span class=cF0> - </span><span class=cFE>1</span><span class=cF0> - i;
 <a name="l232"></a>
 <a name="l233"></a>    i = </span><span class=cF5>Trunc</span><span class=cF0>(</span><span class=cFB>mouse</span><span class=cF0>.scale.y * </span><span class=cFB>mouse_hard</span><span class=cF0>.pos.y / </span><span class=cFB>mouse_grid</span><span class=cF0>.y) * </span><span class=cFB>mouse_grid</span><span class=cF0>.y + </span><span class=cFB>mouse</span><span class=cF0>.</span><span class=cF1>offset</span><span class=cF0>.y;
 <a name="l234"></a>    </span><span class=cF1>if</span><span class=cF0> (i &lt; </span><span class=cFE>0</span><span class=cF0>)
 <a name="l235"></a>        </span><span class=cFB>mouse</span><span class=cF0>.</span><span class=cF1>offset</span><span class=cF0>.y -= i;
-<a name="l236"></a>    </span><span class=cF1>else</span><span class=cF0> </span><span class=cF1>if</span><span class=cF0> (i &gt;= </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.height)
-<a name="l237"></a>        </span><span class=cFB>mouse</span><span class=cF0>.</span><span class=cF1>offset</span><span class=cF0>.y += </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.height - </span><span class=cFE>1</span><span class=cF0> - i;
+<a name="l236"></a>    </span><span class=cF1>else</span><span class=cF0> </span><span class=cF1>if</span><span class=cF0> (i &gt;= </span><span class=cFB>sys_framebuffer_height</span><span class=cF0>)
+<a name="l237"></a>        </span><span class=cFB>mouse</span><span class=cF0>.</span><span class=cF1>offset</span><span class=cF0>.y += </span><span class=cFB>sys_framebuffer_height</span><span class=cF0> - </span><span class=cFE>1</span><span class=cF0> - i;
 <a name="l238"></a>
 <a name="l239"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cFB>mouse_hard</span><span class=cF0>.pos.x != </span><span class=cFB>mouse_hard_last</span><span class=cF0>.pos.x || </span><span class=cFB>mouse_hard</span><span class=cF0>.pos.y != </span><span class=cFB>mouse_hard_last</span><span class=cF0>.pos.y ||
 <a name="l240"></a>        </span><span class=cFB>mouse_hard</span><span class=cF0>.pos.z != </span><span class=cFB>mouse_hard_last</span><span class=cF0>.pos.z)
@@ -427,11 +427,11 @@ body {background-color:#1f1f1f;}
 <a name="l400"></a>    </span><span class=cFB>mouse_hard</span><span class=cF0>.scale.x      = </span><span class=cFE>0</span><span class=cF0>.</span><span class=cFE>5</span><span class=cF0>;
 <a name="l401"></a>    </span><span class=cFB>mouse_hard</span><span class=cF0>.scale.y      = </span><span class=cFE>0</span><span class=cF0>.</span><span class=cFE>5</span><span class=cF0>;
 <a name="l402"></a>    </span><span class=cFB>mouse_hard</span><span class=cF0>.scale.z      = </span><span class=cFE>1</span><span class=cF0>.</span><span class=cFE>0</span><span class=cF0>;
-<a name="l403"></a>    </span><span class=cFB>mouse_hard</span><span class=cF0>.prescale.x   = </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.width  / </span><span class=cFB>mouse_hard</span><span class=cF0>.scale.x / </span><span class=cFE>2</span><span class=cF0>.</span><span class=cFE>0</span><span class=cF0>;
-<a name="l404"></a>    </span><span class=cFB>mouse_hard</span><span class=cF0>.prescale.y   = </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.height / </span><span class=cFB>mouse_hard</span><span class=cF0>.scale.y / </span><span class=cFE>2</span><span class=cF0>.</span><span class=cFE>0</span><span class=cF0>;
+<a name="l403"></a>    </span><span class=cFB>mouse_hard</span><span class=cF0>.prescale.x   = </span><span class=cFB>sys_framebuffer_width</span><span class=cF0>  / </span><span class=cFB>mouse_hard</span><span class=cF0>.scale.x / </span><span class=cFE>2</span><span class=cF0>.</span><span class=cFE>0</span><span class=cF0>;
+<a name="l404"></a>    </span><span class=cFB>mouse_hard</span><span class=cF0>.prescale.y   = </span><span class=cFB>sys_framebuffer_height</span><span class=cF0> / </span><span class=cFB>mouse_hard</span><span class=cF0>.scale.y / </span><span class=cFE>2</span><span class=cF0>.</span><span class=cFE>0</span><span class=cF0>;
 <a name="l405"></a>    </span><span class=cFB>mouse_hard</span><span class=cF0>.prescale.z   = </span><span class=cFE>0</span><span class=cF0> / </span><span class=cFB>mouse_hard</span><span class=cF0>.scale.z;
-<a name="l406"></a>    </span><span class=cFB>mouse_hard</span><span class=cF0>.pos.x        = </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.width &gt;&gt; </span><span class=cFE>1</span><span class=cF0>;
-<a name="l407"></a>    </span><span class=cFB>mouse_hard</span><span class=cF0>.pos.y        = </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.height &gt;&gt; </span><span class=cFE>1</span><span class=cF0>;
+<a name="l406"></a>    </span><span class=cFB>mouse_hard</span><span class=cF0>.pos.x        = </span><span class=cFB>sys_framebuffer_width</span><span class=cF0> &gt;&gt; </span><span class=cFE>1</span><span class=cF0>;
+<a name="l407"></a>    </span><span class=cFB>mouse_hard</span><span class=cF0>.pos.y        = </span><span class=cFB>sys_framebuffer_height</span><span class=cF0> &gt;&gt; </span><span class=cFE>1</span><span class=cF0>;
 <a name="l408"></a>    </span><span class=cF5>MemCopy</span><span class=cF0>(&amp;</span><span class=cFB>mouse_hard_last</span><span class=cF0>, &amp;</span><span class=cFB>mouse_hard</span><span class=cF0>, </span><span class=cF1>sizeof</span><span class=cF7>(</span><span class=cF9>CMouseHardStateGlobals</span><span class=cF7>)</span><span class=cF0>);
 <a name="l409"></a>}
 </span></pre></body>

@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<meta name="generator" content="ZealOS V2.00">
+<style type="text/css">
+body {background-color:#1f1f1f;}
+.cF0{color:#e3e3e3;background-color:#1f1f1f;}
+.cF1{color:#4f84a6;background-color:#1f1f1f;}
+.cF2{color:#73a255;background-color:#1f1f1f;}
+.cF3{color:#297582;background-color:#1f1f1f;}
+.cF4{color:#b34f4b;background-color:#1f1f1f;}
+.cF5{color:#8a52c3;background-color:#1f1f1f;}
+.cF6{color:#b7822f;background-color:#1f1f1f;}
+.cF7{color:#444444;background-color:#1f1f1f;}
+.cF8{color:#6d6d6d;background-color:#1f1f1f;}
+.cF9{color:#94bfde;background-color:#1f1f1f;}
+.cFA{color:#a1ce97;background-color:#1f1f1f;}
+.cFB{color:#6db4be;background-color:#1f1f1f;}
+.cFC{color:#e88e88;background-color:#1f1f1f;}
+.cFD{color:#ca94e8;background-color:#1f1f1f;}
+.cFE{color:#d4b475;background-color:#1f1f1f;}
+.cFF{color:#1f1f1f;background-color:#1f1f1f;}
+</style>
+</head>
+<body>
+<pre style="font-family:monospace;font-size:12pt">
+<a name="l1"></a><span class=cF0>
+<a name="l2"></a></span><span class=cF1>class</span><span class=cF0> CLimineStage2Header
+<a name="l3"></a>{
+<a name="l4"></a>    </span><span class=cF9>U16</span><span class=cF0> size_a;
+<a name="l5"></a>    </span><span class=cF9>U16</span><span class=cF0> size_b;
+<a name="l6"></a>    </span><span class=cF9>U64</span><span class=cF0> location_a;
+<a name="l7"></a>    </span><span class=cF9>U64</span><span class=cF0> location_b;
+<a name="l8"></a>};
+<a name="l9"></a>
+<a name="l10"></a>#</span><span class=cF1>ifndef</span><span class=cF0> binary_limine_hdd_bin_data
+<a name="l11"></a></span><span class=cF1>U8</span><span class=cF0> binary_limine_hdd_bin_data[</span><span class=cFE>0</span><span class=cF0>];
+<a name="l12"></a>#</span><span class=cF1>endif</span><span class=cF0>
+<a name="l13"></a>
+<a name="l14"></a></span><span class=cF1>Bool</span><span class=cF0> LimineCFGMake(</span><span class=cF1>U8</span><span class=cF0> drv_let)
+<a name="l15"></a>{
+<a name="l16"></a>    </span><span class=cF1>U8</span><span class=cF0>      *filename_cfg = </span><span class=cF5>MStrPrint</span><span class=cF0>(</span><span class=cF6>&quot;%C:/Boot/Limine.CFG&quot;</span><span class=cF0>, drv_let);
+<a name="l17"></a>    </span><span class=cF9>CDoc</span><span class=cF0>    *doc = </span><span class=cF5>DocNew</span><span class=cF0>(filename_cfg);
+<a name="l18"></a>    </span><span class=cF9>CDrive</span><span class=cF0>  *drive;
+<a name="l19"></a>    </span><span class=cF9>CBlkDev</span><span class=cF0> *bd;
+<a name="l20"></a>    </span><span class=cF9>I64</span><span class=cF0>      i;
+<a name="l21"></a>    </span><span class=cF1>U8</span><span class=cF0>      *filename_sys, *filename_elf, *filename_zxe, *st;
+<a name="l22"></a>
+<a name="l23"></a>    </span><span class=cF6>&quot;\nGenerating Limine.CFG ...\n&quot;</span><span class=cF0>;
+<a name="l24"></a>
+<a name="l25"></a>    </span><span class=cF5>DocPrint</span><span class=cF0>(doc,
+<a name="l26"></a>        </span><span class=cF6>&quot;TIMEOUT=2\n&quot;</span><span class=cF0>
+<a name="l27"></a>        </span><span class=cF6>&quot;INTERFACE_RESOLUTION=1024x768\n\n&quot;</span><span class=cF0>);
+<a name="l28"></a>
+<a name="l29"></a>    </span><span class=cF6>&quot;Searching drives for Limine bootloader files ...\n&quot;</span><span class=cF0>;
+<a name="l30"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>, drive = </span><span class=cFB>blkdev</span><span class=cF0>.drvs; i &lt; </span><span class=cF3>DRIVES_NUM</span><span class=cF0>; i++, drive++)
+<a name="l31"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l32"></a>        </span><span class=cF1>if</span><span class=cF0> (drive-&gt;drive_signature == </span><span class=cF3>DRIVE_SIGNATURE_VAL</span><span class=cF0> &amp;&amp; drive-&gt;fs_type == </span><span class=cF3>FSt_FAT32</span><span class=cF0> &amp;&amp; </span><span class=cF5>DriveIsWritable</span><span class=cF7>(</span><span class=cF0>drive-&gt;drv_let</span><span class=cF7>)</span><span class=cF0>)
+<a name="l33"></a>        {
+<a name="l34"></a>            bd = drive-&gt;bd;
+<a name="l35"></a>            drv_let = </span><span class=cF5>Drive2Letter</span><span class=cF0>(drive);
+<a name="l36"></a>
+<a name="l37"></a>            filename_sys = </span><span class=cF5>MStrPrint</span><span class=cF0>(</span><span class=cF6>&quot;%C:/Boot/Limine.SYS&quot;</span><span class=cF0>, drv_let);
+<a name="l38"></a>            filename_elf = </span><span class=cF5>MStrPrint</span><span class=cF0>(</span><span class=cF6>&quot;%C:/Boot/ZealBooter.ELF&quot;</span><span class=cF0>, drv_let);
+<a name="l39"></a>            filename_zxe = </span><span class=cF5>MStrPrint</span><span class=cF0>(</span><span class=cF6>&quot;%C:/Boot/Kernel.ZXE&quot;</span><span class=cF0>, drv_let);
+<a name="l40"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>FileFind</span><span class=cF7>(</span><span class=cF0>filename_sys</span><span class=cF7>)</span><span class=cF0> &amp;&amp; </span><span class=cF5>FileFind</span><span class=cF7>(</span><span class=cF0>filename_elf</span><span class=cF7>)</span><span class=cF0> &amp;&amp; </span><span class=cF5>FileFind</span><span class=cF7>(</span><span class=cF0>filename_zxe</span><span class=cF7>)</span><span class=cF0>)
+<a name="l41"></a>            </span><span class=cF7>{</span><span class=cF0>
+<a name="l42"></a>                st = </span><span class=cF5>MStrPrint</span><span class=cF0>(</span><span class=cF6>&quot;:ZealOS %C:/\n&quot;</span><span class=cF0>
+<a name="l43"></a>                    </span><span class=cF6>&quot;PROTOCOL=limine\n&quot;</span><span class=cF0>
+<a name="l44"></a>                    </span><span class=cF6>&quot;RESOLUTION=1024x768\n&quot;</span><span class=cF0>
+<a name="l45"></a>                    </span><span class=cF6>&quot;KERNEL_PATH=boot://%d/Boot/ZealBooter.ELF\n&quot;</span><span class=cF0>
+<a name="l46"></a>                    </span><span class=cF6>&quot;MODULE_PATH=boot://%d/Boot/Kernel.ZXE\n&quot;</span><span class=cF0>
+<a name="l47"></a>                    </span><span class=cF6>&quot;\n&quot;</span><span class=cF0>, drv_let, drive-&gt;prt_num + </span><span class=cFE>1</span><span class=cF0>, drive-&gt;prt_num + </span><span class=cFE>1</span><span class=cF0>);
+<a name="l48"></a>
+<a name="l49"></a>                </span><span class=cF5>DocPrint</span><span class=cF0>(doc, st);
+<a name="l50"></a>                </span><span class=cF6>&quot;%C:/ drive added as a Limine.CFG menu entry.\n&quot;</span><span class=cF0>, drv_let;
+<a name="l51"></a>            </span><span class=cF7>}</span><span class=cF0>
+<a name="l52"></a>            </span><span class=cF1>else</span><span class=cF0>
+<a name="l53"></a>                </span><span class=cF6>&quot;%C:/ drive is missing Limine bootloader files.\n&quot;</span><span class=cF0>, drv_let;
+<a name="l54"></a>        }
+<a name="l55"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l56"></a>    </span><span class=cF5>DocWrite</span><span class=cF0>(doc);
+<a name="l57"></a>    </span><span class=cF5>DocDel</span><span class=cF0>(doc);
+<a name="l58"></a>
+<a name="l59"></a>    </span><span class=cF6>&quot;/Boot/Limine.CFG generated.\n&quot;</span><span class=cF0>;
+<a name="l60"></a>
+<a name="l61"></a>    </span><span class=cF6>&quot;Copying Limine.CFG to all other drives ...\n&quot;</span><span class=cF0>;
+<a name="l62"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>, drive = </span><span class=cFB>blkdev</span><span class=cF0>.drvs; i &lt; </span><span class=cF3>DRIVES_NUM</span><span class=cF0>; i++, drive++)
+<a name="l63"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l64"></a>        </span><span class=cF1>if</span><span class=cF0> (drive-&gt;drive_signature == </span><span class=cF3>DRIVE_SIGNATURE_VAL</span><span class=cF0> &amp;&amp; drive-&gt;fs_type == </span><span class=cF3>FSt_FAT32</span><span class=cF0> &amp;&amp; </span><span class=cF5>DriveIsWritable</span><span class=cF7>(</span><span class=cF0>drive-&gt;drv_let</span><span class=cF7>)</span><span class=cF0>)
+<a name="l65"></a>        {
+<a name="l66"></a>            drv_let = </span><span class=cF5>Drive2Letter</span><span class=cF0>(drive);
+<a name="l67"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>FileFind</span><span class=cF7>(</span><span class=cF0>filename_sys</span><span class=cF7>)</span><span class=cF0> &amp;&amp; </span><span class=cF5>FileFind</span><span class=cF7>(</span><span class=cF0>filename_elf</span><span class=cF7>)</span><span class=cF0> &amp;&amp; </span><span class=cF5>FileFind</span><span class=cF7>(</span><span class=cF0>filename_zxe</span><span class=cF7>)</span><span class=cF0>)
+<a name="l68"></a>            </span><span class=cF7>{</span><span class=cF0>
+<a name="l69"></a>                st = </span><span class=cF5>MStrPrint</span><span class=cF0>(</span><span class=cF6>&quot;%C:/Boot/Limine.CFG&quot;</span><span class=cF0>, drv_let);
+<a name="l70"></a>                </span><span class=cF5>Copy</span><span class=cF0>(filename_cfg, st);
+<a name="l71"></a>            </span><span class=cF7>}</span><span class=cF0>
+<a name="l72"></a>        }
+<a name="l73"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l74"></a>
+<a name="l75"></a>    </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>TRUE</span><span class=cF0>;
+<a name="l76"></a>}
+<a name="l77"></a>
+<a name="l78"></a></span><span class=cF1>Bool</span><span class=cF0> LimineMHDIns(</span><span class=cF1>U8</span><span class=cF0> drv_let)
+<a name="l79"></a>{
+<a name="l80"></a>    </span><span class=cF1>U8</span><span class=cF0>                  *limine         = binary_limine_hdd_bin_data;
+<a name="l81"></a>    </span><span class=cF9>U16</span><span class=cF0>                  limine_size    = </span><span class=cF1>sizeof</span><span class=cF0>(binary_limine_hdd_bin_data);
+<a name="l82"></a>    CLimineStage2Header *limine_stage2  = limine + </span><span class=cFE>0x1A4</span><span class=cF0>;
+<a name="l83"></a>    </span><span class=cF9>U16</span><span class=cF0>                  limine_stage2_size = limine_size - </span><span class=cF3>BLK_SIZE</span><span class=cF0>;
+<a name="l84"></a>    </span><span class=cF9>U16</span><span class=cF0>                  limine_stage2_size_aligned = limine_stage2_size + (</span><span class=cF7>(</span><span class=cF3>BLK_SIZE</span><span class=cF0> * </span><span class=cFE>2</span><span class=cF7>)</span><span class=cF0> - limine_stage2_size % </span><span class=cF7>(</span><span class=cF3>BLK_SIZE</span><span class=cF0> * </span><span class=cFE>2</span><span class=cF7>)</span><span class=cF0>);
+<a name="l85"></a>    </span><span class=cF9>CBlkDev</span><span class=cF0>             *bd = </span><span class=cF5>Letter2BlkDev</span><span class=cF0>(drv_let);
+<a name="l86"></a>    </span><span class=cF9>CMasterBoot</span><span class=cF0>          old_mbr, *new_mbr = limine;
+<a name="l87"></a>
+<a name="l88"></a>    </span><span class=cF1>if</span><span class=cF0> (limine_size == </span><span class=cFE>0</span><span class=cF0>)
+<a name="l89"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l90"></a>        </span><span class=cF6>&quot;\n&quot;</span><span class=cF0> </span><span class=cF3>ST_ERR_ST</span><span class=cF0> </span><span class=cF6>&quot;Limine HDD MBR binary bytes not found. Must first #include it, then recompile this file.\n&quot;</span><span class=cF0>;
+<a name="l91"></a>        </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>FALSE</span><span class=cF0>;
+<a name="l92"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l93"></a>
+<a name="l94"></a>    </span><span class=cF6>'\n'</span><span class=cF0>;
+<a name="l95"></a>
+<a name="l96"></a>    limine_stage2-&gt;size_a = limine_stage2-&gt;size_b = limine_stage2_size_aligned / </span><span class=cFE>2</span><span class=cF0>;
+<a name="l97"></a>    limine_stage2-&gt;location_a = </span><span class=cF3>BLK_SIZE</span><span class=cF0>;
+<a name="l98"></a>    limine_stage2-&gt;location_b = </span><span class=cF3>BLK_SIZE</span><span class=cF0> + limine_stage2-&gt;size_a;
+<a name="l99"></a>
+<a name="l100"></a>    </span><span class=cF5>BlkDevLock</span><span class=cF0>(bd);
+<a name="l101"></a>
+<a name="l102"></a>    </span><span class=cF5>AHCIAtaBlksRead</span><span class=cF0>(bd, &amp;old_mbr, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cFE>1</span><span class=cF0>); </span><span class=cF2>// read old MBR currently on disk</span><span class=cF0>
+<a name="l103"></a>    </span><span class=cF5>MemCopy</span><span class=cF0>(new_mbr-&gt;p, old_mbr.p, </span><span class=cF1>sizeof</span><span class=cF7>(</span><span class=cF9>CMasterBoot</span><span class=cF0>.p</span><span class=cF7>)</span><span class=cF0>); </span><span class=cF2>// copy old MBR partition table to new Limine MBR</span><span class=cF0>
+<a name="l104"></a>
+<a name="l105"></a>    </span><span class=cF2>// read the whole MBR + post-MBR-gap that Limine wants to overwrite, save all of that as an OldMBR.BIN</span><span class=cF0>
+<a name="l106"></a>    </span><span class=cF5>BootMHDOldRead</span><span class=cF0>(drv_let, drv_let, </span><span class=cFE>1</span><span class=cF0> + </span><span class=cF7>(</span><span class=cF0>limine_stage2_size_aligned / </span><span class=cF3>BLK_SIZE</span><span class=cF7>)</span><span class=cF0>);
+<a name="l107"></a>
+<a name="l108"></a>    </span><span class=cF5>AHCIAtaBlksWrite</span><span class=cF0>(bd, limine, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cFE>1</span><span class=cF0> + </span><span class=cF7>(</span><span class=cF0>limine_stage2_size_aligned / </span><span class=cF3>BLK_SIZE</span><span class=cF7>)</span><span class=cF0>); </span><span class=cF2>// write Limine to MBR and post-MBR gap</span><span class=cF0>
+<a name="l109"></a>
+<a name="l110"></a>    </span><span class=cF5>BlkDevUnlock</span><span class=cF0>(bd);
+<a name="l111"></a>
+<a name="l112"></a>    LimineCFGMake(drv_let);
+<a name="l113"></a>
+<a name="l114"></a>    </span><span class=cF6>&quot;\nLimine BSD2-licensed HDD MBR Boot Loader installed.\n\n&quot;</span><span class=cF0>;
+<a name="l115"></a>
+<a name="l116"></a>    </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>TRUE</span><span class=cF0>;
+<a name="l117"></a>
+<a name="l118"></a>}
+</span></pre></body>
+</html>

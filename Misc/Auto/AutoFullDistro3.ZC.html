@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<meta name="generator" content="ZealOS V2.00">
+<style type="text/css">
+body {background-color:#1f1f1f;}
+.cF0{color:#e3e3e3;background-color:#1f1f1f;}
+.cF1{color:#4f84a6;background-color:#1f1f1f;}
+.cF2{color:#73a255;background-color:#1f1f1f;}
+.cF3{color:#297582;background-color:#1f1f1f;}
+.cF4{color:#b34f4b;background-color:#1f1f1f;}
+.cF5{color:#8a52c3;background-color:#1f1f1f;}
+.cF6{color:#b7822f;background-color:#1f1f1f;}
+.cF7{color:#444444;background-color:#1f1f1f;}
+.cF8{color:#6d6d6d;background-color:#1f1f1f;}
+.cF9{color:#94bfde;background-color:#1f1f1f;}
+.cFA{color:#a1ce97;background-color:#1f1f1f;}
+.cFB{color:#6db4be;background-color:#1f1f1f;}
+.cFC{color:#e88e88;background-color:#1f1f1f;}
+.cFD{color:#ca94e8;background-color:#1f1f1f;}
+.cFE{color:#d4b475;background-color:#1f1f1f;}
+.cFF{color:#1f1f1f;background-color:#1f1f1f;}
+</style>
+</head>
+<body>
+<pre style="font-family:monospace;font-size:12pt">
+<a name="l1"></a><span class=cF1>U0</span><span class=cF0> Auto()
+<a name="l2"></a>{
+<a name="l3"></a>    </span><span class=cF9>I64</span><span class=cF0>          i, ata_port = -</span><span class=cFE>1</span><span class=cF0>;
+<a name="l4"></a>    </span><span class=cF9>CAHCIPort</span><span class=cF0>   *port;
+<a name="l5"></a>    </span><span class=cF1>U8</span><span class=cF0>          *in_str;
+<a name="l6"></a>
+<a name="l7"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cF3>AHCI_MAX_PORTS</span><span class=cF0>; i++)
+<a name="l8"></a>
+<a name="l9"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l10"></a>        </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports_implemented, i</span><span class=cF7>)</span><span class=cF0>)
+<a name="l11"></a>        {
+<a name="l12"></a>            port = &amp;</span><span class=cFB>blkdev</span><span class=cF0>.ahci_hba-&gt;ports[i];
+<a name="l13"></a>            </span><span class=cF1>if</span><span class=cF0> (port-&gt;signature == </span><span class=cF3>AHCI_PxSIG_ATA</span><span class=cF0>)
+<a name="l14"></a>            </span><span class=cF7>{</span><span class=cF0>
+<a name="l15"></a>                ata_port = i;
+<a name="l16"></a>                </span><span class=cF1>break</span><span class=cF0>;
+<a name="l17"></a>            </span><span class=cF7>}</span><span class=cF0>
+<a name="l18"></a>        }
+<a name="l19"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l20"></a>
+<a name="l21"></a>    </span><span class=cF5>WinMax</span><span class=cF0>;
+<a name="l22"></a>    </span><span class=cF5>CopyTree</span><span class=cF0>(</span><span class=cF6>&quot;C:/Tmp/OSBuild/&quot;</span><span class=cF0>, </span><span class=cF6>&quot;C:/&quot;</span><span class=cF0>);
+<a name="l23"></a>    in_str = </span><span class=cF5>MStrPrint</span><span class=cF0>(</span><span class=cF6>&quot;CC\n%d\n\n\n\n&quot;</span><span class=cF0>, ata_port);
+<a name="l24"></a>    </span><span class=cF5>Sleep</span><span class=cF0>(</span><span class=cFE>700</span><span class=cF0>);
+<a name="l25"></a>    </span><span class=cF5>In</span><span class=cF0>(in_str);
+<a name="l26"></a>    </span><span class=cF5>BootHDIns</span><span class=cF0>;
+<a name="l27"></a>    </span><span class=cF5>OnceFlush</span><span class=cF0>;
+<a name="l28"></a>    in_str = </span><span class=cF5>MStrPrint</span><span class=cF0>(</span><span class=cF6>&quot;#include \&quot;/Misc/Auto/AutoFullDistro4\&quot;;;Auto;;&quot;</span><span class=cF0>);
+<a name="l29"></a>    </span><span class=cF5>OnceDrive</span><span class=cF0>(</span><span class=cF6>'C'</span><span class=cF0>, in_str);
+<a name="l30"></a>    </span><span class=cF5>DelTree</span><span class=cF0>(</span><span class=cF6>&quot;C:/Tmp/OSBuild&quot;</span><span class=cF0>);
+<a name="l31"></a>    </span><span class=cF5>Reboot</span><span class=cF0>;
+<a name="l32"></a>}
+<a name="l33"></a>Auto;
+</span></pre></body>
+</html>

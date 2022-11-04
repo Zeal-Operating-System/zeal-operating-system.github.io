@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.13">
+<meta name="generator" content="ZealOS V2.00">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -202,7 +202,7 @@ body {background-color:#1f1f1f;}
 <a name="l175"></a>
 <a name="l176"></a>  </span><span class=cF2>U0 Main()
 <a name="l177"></a>  {
-<a name="l178"></a>    //Only use </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1940"><span class=cF4>REGG_LOCAL_VARS</span></a><span class=cF2> or </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1941"><span class=cF4>REGG_LOCAL_NON_PTR_VARS</span></a><span class=cF2> for register variables or else clobbered.
+<a name="l178"></a>    //Only use </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1946"><span class=cF4>REGG_LOCAL_VARS</span></a><span class=cF2> or </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1947"><span class=cF4>REGG_LOCAL_NON_PTR_VARS</span></a><span class=cF2> for register variables or else clobbered.
 <a name="l179"></a>    I64 reg R15 i = 5, noreg j = 4;
 <a name="l180"></a>    no_warn i;
 <a name="l181"></a>    asm {
@@ -254,12 +254,12 @@ body {background-color:#1f1f1f;}
 <a name="l227"></a>    </span><span class=cF2>||</span><span class=cF0>
 <a name="l228"></a>    </span><span class=cF2>=</span><span class=cF0>, </span><span class=cF2>&lt;&lt;=</span><span class=cF0>, </span><span class=cF2>&gt;&gt;=</span><span class=cF0>, </span><span class=cF2>*=</span><span class=cF0>, </span><span class=cF2>/=</span><span class=cF0>, </span><span class=cF2>&amp;=</span><span class=cF0>, </span><span class=cF2>|=</span><span class=cF0>, </span><span class=cF2>^=</span><span class=cF0>, </span><span class=cF2>+=</span><span class=cF0>, </span><span class=cF2>-=</span><span class=cF0>
 <a name="l229"></a>
-<a name="l230"></a>* You can use </span><a href="https://zeal-operating-system.github.io/Compiler/CMisc.ZC.html#l1"><span class=cF4>Option</span></a><span class=cF0>(</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1680"><span class=cF4>OPTf_WARN_PAREN</span></a><span class=cF0>, ON) to find unnecessary parentheses in code.
+<a name="l230"></a>* You can use </span><a href="https://zeal-operating-system.github.io/Compiler/CMisc.ZC.html#l1"><span class=cF4>Option</span></a><span class=cF0>(</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1686"><span class=cF4>OPTf_WARN_PAREN</span></a><span class=cF0>, ON) to find unnecessary parentheses in code.
 <a name="l231"></a>
-<a name="l232"></a>* You can use </span><a href="https://zeal-operating-system.github.io/Compiler/CMisc.ZC.html#l1"><span class=cF4>Option</span></a><span class=cF0>(</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1681"><span class=cF4>OPTf_WARN_DUP_TYPES</span></a><span class=cF0>, ON) to find duplicate local variable type statements.
+<a name="l232"></a>* You can use </span><a href="https://zeal-operating-system.github.io/Compiler/CMisc.ZC.html#l1"><span class=cF4>Option</span></a><span class=cF0>(</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l1687"><span class=cF4>OPTf_WARN_DUP_TYPES</span></a><span class=cF0>, ON) to find duplicate local variable type statements.
 <a name="l233"></a>
 <a name="l234"></a>* With the </span><span class=cF2>#exe{}</span><span class=cF0> feature in your src code, you can place programs that insert text into the stream of code being compiled.  
-<a name="l235"></a>See </span><a href="https://zeal-operating-system.github.io/Kernel/KMain.ZC.html#l259"><span class=cF4>#exe {}</span></a><span class=cF0> for an example where the date/time and compile-time prompting for configuration data is placed into a program.  </span><span class=cF4>
+<a name="l235"></a>See </span><a href="https://zeal-operating-system.github.io/Kernel/KMain.ZC.html#l243"><span class=cF4>#exe {}</span></a><span class=cF0> for an example where the date/time and compile-time prompting for configuration data is placed into a program.  </span><span class=cF4>
 <a name="l236"></a></span><a href="https://zeal-operating-system.github.io/Compiler/CMisc.ZC.html#l71"><span class=cF4>StreamPrint</span></a><span class=cF0>() places text into a src program stream following the conclusion of the </span><span class=cF2>#exe{}</span><span class=cF0> block.
 <a name="l237"></a>
 <a name="l238"></a>* No </span><span class=cF2>#define</span><span class=cF0> functions exist (Terry was not a fan)
@@ -304,7 +304,7 @@ body {background-color:#1f1f1f;}
 <a name="l277"></a>Free</span><span class=cF0> off-of other task's heaps, or make an independent heap with </span><a href="https://zeal-operating-system.github.io/Kernel/Memory/HeapCtrl.ZC.html#l1"><span class=cF4>HeapCtrlInit</span></a><span class=cF0>().    See </span><a href="https://zeal-operating-system.github.io/System/Utils/HeapLog.ZC.html#l83"><span class=cF4>HeapLog</span></a><span class=cF0>() for an example.
 <a name="l278"></a>
 <a name="l279"></a>* The stack does not grow because virtual mem is not used.  It's recommended to allocate large local variables from the heap.   
-<a name="l280"></a>You can change </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3568"><span class=cF4>MEM_DEFAULT_STACK</span></a><span class=cF0> and recompile </span><span class=cF2>Kernel</span><span class=cF0> or request more when doing a </span><a href="https://zeal-operating-system.github.io/Kernel/KTask.ZC.html#l264"><span class=cF4>Spawn</span></a><span class=cF0>().  You can use </span><a href="https://zeal-operating-system.github.io/Kernel/KTask.ZC.html#l129"><span class=cF4>CallStackGrow</span></a><span class=cF0>(), but 
+<a name="l280"></a>You can change </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3574"><span class=cF4>MEM_DEFAULT_STACK</span></a><span class=cF0> and recompile </span><span class=cF2>Kernel</span><span class=cF0> or request more when doing a </span><a href="https://zeal-operating-system.github.io/Kernel/KTask.ZC.html#l264"><span class=cF4>Spawn</span></a><span class=cF0>().  You can use </span><a href="https://zeal-operating-system.github.io/Kernel/KTask.ZC.html#l129"><span class=cF4>CallStackGrow</span></a><span class=cF0>(), but 
 <a name="l281"></a>it's odd.  See </span><a href="https://zeal-operating-system.github.io/Demo/StackGrow.ZC.html#l1"><span class=cF4>::/Demo/StackGrow.ZC</span></a><span class=cF0>.
 <a name="l282"></a>
 <a name="l283"></a>* Only one base class is allowed.

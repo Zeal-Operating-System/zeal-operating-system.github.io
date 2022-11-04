@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.13">
+<meta name="generator" content="ZealOS V2.00">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -346,7 +346,7 @@ body {background-color:#1f1f1f;}
 <a name="l319"></a>}
 <a name="l320"></a>
 <a name="l321"></a></span><span class=cF1>Bool</span><span class=cF0> </span><span class=cFD>FAT32FileFind</span><span class=cF0>(</span><span class=cF9>CDrive</span><span class=cF0> *drive, </span><span class=cF9>I64</span><span class=cF0> cur_dir_clus, </span><span class=cF1>U8</span><span class=cF0> *name, </span><span class=cF9>CDirEntry</span><span class=cF0> *_res, </span><span class=cF9>I64</span><span class=cF0> fuf_flags=</span><span class=cFE>0</span><span class=cF0>)
-<a name="l322"></a>{</span><span class=cF2>//</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3284"><span class=cF4>FUF_JUST_DIRS</span></a><span class=cF2>, </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3285"><span class=cF4>FUF_JUST_FILES</span></a><span class=cF0>
+<a name="l322"></a>{</span><span class=cF2>//</span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3290"><span class=cF4>FUF_JUST_DIRS</span></a><span class=cF2>, </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l3291"><span class=cF4>FUF_JUST_FILES</span></a><span class=cF0>
 <a name="l323"></a>    </span><span class=cF1>Bool</span><span class=cF0>             res = </span><span class=cF3>FALSE</span><span class=cF0>, unlock;
 <a name="l324"></a>    </span><span class=cF9>CFAT32DirEntry</span><span class=cF0>  *buf;
 <a name="l325"></a>    </span><span class=cF9>I64</span><span class=cF0>              xsum = </span><span class=cFE>0</span><span class=cF0>, attr, cur_dir_entry, entries_per_clus;
@@ -1072,46 +1072,45 @@ body {background-color:#1f1f1f;}
 <a name="l1045"></a>{
 <a name="l1046"></a>    </span><span class=cF9>I64</span><span class=cF0>              c, cur_dir_clus = </span><span class=cF5>Name2DirClus</span><span class=cF0>(drive, cur_dir), 
 <a name="l1047"></a>                     </span><span class=cF2>//Rough estimate of size</span><span class=cF0>
-<a name="l1048"></a>                     size = </span><span class=cF5>CeilU64</span><span class=cF0>(</span><span class=cF7>(</span><span class=cF0>entry_count + </span><span class=cFE>2</span><span class=cF7>)</span><span class=cF0> &lt;&lt; </span><span class=cF3>FAT32_ENTRIES_BITS</span><span class=cF0>,
-<a name="l1049"></a>                     drive-&gt;spc &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0>);
-<a name="l1050"></a>    </span><span class=cF1>U8</span><span class=cF0>              *buf = </span><span class=cF5>CAlloc</span><span class=cF0>(size);
-<a name="l1051"></a>    </span><span class=cF9>CDirEntry</span><span class=cF0>        d_native;
-<a name="l1052"></a>    </span><span class=cF9>CFAT32DirEntry</span><span class=cF0>  *dFAT = buf;
-<a name="l1053"></a>    </span><span class=cF1>Bool</span><span class=cF0>             unlock_break;
-<a name="l1054"></a>
-<a name="l1055"></a>    </span><span class=cF1>try</span><span class=cF0>
-<a name="l1056"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l1057"></a>        unlock_break = </span><span class=cF5>BreakLock</span><span class=cF0>;
-<a name="l1058"></a>        c = </span><span class=cF5>FileWrite</span><span class=cF0>(name, buf, size, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cF3>RS_ATTR_DIR</span><span class=cF0>);
-<a name="l1059"></a>        </span><span class=cF5>MemSet</span><span class=cF0>(&amp;d_native, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cF1>sizeof</span><span class=cF7>(</span><span class=cF9>CDirEntry</span><span class=cF7>)</span><span class=cF0>);
-<a name="l1060"></a>        d_native.attr       = </span><span class=cF3>RS_ATTR_DIR</span><span class=cF0>;
-<a name="l1061"></a>        *d_native.name      = </span><span class=cF6>'.'</span><span class=cF0>;
-<a name="l1062"></a>        d_native.name[</span><span class=cFE>1</span><span class=cF0>]    = </span><span class=cFE>0</span><span class=cF0>;
-<a name="l1063"></a>        d_native.clus       = c;
-<a name="l1064"></a>        d_native.size       = </span><span class=cFE>0</span><span class=cF0>;
-<a name="l1065"></a>        d_native.datetime   = </span><span class=cF5>Now</span><span class=cF0>;
-<a name="l1066"></a>        </span><span class=cFD>FAT32DirFill</span><span class=cF0>(dFAT, &amp;d_native, </span><span class=cF3>NULL</span><span class=cF0>, drive-&gt;fat32_local_time_offset);
-<a name="l1067"></a>        dFAT++;
-<a name="l1068"></a>
-<a name="l1069"></a>        </span><span class=cF5>MemSet</span><span class=cF0>(&amp;d_native, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cF1>sizeof</span><span class=cF7>(</span><span class=cF9>CDirEntry</span><span class=cF7>)</span><span class=cF0>);
-<a name="l1070"></a>        d_native.attr       = </span><span class=cF3>RS_ATTR_DIR</span><span class=cF0>;
-<a name="l1071"></a>        *d_native.name      = </span><span class=cF6>'.'</span><span class=cF0>;
-<a name="l1072"></a>        d_native.name[</span><span class=cFE>1</span><span class=cF0>]    = </span><span class=cF6>'.'</span><span class=cF0>;
-<a name="l1073"></a>        d_native.name[</span><span class=cFE>2</span><span class=cF0>]    = </span><span class=cFE>0</span><span class=cF0>;
-<a name="l1074"></a>        d_native.clus       = cur_dir_clus;
-<a name="l1075"></a>        d_native.size       = </span><span class=cFE>0</span><span class=cF0>;
-<a name="l1076"></a>        d_native.datetime   = </span><span class=cF5>Now</span><span class=cF0>;
-<a name="l1077"></a>        </span><span class=cFD>FAT32DirFill</span><span class=cF0>(dFAT, &amp;d_native, </span><span class=cF3>NULL</span><span class=cF0>, drive-&gt;fat32_local_time_offset);
-<a name="l1078"></a>        </span><span class=cF5>ClusWrite</span><span class=cF0>(drive, buf, c, </span><span class=cFE>1</span><span class=cF0>);
-<a name="l1079"></a>        </span><span class=cF5>Free</span><span class=cF0>(buf);
-<a name="l1080"></a>        </span><span class=cF1>if</span><span class=cF0> (unlock_break)
-<a name="l1081"></a>            </span><span class=cF5>BreakUnlock</span><span class=cF0>;
-<a name="l1082"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l1083"></a>    </span><span class=cF1>catch</span><span class=cF0>
-<a name="l1084"></a>        </span><span class=cF1>if</span><span class=cF0> (unlock_break)
-<a name="l1085"></a>            </span><span class=cF5>BreakUnlock</span><span class=cF0>;
-<a name="l1086"></a>
-<a name="l1087"></a>    </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>TRUE</span><span class=cF0>;
-<a name="l1088"></a>}
+<a name="l1048"></a>                     size = </span><span class=cF5>CeilU64</span><span class=cF0>(</span><span class=cF7>(</span><span class=cF0>entry_count + </span><span class=cFE>2</span><span class=cF7>)</span><span class=cF0> &lt;&lt; </span><span class=cF3>FAT32_ENTRIES_BITS</span><span class=cF0>, drive-&gt;spc &lt;&lt; </span><span class=cF3>BLK_SIZE_BITS</span><span class=cF0>);
+<a name="l1049"></a>    </span><span class=cF1>U8</span><span class=cF0>              *buf = </span><span class=cF5>CAlloc</span><span class=cF0>(size);
+<a name="l1050"></a>    </span><span class=cF9>CDirEntry</span><span class=cF0>        d_native;
+<a name="l1051"></a>    </span><span class=cF9>CFAT32DirEntry</span><span class=cF0>  *dFAT = buf;
+<a name="l1052"></a>    </span><span class=cF1>Bool</span><span class=cF0>             unlock_break;
+<a name="l1053"></a>
+<a name="l1054"></a>    </span><span class=cF1>try</span><span class=cF0>
+<a name="l1055"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l1056"></a>        unlock_break = </span><span class=cF5>BreakLock</span><span class=cF0>;
+<a name="l1057"></a>        c = </span><span class=cF5>FileWrite</span><span class=cF0>(name, buf, size, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cF3>RS_ATTR_DIR</span><span class=cF0>);
+<a name="l1058"></a>        </span><span class=cF5>MemSet</span><span class=cF0>(&amp;d_native, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cF1>sizeof</span><span class=cF7>(</span><span class=cF9>CDirEntry</span><span class=cF7>)</span><span class=cF0>);
+<a name="l1059"></a>        d_native.attr       = </span><span class=cF3>RS_ATTR_DIR</span><span class=cF0>;
+<a name="l1060"></a>        *d_native.name      = </span><span class=cF6>'.'</span><span class=cF0>;
+<a name="l1061"></a>        d_native.name[</span><span class=cFE>1</span><span class=cF0>]    = </span><span class=cFE>0</span><span class=cF0>;
+<a name="l1062"></a>        d_native.clus       = c;
+<a name="l1063"></a>        d_native.size       = </span><span class=cFE>0</span><span class=cF0>;
+<a name="l1064"></a>        d_native.datetime   = </span><span class=cF5>Now</span><span class=cF0>;
+<a name="l1065"></a>        </span><span class=cFD>FAT32DirFill</span><span class=cF0>(dFAT, &amp;d_native, </span><span class=cF3>NULL</span><span class=cF0>, drive-&gt;fat32_local_time_offset);
+<a name="l1066"></a>        dFAT++;
+<a name="l1067"></a>
+<a name="l1068"></a>        </span><span class=cF5>MemSet</span><span class=cF0>(&amp;d_native, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cF1>sizeof</span><span class=cF7>(</span><span class=cF9>CDirEntry</span><span class=cF7>)</span><span class=cF0>);
+<a name="l1069"></a>        d_native.attr       = </span><span class=cF3>RS_ATTR_DIR</span><span class=cF0>;
+<a name="l1070"></a>        *d_native.name      = </span><span class=cF6>'.'</span><span class=cF0>;
+<a name="l1071"></a>        d_native.name[</span><span class=cFE>1</span><span class=cF0>]    = </span><span class=cF6>'.'</span><span class=cF0>;
+<a name="l1072"></a>        d_native.name[</span><span class=cFE>2</span><span class=cF0>]    = </span><span class=cFE>0</span><span class=cF0>;
+<a name="l1073"></a>        d_native.clus       = cur_dir_clus;
+<a name="l1074"></a>        d_native.size       = </span><span class=cFE>0</span><span class=cF0>;
+<a name="l1075"></a>        d_native.datetime   = </span><span class=cF5>Now</span><span class=cF0>;
+<a name="l1076"></a>        </span><span class=cFD>FAT32DirFill</span><span class=cF0>(dFAT, &amp;d_native, </span><span class=cF3>NULL</span><span class=cF0>, drive-&gt;fat32_local_time_offset);
+<a name="l1077"></a>        </span><span class=cF5>ClusWrite</span><span class=cF0>(drive, buf, c, </span><span class=cFE>1</span><span class=cF0>);
+<a name="l1078"></a>        </span><span class=cF5>Free</span><span class=cF0>(buf);
+<a name="l1079"></a>        </span><span class=cF1>if</span><span class=cF0> (unlock_break)
+<a name="l1080"></a>            </span><span class=cF5>BreakUnlock</span><span class=cF0>;
+<a name="l1081"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l1082"></a>    </span><span class=cF1>catch</span><span class=cF0>
+<a name="l1083"></a>        </span><span class=cF1>if</span><span class=cF0> (unlock_break)
+<a name="l1084"></a>            </span><span class=cF5>BreakUnlock</span><span class=cF0>;
+<a name="l1085"></a>
+<a name="l1086"></a>    </span><span class=cF1>return</span><span class=cF0> </span><span class=cF3>TRUE</span><span class=cF0>;
+<a name="l1087"></a>}
 </span></pre></body>
 </html>

@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.13">
+<meta name="generator" content="ZealOS V2.00">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -25,36 +25,36 @@ body {background-color:#1f1f1f;}
 </head>
 <body>
 <pre style="font-family:monospace;font-size:12pt">
-<a name="l1"></a><span class=cF5>                                                        ZealOS Charter</span><span class=cF0>
-<a name="l2"></a>
-<a name="l3"></a>* The vision is the same usage model and niche as the Commodore 64 -- a simple machine where programming was the goal, not 
-<a name="l4"></a>just a means to an end.  However, it is modern, 64-bit and </span><span class=cF2>multi-cored</span><span class=cF0>.  It is special purpose, not general purpose, so some 
-<a name="l5"></a>things it will not do.  Also, it's a kayak, not a Titanic. The priority is </span><span class=cF2>user developers</span><span class=cF0>, not </span><span class=cF2>3rd party developers</span><span class=cF0>.
-<a name="l6"></a>
-<a name="l7"></a>* </span><span class=cF4>We don't think twice about breaking compatibility. </span><span class=cF0> We do not put any hooks for future changes.  &quot;Perfect&quot; means we always 
-<a name="l8"></a>act as though it is final, for all time.  Microsoft allowed the </span><a href="http://en.wikipedia.org/wiki/BMP_file"><span class=cF2>Windows BMP</span></a><span class=cF0> file format to adapt to the future and it became 
-<a name="l9"></a>grotesque.
-<a name="l10"></a>
-<a name="l11"></a>* Low line count and code complexity is the highest good, so it is easy to learn the whole thing.  Users should see the light 
-<a name="l12"></a>at the end of the tunnel.  One file system, for example, is better than many file systems.
-<a name="l13"></a>
-<a name="l14"></a>* There is a limit of 100,000 lines of code for all time, not including applications and demos. Currently, there are 98,216 
-<a name="l15"></a>lines of code.  </span><span class=cF4>3rd party libraries are banned</span><span class=cF0> because they circumvent the intent of this limit.  The vision is a Commodore 64 
-<a name="l16"></a>ROM -- a fixed core API that is the only dependency of applications. Dependency on components and libraries creates a hell 
-<a name="l17"></a>that is no longer blissful.
-<a name="l18"></a>
-<a name="l19"></a>* The primary metric for resolving all ZealOS code governance issues is how fast the compiler compiles itself and the kernel 
-<a name="l20"></a>with </span><a href="https://zeal-operating-system.github.io/System/Boot/BootHDIns.ZC.html#l25"><span class=cF4>BootHDIns</span></a><span class=cF0>(). The secondary metric is how understandable the code is. The </span><a href="https://zeal-operating-system.github.io/Doc/ZealC.DD.html#l1"><span class=cF4>ZealC</span></a><span class=cF0> language should be changed to optimize 
-<a name="l21"></a>these metrics, as Terry Davis did when he changed type casting from prefix standard C to postfix </span><a href="https://zeal-operating-system.github.io/Doc/ZealC.DD.html#l1"><span class=cF4>ZealC</span></a><span class=cF0>, but we need a rule to 
-<a name="l22"></a>prevent degenerating into a brainfuck language.
+<a name="l1"></a><span class=cF0>
+<a name="l2"></a></span><span class=cF5>                                                        ZealOS Charter</span><span class=cF0>
+<a name="l3"></a>
+<a name="l4"></a>* The vision is the same usage model and niche as the Commodore 64 -- a simple machine where programming was the goal, not 
+<a name="l5"></a>just a means to an end.  However, it is modern, 64-bit and </span><span class=cF2>multi-cored</span><span class=cF0>.  It is special purpose, not general purpose, so some 
+<a name="l6"></a>things it will not do.  Also, it's a kayak, not a Titanic. The priority is </span><span class=cF2>user developers</span><span class=cF0>, not </span><span class=cF2>3rd party developers</span><span class=cF0>.
+<a name="l7"></a>
+<a name="l8"></a>* </span><span class=cF4>We don't think twice about breaking compatibility. </span><span class=cF0> We do not put any hooks for future changes.  &quot;Perfect&quot; means we always 
+<a name="l9"></a>act as though it is final, for all time.  Microsoft allowed the </span><a href="http://en.wikipedia.org/wiki/BMP_file"><span class=cF2>Windows BMP</span></a><span class=cF0> file format to adapt to the future and it became 
+<a name="l10"></a>grotesque.
+<a name="l11"></a>
+<a name="l12"></a>* Low line count and low code complexity is the highest good, so it is easy to learn the whole thing.  Users should see the 
+<a name="l13"></a>light at the end of the tunnel.
+<a name="l14"></a>
+<a name="l15"></a>* There is a limit of 100,000 lines of code for all time, not including applications and demos. Currently, there are 98,675 
+<a name="l16"></a>lines of code.  </span><span class=cF4>3rd party libraries are banned from being required</span><span class=cF0> because they circumvent the intent of this limit.  The 
+<a name="l17"></a>vision is a Commodore 64 ROM -- a fixed core API that is the only dependency of applications. Dependency on components and 
+<a name="l18"></a>libraries creates a hell that is no longer blissful.
+<a name="l19"></a>
+<a name="l20"></a>* The primary metric for resolving all ZealOS code governance issues is how fast the compiler compiles itself and the kernel 
+<a name="l21"></a>with </span><a href="https://zeal-operating-system.github.io/System/Boot/BootHDIns.ZC.html#l25"><span class=cF4>BootHDIns</span></a><span class=cF0>(). The secondary metric is how understandable the code is. The </span><a href="https://zeal-operating-system.github.io/Doc/ZealC.DD.html#l1"><span class=cF4>ZealC</span></a><span class=cF0> language should be changed to optimize 
+<a name="l22"></a>these metrics, as Terry Davis did when he changed type casting from prefix to </span><a href="https://zeal-operating-system.github.io/Doc/ZealC.DD.html#l65"><span class=cF4>postfix</span></a><span class=cF0>.
 <a name="l23"></a> 
 <a name="l24"></a>* Minimal abstraction is a goal. Sheep are fools. They always respect a design that is more complicated than another.  Any 
 <a name="l25"></a>genius can make it complicated. Like in physics, it takes a supra-genius to make it simple.
 <a name="l26"></a>
 <a name="l27"></a>* It is for one platform -- </span><a href="http://en.wikipedia.org/wiki/Amd64#AMD64"><span class=cF4>x86_64</span></a><span class=cF0> desktop PC compatibles, more like super-computers than battery efficient wimpy mobiles.
 <a name="l28"></a>
-<a name="l29"></a>* One driver for each class of device. Limited exceptions are allowed. With divergent device capabilities, it is a nightmare 
-<a name="l30"></a>for user applications and what is gained? 
+<a name="l29"></a>* One driver for each class of device. The only exceptions are networking, sound, and keyboard/mouse. With divergent device 
+<a name="l30"></a>capabilities, it is a nightmare for user applications and what is gained? 
 <a name="l31"></a>
 <a name="l32"></a>* </span><span class=cF2>Ring-0-only</span><span class=cF0>.  Everything runs in kernel mode, including user applications.
 <a name="l33"></a>
@@ -69,26 +69,28 @@ body {background-color:#1f1f1f;}
 <a name="l42"></a>* </span><span class=cF2>Single-address-map</span><span class=cF0> as though paging is not used.  Long mode requires paging, however, so the nearest thing is keeping all 
 <a name="l43"></a>memory </span><span class=cF2>identity-mapped</span><span class=cF0>.
 <a name="l44"></a>
-<a name="l45"></a>* </span><span class=cF2>Free</span><span class=cF0> and </span><span class=cF2>public domain</span><span class=cF0>.
-<a name="l46"></a>
-<a name="l47"></a>* </span><span class=cF2>100% open source</span><span class=cF0> with all source included.
+<a name="l45"></a>* </span><span class=cF2>Free</span><span class=cF0> and </span><span class=cF2>public domain</span><span class=cF0> operating system code. Bootloaders of other open-source licenses (Grub, Limine, etc) are permitted. 
+<a name="l46"></a>The Public Domain ZealOS HDD/DVD Bootloaders written in ZealC must always be kept functional, must always be offered as a 
+<a name="l47"></a>bootloader option during BIOS-mode install, and must always be included in Distro ISOs. 
 <a name="l48"></a>
-<a name="l49"></a>* Documents are not for printing. They're dynamic, intended for the screen.
+<a name="l49"></a>* </span><span class=cF2>100% open source</span><span class=cF0> operating system code with all source included. Bootloaders are excluded from this requirement.
 <a name="l50"></a>
-<a name="l51"></a>* Just one 8x8 fixed-width font. </span><span class=cF4>No Unicode, just Extended ASCII</span><span class=cF0>. Other countries can make their own versions. The versions 
-<a name="l52"></a>should be just for one language and platform.
-<a name="l53"></a>
-<a name="l54"></a>* </span><span class=cF4>No multimedia</span><span class=cF0>. Sounds and images will be primarily calculated in real-time, not fetched from storage.
+<a name="l51"></a>* Documents are not for printing. They're dynamic, intended for the screen.
+<a name="l52"></a>
+<a name="l53"></a>* Just one 8x8 fixed-width font. </span><span class=cF4>No Unicode, just Extended ASCII</span><span class=cF0>. Other countries can make their own versions. The versions 
+<a name="l54"></a>should be just for one language and platform.
 <a name="l55"></a>
-<a name="l56"></a></span><span class=cF8>
-<a name="l57"></a>* &quot;Commodore 64&quot; is a trademark owned by Polabe Holding NV.
-<a name="l58"></a>* &quot;Windows&quot; is a trademark owned by MicroSoft Corp.
-<a name="l59"></a></span><span class=cF0>
-<a name="l60"></a>
-<a name="l61"></a></span><span class=cF5>                                                     Possible Amendments</span><span class=cF0>
+<a name="l56"></a>* Fully self-hosted self-reproducing functionality on bare-metal and in VMs, primarily via AHCI ATAPI burned CD/DVD discs 
+<a name="l57"></a>(.R/W).
+<a name="l58"></a></span><span class=cF8>
+<a name="l59"></a>* &quot;Commodore 64&quot; is a trademark owned by Polabe Holding NV.
+<a name="l60"></a>* &quot;Windows&quot; is a trademark owned by MicroSoft Corp.
+<a name="l61"></a></span><span class=cF0>
 <a name="l62"></a>
-<a name="l63"></a>The compiler's parser makes RISC code which it optimizes to CISC.  Terry Davis discovered this does not matter because the CPU 
-<a name="l64"></a>converts it back to RISC and schedules it, internally.  A ZealOS zealot with more zeal might say we should save lines-of-code 
-<a name="l65"></a>by removing the CISC optimizing.
+<a name="l63"></a></span><span class=cF5>                                                     Possible Amendments</span><span class=cF0>
+<a name="l64"></a>
+<a name="l65"></a>The compiler's parser makes RISC code which it optimizes to CISC.  Terry Davis discovered this does not matter because the CPU 
+<a name="l66"></a>converts it back to RISC and schedules it, internally.  A ZealOS zealot with more zeal might say we should save lines-of-code 
+<a name="l67"></a>by removing the CISC optimizing.
 </span></pre></body>
 </html>

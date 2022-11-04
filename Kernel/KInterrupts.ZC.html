@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.13">
+<meta name="generator" content="ZealOS V2.00">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -115,7 +115,7 @@ body {background-color:#1f1f1f;}
 <a name="l88"></a>        </span><span class=cF1>PUSH</span><span class=cF0>    </span><span class=cF9>U64</span><span class=cF0> </span><span class=cF9>CTask</span><span class=cF0>.fault_err_code[</span><span class=cFC>RSI</span><span class=cF0>]
 <a name="l89"></a>        </span><span class=cF1>PUSH</span><span class=cF0>    </span><span class=cF9>U64</span><span class=cF0> </span><span class=cF9>CTask</span><span class=cF0>.fault_num[</span><span class=cFC>RSI</span><span class=cF0>]
 <a name="l90"></a>        </span><span class=cF1>MOV</span><span class=cF0>     </span><span class=cFC>RSI</span><span class=cF0>, </span><span class=cF9>CTask</span><span class=cF0>.rsi[</span><span class=cFC>RSI</span><span class=cF0>]
-<a name="l91"></a>        </span><span class=cF1>CALL</span><span class=cF0>    &amp;</span><span class=cFD>Fault2</span><span class=cF0>                 </span><span class=cF2>//See </span><a href="https://zeal-operating-system.github.io/Kernel/KDebug.ZC.html#l706"><span class=cF4>Fault2</span></a><span class=cF0>
+<a name="l91"></a>        </span><span class=cF1>CALL</span><span class=cF0>    &amp;</span><span class=cFD>Fault2</span><span class=cF0>                 </span><span class=cF2>//See </span><a href="https://zeal-operating-system.github.io/Kernel/KDebug.ZC.html#l710"><span class=cF4>Fault2</span></a><span class=cF0>
 <a name="l92"></a>        </span><span class=cF1>JMP</span><span class=cF0>     </span><span class=cF9>I32</span><span class=cF0> RESTORE_FS_TASK
 <a name="l93"></a>
 <a name="l94"></a></span><span class=cFD>INT_FAULT_ERR_CODE_BITMAP</span><span class=cF0>::
@@ -245,7 +245,7 @@ body {background-color:#1f1f1f;}
 <a name="l218"></a>    </span><span class=cF9>I64</span><span class=cF0>             i;
 <a name="l219"></a>    </span><span class=cF9>CSysLimitBase</span><span class=cF0>   tmp_ptr;
 <a name="l220"></a>
-<a name="l221"></a>    </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>Gs</span><span class=cF0>-&gt;num) </span><span class=cF2>//Gs is current </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l4126"><span class=cF4>CCPU</span></a><span class=cF2> struct</span><span class=cF0>
+<a name="l221"></a>    </span><span class=cF1>if</span><span class=cF0> (!</span><span class=cF5>Gs</span><span class=cF0>-&gt;num) </span><span class=cF2>//Gs is current </span><a href="https://zeal-operating-system.github.io/Kernel/KernelA.HH.html#l4132"><span class=cF4>CCPU</span></a><span class=cF2> struct</span><span class=cF0>
 <a name="l222"></a>    </span><span class=cF7>{</span><span class=cF0>
 <a name="l223"></a>        </span><span class=cFB>dev</span><span class=cF0>.idt = </span><span class=cF5>CAllocAligned</span><span class=cF0>(</span><span class=cF1>sizeof</span><span class=cF7>(</span><span class=cF9>CIDTEntry</span><span class=cF7>)</span><span class=cF0> * </span><span class=cFE>256</span><span class=cF0>, </span><span class=cFE>8</span><span class=cF0>);
 <a name="l224"></a>        </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cFE>256</span><span class=cF0>; i++)

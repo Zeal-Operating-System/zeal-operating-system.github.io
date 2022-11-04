@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.13">
+<meta name="generator" content="ZealOS V2.00">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -266,7 +266,7 @@ body {background-color:#1f1f1f;}
 <a name="l239"></a>    E1000MMIOWrite(E1000_REG_EERD, </span><span class=cFE>1</span><span class=cF0> | word &lt;&lt; </span><span class=cFE>8</span><span class=cF0>);
 <a name="l240"></a>
 <a name="l241"></a>    temp = E1000MMIORead(E1000_REG_EERD);
-<a name="l242"></a>    </span><span class=cF1>while</span><span class=cF0> (!</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;temp, E1000_EERDf_DONE</span><span class=cF7>)</span><span class=cF0>)
+<a name="l242"></a>    </span><span class=cF1>while</span><span class=cF0> (!</span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;temp, E1000_EERDf_DONE</span><span class=cF7>)</span><span class=cF0>)
 <a name="l243"></a>    </span><span class=cF7>{</span><span class=cF0>
 <a name="l244"></a>        </span><span class=cF5>Sleep</span><span class=cF0>(</span><span class=cFE>1</span><span class=cF0>);
 <a name="l245"></a>        temp = E1000MMIORead(E1000_REG_EERD);
@@ -305,7 +305,7 @@ body {background-color:#1f1f1f;}
 <a name="l278"></a>        drop = </span><span class=cF3>TRUE</span><span class=cF0>;
 <a name="l279"></a>    </span><span class=cF7>}</span><span class=cF0>
 <a name="l280"></a>
-<a name="l281"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;entry-&gt;status, E1000_RDESC_STATUSf_EOP</span><span class=cF7>)</span><span class=cF0>)
+<a name="l281"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;entry-&gt;status, E1000_RDESC_STATUSf_EOP</span><span class=cF7>)</span><span class=cF0>)
 <a name="l282"></a>    </span><span class=cF7>{</span><span class=cF0>
 <a name="l283"></a>        NetErr(</span><span class=cF6>&quot;E1000 PACKET RECEIVE: No EOP Set&quot;</span><span class=cF0>);
 <a name="l284"></a>        drop = </span><span class=cF3>TRUE</span><span class=cF0>;
@@ -343,7 +343,7 @@ body {background-color:#1f1f1f;}
 <a name="l316"></a>
 <a name="l317"></a></span><span class=cF1>Bool</span><span class=cF0> E1000DriverOwnsRX(CE1000DescriptorEntryRX *entry)
 <a name="l318"></a>{
-<a name="l319"></a>    </span><span class=cF1>return</span><span class=cF0> </span><span class=cF5>Bt</span><span class=cF0>(&amp;entry-&gt;status, </span><span class=cFE>0</span><span class=cF0>); </span><span class=cF2>// ?? TODO #define</span><span class=cF0>
+<a name="l319"></a>    </span><span class=cF1>return</span><span class=cF0> </span><span class=cF5>PCIBt</span><span class=cF0>(&amp;entry-&gt;status, </span><span class=cFE>0</span><span class=cF0>); </span><span class=cF2>// ?? TODO #define</span><span class=cF0>
 <a name="l320"></a>}
 <a name="l321"></a>
 <a name="l322"></a></span><span class=cF9>I64</span><span class=cF0> E1000TransmitPacketAllocate(</span><span class=cF1>U8</span><span class=cF0> **packet_buffer_out, </span><span class=cF9>I64</span><span class=cF0> length)
@@ -357,9 +357,9 @@ body {background-color:#1f1f1f;}
 <a name="l330"></a>
 <a name="l331"></a>    entry-&gt;address  = *packet_buffer_out;
 <a name="l332"></a>    entry-&gt;length   = length;
-<a name="l333"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;entry-&gt;cmd, E1000_TDESC_CMDf_EOP);
-<a name="l334"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;entry-&gt;cmd, E1000_TDESC_CMDf_IFCS);
-<a name="l335"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;entry-&gt;cmd, E1000_TDESC_CMDf_RS);
+<a name="l333"></a>    </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;entry-&gt;cmd, E1000_TDESC_CMDf_EOP);
+<a name="l334"></a>    </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;entry-&gt;cmd, E1000_TDESC_CMDf_IFCS);
+<a name="l335"></a>    </span><span class=cF5>PCIBts</span><span class=cF0>(&amp;entry-&gt;cmd, E1000_TDESC_CMDf_RS);
 <a name="l336"></a>
 <a name="l337"></a>    NetLog(</span><span class=cF6>&quot;E1000 ALLOCATE TX PACKET: de_index: %X.&quot;</span><span class=cF0>, de_index);
 <a name="l338"></a>    </span><span class=cF1>return</span><span class=cF0> de_index;
@@ -397,23 +397,23 @@ body {background-color:#1f1f1f;}
 <a name="l370"></a>
 <a name="l371"></a>    icr &amp;= ~(E1000_ICRF_TXDW | E1000_ICRF_TXQE);
 <a name="l372"></a>
-<a name="l373"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;icr, E1000_ICRf_LSC</span><span class=cF7>)</span><span class=cF0>) </span><span class=cF2>// 'link status change' ?</span><span class=cF0>
+<a name="l373"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;icr, E1000_ICRf_LSC</span><span class=cF7>)</span><span class=cF0>) </span><span class=cF2>// 'link status change' ?</span><span class=cF0>
 <a name="l374"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l375"></a>        </span><span class=cF5>Btr</span><span class=cF0>(&amp;icr, E1000_ICRf_LSC);
+<a name="l375"></a>        </span><span class=cF5>PCIBtr</span><span class=cF0>(&amp;icr, E1000_ICRf_LSC);
 <a name="l376"></a>        E1000MMIOWrite(E1000_REG_CTRL, E1000MMIORead</span><span class=cF7>(</span><span class=cF0>E1000_REG_CTRL</span><span class=cF7>)</span><span class=cF0> | E1000_CTRLF_SLU);
 <a name="l377"></a>    </span><span class=cF7>}</span><span class=cF0>
 <a name="l378"></a>
-<a name="l379"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;icr, E1000_ICRf_RXO</span><span class=cF7>)</span><span class=cF0> || </span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;icr, E1000_ICRf_RXDMT</span><span class=cF7>)</span><span class=cF0>) </span><span class=cF2>// 'rx underrun / min threshold' ?</span><span class=cF0>
+<a name="l379"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;icr, E1000_ICRf_RXO</span><span class=cF7>)</span><span class=cF0> || </span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;icr, E1000_ICRf_RXDMT</span><span class=cF7>)</span><span class=cF0>) </span><span class=cF2>// 'rx underrun / min threshold' ?</span><span class=cF0>
 <a name="l380"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l381"></a>        </span><span class=cF5>Btr</span><span class=cF0>(&amp;icr, E1000_ICRf_RXO);
-<a name="l382"></a>        </span><span class=cF5>Btr</span><span class=cF0>(&amp;icr, E1000_ICRf_RXDMT);
+<a name="l381"></a>        </span><span class=cF5>PCIBtr</span><span class=cF0>(&amp;icr, E1000_ICRf_RXO);
+<a name="l382"></a>        </span><span class=cF5>PCIBtr</span><span class=cF0>(&amp;icr, E1000_ICRf_RXDMT);
 <a name="l383"></a>
 <a name="l384"></a>        poll = </span><span class=cF3>TRUE</span><span class=cF0>;
 <a name="l385"></a>    </span><span class=cF7>}</span><span class=cF0>
 <a name="l386"></a>
-<a name="l387"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>Bt</span><span class=cF7>(</span><span class=cF0>&amp;icr, E1000_ICRf_RXT</span><span class=cF7>)</span><span class=cF0>) </span><span class=cF2>// 'packet pending' ?</span><span class=cF0>
+<a name="l387"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>PCIBt</span><span class=cF7>(</span><span class=cF0>&amp;icr, E1000_ICRf_RXT</span><span class=cF7>)</span><span class=cF0>) </span><span class=cF2>// 'packet pending' ?</span><span class=cF0>
 <a name="l388"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l389"></a>        </span><span class=cF5>Btr</span><span class=cF0>(&amp;icr, E1000_ICRf_RXT);
+<a name="l389"></a>        </span><span class=cF5>PCIBtr</span><span class=cF0>(&amp;icr, E1000_ICRf_RXT);
 <a name="l390"></a>
 <a name="l391"></a>        poll = </span><span class=cF3>TRUE</span><span class=cF0>;
 <a name="l392"></a>    </span><span class=cF7>}</span><span class=cF0>

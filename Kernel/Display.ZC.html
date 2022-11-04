@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V1.13">
+<meta name="generator" content="ZealOS V2.00">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -87,17 +87,17 @@ body {background-color:#1f1f1f;}
 <a name="l60"></a>        {</span><span class=cF2>//Scroll screen down</span><span class=cF0>
 <a name="l61"></a>
 <a name="l62"></a>            </span><span class=cF5>MemCopy</span><span class=cF0>(</span><span class=cFB>text</span><span class=cF0>.fb_alias,
-<a name="l63"></a>                    </span><span class=cFB>text</span><span class=cF0>.fb_alias       + </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.width * </span><span class=cF3>FONT_HEIGHT</span><span class=cF0>,
-<a name="l64"></a>                    </span><span class=cF7>(</span><span class=cFB>text</span><span class=cF0>.screen_size   - </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.width * </span><span class=cF3>FONT_HEIGHT</span><span class=cF7>)</span><span class=cF0> * </span><span class=cF1>sizeof</span><span class=cF7>(</span><span class=cF9>U32</span><span class=cF7>)</span><span class=cF0>);
+<a name="l63"></a>                    </span><span class=cFB>text</span><span class=cF0>.fb_alias       + </span><span class=cFB>sys_framebuffer_width</span><span class=cF0> * </span><span class=cF3>FONT_HEIGHT</span><span class=cF0>,
+<a name="l64"></a>                    </span><span class=cF7>(</span><span class=cFB>text</span><span class=cF0>.screen_size   - </span><span class=cFB>sys_framebuffer_width</span><span class=cF0> * </span><span class=cF3>FONT_HEIGHT</span><span class=cF7>)</span><span class=cF0> * </span><span class=cF1>sizeof</span><span class=cF7>(</span><span class=cF9>U32</span><span class=cF7>)</span><span class=cF0>);
 <a name="l65"></a>
-<a name="l66"></a>            </span><span class=cF5>MemSetU32</span><span class=cF0>(</span><span class=cFB>text</span><span class=cF0>.fb_alias + </span><span class=cFB>text</span><span class=cF0>.screen_size - </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.width * </span><span class=cF3>FONT_HEIGHT</span><span class=cF0>, </span><span class=cF3>BLACK32</span><span class=cF0>, </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.width * </span><span class=cF3>FONT_HEIGHT</span><span class=cF0>);
+<a name="l66"></a>            </span><span class=cF5>MemSetU32</span><span class=cF0>(</span><span class=cFB>text</span><span class=cF0>.fb_alias + </span><span class=cFB>text</span><span class=cF0>.screen_size - </span><span class=cFB>sys_framebuffer_width</span><span class=cF0> * </span><span class=cF3>FONT_HEIGHT</span><span class=cF0>, </span><span class=cF3>BLACK32</span><span class=cF0>, </span><span class=cFB>sys_framebuffer_width</span><span class=cF0> * </span><span class=cF3>FONT_HEIGHT</span><span class=cF0>);
 <a name="l67"></a>            </span><span class=cFB>text</span><span class=cF0>.raw_col -= </span><span class=cFB>text</span><span class=cF0>.cols ;
 <a name="l68"></a>            row = </span><span class=cFB>text</span><span class=cF0>.rows - </span><span class=cFE>1</span><span class=cF0>;
 <a name="l69"></a>        }
 <a name="l70"></a>        x = col * </span><span class=cF3>FONT_WIDTH</span><span class=cF0>;
 <a name="l71"></a>        y = row * </span><span class=cF3>FONT_HEIGHT</span><span class=cF0>;
 <a name="l72"></a>        ch_bitmap = </span><span class=cFB>text</span><span class=cF0>.font[ch &amp; </span><span class=cFE>0xFF</span><span class=cF0>];
-<a name="l73"></a>        framebuffer = </span><span class=cFB>text</span><span class=cF0>.fb_alias + </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.width * y + x;
+<a name="l73"></a>        framebuffer = </span><span class=cFB>text</span><span class=cF0>.fb_alias + </span><span class=cFB>sys_framebuffer_width</span><span class=cF0> * y + x;
 <a name="l74"></a>
 <a name="l75"></a>        </span><span class=cF1>PUSHFD</span><span class=cF0>
 <a name="l76"></a>        </span><span class=cF1>CLI</span><span class=cF0>
@@ -108,7 +108,7 @@ body {background-color:#1f1f1f;}
 <a name="l81"></a>            </span><span class=cF1>else</span><span class=cF0>
 <a name="l82"></a>                *framebuffer++ = </span><span class=cF3>BLACK32</span><span class=cF0>;
 <a name="l83"></a>            </span><span class=cF1>if</span><span class=cF0> (i &amp; </span><span class=cF7>(</span><span class=cF3>FONT_WIDTH</span><span class=cF0> - </span><span class=cFE>1</span><span class=cF7>)</span><span class=cF0> == </span><span class=cF3>FONT_WIDTH</span><span class=cF0> - </span><span class=cFE>1</span><span class=cF0>)
-<a name="l84"></a>                framebuffer += </span><span class=cFB>sys_vbe_mode</span><span class=cF0>.width - </span><span class=cF3>FONT_WIDTH</span><span class=cF0>;
+<a name="l84"></a>                framebuffer += </span><span class=cFB>sys_framebuffer_width</span><span class=cF0> - </span><span class=cF3>FONT_WIDTH</span><span class=cF0>;
 <a name="l85"></a>            ch_bitmap &gt;&gt;= </span><span class=cFE>1</span><span class=cF0>;
 <a name="l86"></a>        }
 <a name="l87"></a>        </span><span class=cF1>POPFD</span><span class=cF0>
