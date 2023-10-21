@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V2.00">
+<meta name="generator" content="ZealOS V2.03">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -61,7 +61,7 @@ body {background-color:#1f1f1f;}
 <a name="l34"></a>            bd = drive-&gt;bd;
 <a name="l35"></a>            drv_let = </span><span class=cF5>Drive2Letter</span><span class=cF0>(drive);
 <a name="l36"></a>
-<a name="l37"></a>            filename_sys = </span><span class=cF5>MStrPrint</span><span class=cF0>(</span><span class=cF6>&quot;%C:/Boot/Limine.SYS&quot;</span><span class=cF0>, drv_let);
+<a name="l37"></a>            filename_sys = </span><span class=cF5>MStrPrint</span><span class=cF0>(</span><span class=cF6>&quot;%C:/Boot/Limine-BIOS.SYS&quot;</span><span class=cF0>, drv_let);
 <a name="l38"></a>            filename_elf = </span><span class=cF5>MStrPrint</span><span class=cF0>(</span><span class=cF6>&quot;%C:/Boot/ZealBooter.ELF&quot;</span><span class=cF0>, drv_let);
 <a name="l39"></a>            filename_zxe = </span><span class=cF5>MStrPrint</span><span class=cF0>(</span><span class=cF6>&quot;%C:/Boot/Kernel.ZXE&quot;</span><span class=cF0>, drv_let);
 <a name="l40"></a>            </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>FileFind</span><span class=cF7>(</span><span class=cF0>filename_sys</span><span class=cF7>)</span><span class=cF0> &amp;&amp; </span><span class=cF5>FileFind</span><span class=cF7>(</span><span class=cF0>filename_elf</span><span class=cF7>)</span><span class=cF0> &amp;&amp; </span><span class=cF5>FileFind</span><span class=cF7>(</span><span class=cF0>filename_zxe</span><span class=cF7>)</span><span class=cF0>)

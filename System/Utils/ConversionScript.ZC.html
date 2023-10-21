@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V2.00">
+<meta name="generator" content="ZealOS V2.03">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -68,7 +68,7 @@ body {background-color:#1f1f1f;}
 <a name="l41"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;ExtDft&quot;</span><span class=cF0>,          ff_mask, fu_flags, </span><span class=cF6>&quot;ExtDefault&quot;</span><span class=cF0>);
 <a name="l42"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;ExtChg&quot;</span><span class=cF0>,          ff_mask, fu_flags, </span><span class=cF6>&quot;ExtChange&quot;</span><span class=cF0>);
 <a name="l43"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;RegDft&quot;</span><span class=cF0>,          ff_mask, fu_flags, </span><span class=cF6>&quot;RegDefault&quot;</span><span class=cF0>);
-<a name="l44"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;\&quot;HC\&quot;&quot;</span><span class=cF0>,          ff_mask, fu_flags, </span><span class=cF6>&quot;\&quot;CC\&quot;&quot;</span><span class=cF0>);
+<a name="l44"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;\&quot;HC\&quot;&quot;</span><span class=cF0>,          ff_mask, fu_flags, </span><span class=cF6>&quot;\&quot;ZC\&quot;&quot;</span><span class=cF0>);
 <a name="l45"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;CDrv&quot;</span><span class=cF0>,            ff_mask, fu_flags, </span><span class=cF6>&quot;CDrive&quot;</span><span class=cF0>);
 <a name="l46"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;CDbgInfo&quot;</span><span class=cF0>,        ff_mask, fu_flags, </span><span class=cF6>&quot;CDebugInfo&quot;</span><span class=cF0>);
 <a name="l47"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;dbg_info&quot;</span><span class=cF0>,        ff_mask, fu_flags, </span><span class=cF6>&quot;debug_info&quot;</span><span class=cF0>);
@@ -94,10 +94,57 @@ body {background-color:#1f1f1f;}
 <a name="l67"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;GetStr&quot;</span><span class=cF0>,          ff_mask, fu_flags, </span><span class=cF6>&quot;StrGet&quot;</span><span class=cF0>);
 <a name="l68"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;GetChar&quot;</span><span class=cF0>,         ff_mask, fu_flags, </span><span class=cF6>&quot;CharGet&quot;</span><span class=cF0>);
 <a name="l69"></a>
-<a name="l70"></a>    </span><span class=cF6>&quot;\n$BK,1$$LTRED$Might want to go over these$FG$$BK,0$\n&quot;</span><span class=cF0>;
-<a name="l71"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;MemSet&quot;</span><span class=cF0>, ff_mask, fu_flags);
-<a name="l72"></a>}
-<a name="l73"></a>
-<a name="l74"></a></span><span class=cF2>//Cvt(&quot;Sup1/*&quot;);</span><span class=cF0>
+<a name="l70"></a>    </span><span class=cF2>//Added from Anfintony's Insecticide November 24 2022</span><span class=cF0>
+<a name="l71"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;GetMsg&quot;</span><span class=cF0>,              ff_mask,fu_flags,</span><span class=cF6>&quot;MessageGet&quot;</span><span class=cF0>);
+<a name="l72"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;DRV_SIGNATURE_VAL&quot;</span><span class=cF0>,   ff_mask,fu_flags,</span><span class=cF6>&quot;DRIVE_SIGNATURE_VAL&quot;</span><span class=cF0>);
+<a name="l73"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;dv_signature&quot;</span><span class=cF0>,        ff_mask,fu_flags,</span><span class=cF6>&quot;drive_signature&quot;</span><span class=cF0>);
+<a name="l74"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;DrvTextAttrGet&quot;</span><span class=cF0>,      ff_mask,fu_flags,</span><span class=cF6>&quot;DriveTextAttrGet&quot;</span><span class=cF0>);
+<a name="l75"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;DrvIsWritable&quot;</span><span class=cF0>,       ff_mask,fu_flags,</span><span class=cF6>&quot;DriveIsWritable&quot;</span><span class=cF0>);
+<a name="l76"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;gr_palette_std&quot;</span><span class=cF0>,      ff_mask,fu_flags,</span><span class=cF6>&quot;gr32_palette_std&quot;</span><span class=cF0>);
+<a name="l77"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;GetKey&quot;</span><span class=cF0>,              ff_mask,fu_flags,</span><span class=cF6>&quot;KeyGet&quot;</span><span class=cF0>);
+<a name="l78"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;STD_DISTRO_DVD_CFG&quot;</span><span class=cF0>,  ff_mask,fu_flags,</span><span class=cF6>&quot;STD_DISTRO_DVD_CONFIG&quot;</span><span class=cF0>);
+<a name="l79"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;CBGR48&quot;</span><span class=cF0>,              ff_mask,fu_flags,</span><span class=cF6>&quot;CBGR24&quot;</span><span class=cF0>);
+<a name="l80"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;CFreeLst&quot;</span><span class=cF0>,            ff_mask,fu_flags,</span><span class=cF6>&quot;CFreeList&quot;</span><span class=cF0>);
+<a name="l81"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;DrvLock&quot;</span><span class=cF0>,             ff_mask,fu_flags,</span><span class=cF6>&quot;DriveLock&quot;</span><span class=cF0>);
+<a name="l82"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;DrvUnlock&quot;</span><span class=cF0>,           ff_mask,fu_flags,</span><span class=cF6>&quot;DriveUnlock&quot;</span><span class=cF0>);
+<a name="l83"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;DrvChk&quot;</span><span class=cF0>,              ff_mask,fu_flags,</span><span class=cF6>&quot;DriveCheck&quot;</span><span class=cF0>);
+<a name="l84"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;AMAlloc&quot;</span><span class=cF0>,             ff_mask,fu_flags,</span><span class=cF6>&quot;SysMAlloc&quot;</span><span class=cF0>);
+<a name="l85"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;Let2Drv&quot;</span><span class=cF0>,             ff_mask,fu_flags,</span><span class=cF6>&quot;Letter2Drive&quot;</span><span class=cF0>);
+<a name="l86"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;Let2Let&quot;</span><span class=cF0>,             ff_mask,fu_flags,</span><span class=cF6>&quot;Letter2Letter&quot;</span><span class=cF0>);
+<a name="l87"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;Let2BlkDev&quot;</span><span class=cF0>,          ff_mask,fu_flags,</span><span class=cF6>&quot;Letter2BlkDev&quot;</span><span class=cF0>);
+<a name="l88"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;first_drv_let&quot;</span><span class=cF0>,       ff_mask,fu_flags,</span><span class=cF6>&quot;first_drive_let&quot;</span><span class=cF0>);
+<a name="l89"></a>
+<a name="l90"></a>    </span><span class=cF2>//Added by Doodguy and Anfintony November 25 2022</span><span class=cF0>
+<a name="l91"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;ScanKey&quot;</span><span class=cF0>,ff_mask,fu_flags,</span><span class=cF6>&quot;KeyScan&quot;</span><span class=cF0>);
+<a name="l92"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;ScanChar&quot;</span><span class=cF0>,ff_mask,fu_flags,</span><span class=cF6>&quot;CharScan&quot;</span><span class=cF0>);
+<a name="l93"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;fp_final_scrn_update&quot;</span><span class=cF0>,ff_mask,fu_flags,</span><span class=cF6>&quot;fp_final_screen_update&quot;</span><span class=cF0>);
+<a name="l94"></a>    
+<a name="l95"></a>    </span><span class=cF2>//Added by y4my4m April 25 2023</span><span class=cF0>
+<a name="l96"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;FifoI64Cnt&quot;</span><span class=cF0>,          ff_mask,fu_flags,</span><span class=cF6>&quot;FifoI64Count&quot;</span><span class=cF0>);
+<a name="l97"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;FifoI64Rem&quot;</span><span class=cF0>,          ff_mask,fu_flags,</span><span class=cF6>&quot;FifoI64Remove&quot;</span><span class=cF0>);
+<a name="l98"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;FifoU8Cnt&quot;</span><span class=cF0>,           ff_mask,fu_flags,</span><span class=cF6>&quot;FifoU8Count&quot;</span><span class=cF0>);
+<a name="l99"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;FifoU8Rem&quot;</span><span class=cF0>,           ff_mask,fu_flags,</span><span class=cF6>&quot;FifoU8Remove&quot;</span><span class=cF0>);
+<a name="l100"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;AdamErr&quot;</span><span class=cF0>,             ff_mask,fu_flags,</span><span class=cF6>&quot;SysErr&quot;</span><span class=cF0>);
+<a name="l101"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;AdamLog&quot;</span><span class=cF0>,             ff_mask,fu_flags,</span><span class=cF6>&quot;SysLog&quot;</span><span class=cF0>);
+<a name="l102"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;CHashGlblVar&quot;</span><span class=cF0>,        ff_mask,fu_flags,</span><span class=cF6>&quot;CHashGlobalVar&quot;</span><span class=cF0>);
+<a name="l103"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;HTT_GLBL_VAR&quot;</span><span class=cF0>,        ff_mask,fu_flags,</span><span class=cF6>&quot;HTT_GLOBAL_VAR&quot;</span><span class=cF0>);
+<a name="l104"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;fp_draw_ms&quot;</span><span class=cF0>,          ff_mask,fu_flags,</span><span class=cF6>&quot;fp_draw_mouse&quot;</span><span class=cF0>);
+<a name="l105"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;fp_draw_grab_ms&quot;</span><span class=cF0>,     ff_mask,fu_flags,</span><span class=cF6>&quot;fp_draw_grab_mouse&quot;</span><span class=cF0>);
+<a name="l106"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;fp_final_scrn_update&quot;</span><span class=cF0>,ff_mask,fu_flags,</span><span class=cF6>&quot;fp_final_screen_update&quot;</span><span class=cF0>);
+<a name="l107"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;DCColorChg&quot;</span><span class=cF0>,          ff_mask,fu_flags,</span><span class=cF6>&quot;DCColorChange&quot;</span><span class=cF0>);
+<a name="l108"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;Adam(&quot;</span><span class=cF0>,               ff_mask,fu_flags,</span><span class=cF6>&quot;Sys(&quot;</span><span class=cF0>); </span><span class=cF2>// using Adam( not to rename lists that contain the name Adam</span><span class=cF0>
+<a name="l109"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;KbdMsHndlr&quot;</span><span class=cF0>,          ff_mask,fu_flags,</span><span class=cF6>&quot;KbdMouseHandler&quot;</span><span class=cF0>);
+<a name="l110"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;WinMsUpdate&quot;</span><span class=cF0>,         ff_mask,fu_flags,</span><span class=cF6>&quot;WinMouseUpdate&quot;</span><span class=cF0>);
+<a name="l111"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;RWF_SHOW_DOLLAR&quot;</span><span class=cF0>,     ff_mask,fu_flags,</span><span class=cF6>&quot;RAWF_SHOW_DOLLAR&quot;</span><span class=cF0>);
+<a name="l112"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;RWF_LAST_DOLLAR&quot;</span><span class=cF0>,     ff_mask,fu_flags,</span><span class=cF6>&quot;RAWF_LAST_DOLLAR&quot;</span><span class=cF0>);
+<a name="l113"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;RWF_IN_DOLLAR&quot;</span><span class=cF0>,       ff_mask,fu_flags,</span><span class=cF6>&quot;RAWF_IN_DOLLAR&quot;</span><span class=cF0>);
+<a name="l114"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;RWF_SCROLL&quot;</span><span class=cF0>,          ff_mask,fu_flags,</span><span class=cF6>&quot;RAWF_SCROLL&quot;</span><span class=cF0>);
+<a name="l115"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;RawDr&quot;</span><span class=cF0>,               ff_mask,fu_flags,</span><span class=cF6>&quot;RawDumpRegs&quot;</span><span class=cF0>);
+<a name="l116"></a>
+<a name="l117"></a>    </span><span class=cF6>&quot;\n$BK,1$$LTRED$Might want to go over these$FG$$BK,0$\n&quot;</span><span class=cF0>;
+<a name="l118"></a>    </span><span class=cF5>Find</span><span class=cF0>(</span><span class=cF6>&quot;MemSet&quot;</span><span class=cF0>, ff_mask, fu_flags);
+<a name="l119"></a>}
+<a name="l120"></a>
+<a name="l121"></a></span><span class=cF2>//Cvt(&quot;Sup1/*&quot;);</span><span class=cF0>
 </span></pre></body>
 </html>

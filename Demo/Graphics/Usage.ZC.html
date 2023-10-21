@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
+<meta name="generator" content="ZealOS V2.03">
+<style type="text/css">
+body {background-color:#1f1f1f;}
+.cF0{color:#e3e3e3;background-color:#1f1f1f;}
+.cF1{color:#4f84a6;background-color:#1f1f1f;}
+.cF2{color:#73a255;background-color:#1f1f1f;}
+.cF3{color:#297582;background-color:#1f1f1f;}
+.cF4{color:#b34f4b;background-color:#1f1f1f;}
+.cF5{color:#8a52c3;background-color:#1f1f1f;}
+.cF6{color:#b7822f;background-color:#1f1f1f;}
+.cF7{color:#444444;background-color:#1f1f1f;}
+.cF8{color:#6d6d6d;background-color:#1f1f1f;}
+.cF9{color:#94bfde;background-color:#1f1f1f;}
+.cFA{color:#a1ce97;background-color:#1f1f1f;}
+.cFB{color:#6db4be;background-color:#1f1f1f;}
+.cFC{color:#e88e88;background-color:#1f1f1f;}
+.cFD{color:#ca94e8;background-color:#1f1f1f;}
+.cFE{color:#d4b475;background-color:#1f1f1f;}
+.cFF{color:#1f1f1f;background-color:#1f1f1f;}
+</style>
+</head>
+<body>
+<pre style="font-family:monospace;font-size:12pt">
+<a name="l1"></a><span class=cF0>
+<a name="l2"></a></span><span class=cF1>U0</span><span class=cF0> UsageDrawIt(</span><span class=cF9>CTask</span><span class=cF0> *, </span><span class=cF9>CDC</span><span class=cF0> *dc)
+<a name="l3"></a>{
+<a name="l4"></a>    </span><span class=cF9>I64</span><span class=cF0> i, b;
+<a name="l5"></a>    </span><span class=cF9>CCPU</span><span class=cF0> *c;
+<a name="l6"></a>    </span><span class=cF1>F64</span><span class=cF0> f;
+<a name="l7"></a>
+<a name="l8"></a>    dc-&gt;thick = </span><span class=cFE>1</span><span class=cF0>;
+<a name="l9"></a>
+<a name="l10"></a>    dc-&gt;color = </span><span class=cF3>GREEN</span><span class=cF0>;
+<a name="l11"></a>    </span><span class=cF5>GrPrint</span><span class=cF0>(dc, </span><span class=cFE>8</span><span class=cF0>, </span><span class=cFE>8</span><span class=cF0>, </span><span class=cF6>&quot;CPU&quot;</span><span class=cF0>);
+<a name="l12"></a>
+<a name="l13"></a>    dc-&gt;color = </span><span class=cF3>DKGRAY</span><span class=cF0>;
+<a name="l14"></a>    </span><span class=cF5>GrRect</span><span class=cF0>(dc, </span><span class=cFE>8</span><span class=cF0>, </span><span class=cFE>16</span><span class=cF0>, </span><span class=cFE>100</span><span class=cF0>, </span><span class=cFE>8</span><span class=cF0> + </span><span class=cFE>16</span><span class=cF0> * </span><span class=cF7>(</span><span class=cFB>mp_count</span><span class=cF0> - </span><span class=cFE>1</span><span class=cF7>)</span><span class=cF0>);
+<a name="l15"></a>
+<a name="l16"></a>    dc-&gt;color = </span><span class=cF3>GREEN</span><span class=cF0>;
+<a name="l17"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cFB>mp_count</span><span class=cF0>; i++)
+<a name="l18"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l19"></a>        c = &amp;</span><span class=cFB>cpu_structs</span><span class=cF0>[i];
+<a name="l20"></a>
+<a name="l21"></a>        f = </span><span class=cFE>100</span><span class=cF0>.</span><span class=cFE>0</span><span class=cF0> * (</span><span class=cFE>1</span><span class=cF0>.</span><span class=cFE>0</span><span class=cF0> - c-&gt;idle_factor);
+<a name="l22"></a>        </span><span class=cF1>if</span><span class=cF0> (f &lt; </span><span class=cFE>1</span><span class=cF0>.</span><span class=cFE>0</span><span class=cF0>)
+<a name="l23"></a>            f = </span><span class=cFE>1</span><span class=cF0>.</span><span class=cFE>0</span><span class=cF0>;
+<a name="l24"></a>
+<a name="l25"></a>        </span><span class=cF5>GrRect</span><span class=cF0>(dc, </span><span class=cFE>8</span><span class=cF0>, </span><span class=cFE>16</span><span class=cF0> + </span><span class=cF7>(</span><span class=cFE>16</span><span class=cF0>*i</span><span class=cF7>)</span><span class=cF0>, </span><span class=cF5>ToI64</span><span class=cF7>(</span><span class=cF0>f</span><span class=cF7>)</span><span class=cF0>, </span><span class=cFE>8</span><span class=cF0>);
+<a name="l26"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l27"></a>
+<a name="l28"></a>    b = </span><span class=cFB>sys_code_bp</span><span class=cF0>-&gt;alloced_u8s - </span><span class=cFB>sys_code_bp</span><span class=cF0>-&gt;used_u8s;
+<a name="l29"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cFB>sys_data_bp</span><span class=cF0>)
+<a name="l30"></a>        b += </span><span class=cFB>sys_data_bp</span><span class=cF0>-&gt;alloced_u8s - </span><span class=cFB>sys_data_bp</span><span class=cF0>-&gt;used_u8s;
+<a name="l31"></a>
+<a name="l32"></a>    f = </span><span class=cFE>1</span><span class=cF0>.</span><span class=cFE>0</span><span class=cF0> * b / </span><span class=cF5>MemBIOSTotal</span><span class=cF0>;
+<a name="l33"></a>
+<a name="l34"></a>
+<a name="l35"></a>    dc-&gt;color = </span><span class=cF3>RED</span><span class=cF0>;
+<a name="l36"></a>    </span><span class=cF5>GrPrint</span><span class=cF0>(dc, </span><span class=cFE>116</span><span class=cF0>, </span><span class=cFE>8</span><span class=cF0>, </span><span class=cF6>&quot;RAM&quot;</span><span class=cF0>);
+<a name="l37"></a>
+<a name="l38"></a>    dc-&gt;color = </span><span class=cF3>DKGRAY</span><span class=cF0>;
+<a name="l39"></a>    </span><span class=cF5>GrRect</span><span class=cF0>(dc, </span><span class=cFE>116</span><span class=cF0>, </span><span class=cFE>16</span><span class=cF0>, </span><span class=cFE>100</span><span class=cF0>, </span><span class=cFE>8</span><span class=cF0>);
+<a name="l40"></a>    dc-&gt;color = </span><span class=cF3>RED</span><span class=cF0>;
+<a name="l41"></a>    </span><span class=cF5>GrRect</span><span class=cF0>(dc, </span><span class=cFE>116</span><span class=cF0>, </span><span class=cFE>16</span><span class=cF0>, </span><span class=cF5>ToI64</span><span class=cF7>(</span><span class=cFE>100</span><span class=cF0>.</span><span class=cFE>0</span><span class=cF0> * (</span><span class=cFE>1</span><span class=cF0>.</span><span class=cFE>0</span><span class=cF0> - f)</span><span class=cF7>)</span><span class=cF0>, </span><span class=cFE>8</span><span class=cF0>);
+<a name="l42"></a>
+<a name="l43"></a>    </span><span class=cF5>Sleep</span><span class=cF0>(</span><span class=cFE>1</span><span class=cF0>);
+<a name="l44"></a>}
+<a name="l45"></a>
+<a name="l46"></a></span><span class=cF1>U0</span><span class=cF0> Usage()
+<a name="l47"></a>{
+<a name="l48"></a>    </span><span class=cF5>SettingsPush</span><span class=cF0>;
+<a name="l49"></a>    </span><span class=cF5>DocClear</span><span class=cF0>;
+<a name="l50"></a>    </span><span class=cF5>DocCursor</span><span class=cF0>;
+<a name="l51"></a>    </span><span class=cF5>Fs</span><span class=cF0>-&gt;draw_it = &amp;UsageDrawIt;
+<a name="l52"></a>    </span><span class=cF5>StrCopy</span><span class=cF0>(</span><span class=cF5>Fs</span><span class=cF0>-&gt;task_title, </span><span class=cF6>&quot;Usage&quot;</span><span class=cF0>);
+<a name="l53"></a>
+<a name="l54"></a>    </span><span class=cF1>while</span><span class=cF0> (</span><span class=cF5>CharGet</span><span class=cF7>(</span><span class=cF0>,</span><span class=cF3>FALSE</span><span class=cF7>)</span><span class=cF0> != </span><span class=cF3>CH_SHIFT_ESC</span><span class=cF0>) </span><span class=cF7>{}</span><span class=cF0>;
+<a name="l55"></a>
+<a name="l56"></a>    </span><span class=cF5>SettingsPop</span><span class=cF0>;
+<a name="l57"></a>};
+<a name="l58"></a>
+<a name="l59"></a>Usage;</span></pre></body>
+</html>
