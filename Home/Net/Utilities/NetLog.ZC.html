@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V2.00">
+<meta name="generator" content="ZealOS V2.03">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -27,79 +27,88 @@ body {background-color:#1f1f1f;}
 <pre style="font-family:monospace;font-size:12pt">
 <a name="l1"></a><span class=cF9>CTask</span><span class=cF0> *net_log_task = </span><span class=cF3>NULL</span><span class=cF0>;
 <a name="l2"></a>
-<a name="l3"></a></span><span class=cF1>U0</span><span class=cF0> NetLogTask(</span><span class=cF9>I64</span><span class=cF0>)
+<a name="l3"></a></span><span class=cF1>U0</span><span class=cF0> NetLogSave()
 <a name="l4"></a>{
-<a name="l5"></a>
-<a name="l6"></a>    </span><span class=cF1>while</span><span class=cF0> (</span><span class=cF3>TRUE</span><span class=cF0>)
-<a name="l7"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l8"></a>        </span><span class=cF5>Refresh</span><span class=cF0>;
-<a name="l9"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l10"></a>}
-<a name="l11"></a>
-<a name="l12"></a></span><span class=cF1>U0</span><span class=cF0> NetLogSave()
-<a name="l13"></a>{
-<a name="l14"></a>    </span><span class=cF5>StrCopy</span><span class=cF0>(net_log_task-&gt;put_doc-&gt;filename.name, </span><span class=cF6>&quot;::/Home/Net/Log.DD&quot;</span><span class=cF0>);
-<a name="l15"></a>    </span><span class=cF5>DocWrite</span><span class=cF0>(net_log_task-&gt;put_doc);
-<a name="l16"></a>}
-<a name="l17"></a>
-<a name="l18"></a></span><span class=cF1>U0</span><span class=cF0> NetLogInit()
-<a name="l19"></a>{
-<a name="l20"></a>    net_log_task = </span><span class=cF5>Spawn</span><span class=cF0>(&amp;</span><span class=cF5>ServerCmdLine</span><span class=cF0>, </span><span class=cF3>NULL</span><span class=cF0>, </span><span class=cF6>&quot;Network Log&quot;</span><span class=cF0>);
-<a name="l21"></a>    </span><span class=cF5>TaskWait</span><span class=cF0>(net_log_task);
+<a name="l5"></a>    </span><span class=cF5>StrCopy</span><span class=cF0>(net_log_task-&gt;put_doc-&gt;filename.name, </span><span class=cF6>&quot;::/Home/Net/Log.DD&quot;</span><span class=cF0>);
+<a name="l6"></a>    </span><span class=cF5>DocWrite</span><span class=cF0>(net_log_task-&gt;put_doc);
+<a name="l7"></a>}
+<a name="l8"></a>
+<a name="l9"></a></span><span class=cF1>U0</span><span class=cF0> NetLogInit()
+<a name="l10"></a>{
+<a name="l11"></a>    net_log_task = </span><span class=cF5>Spawn</span><span class=cF0>(&amp;</span><span class=cF5>ServerCmdLine</span><span class=cF0>, </span><span class=cF3>NULL</span><span class=cF0>, </span><span class=cF6>&quot;Network Log&quot;</span><span class=cF0>);
+<a name="l12"></a>    </span><span class=cF5>TaskWait</span><span class=cF0>(net_log_task);
+<a name="l13"></a>
+<a name="l14"></a>    net_log_task-&gt;border_src    = </span><span class=cF3>BDS_CONST</span><span class=cF0>;
+<a name="l15"></a>    net_log_task-&gt;border_attr   = </span><span class=cF3>DKGRAY</span><span class=cF0> &lt;&lt; </span><span class=cFE>4</span><span class=cF0> + </span><span class=cF3>LTGRAY</span><span class=cF0>;
+<a name="l16"></a>    net_log_task-&gt;text_attr     = </span><span class=cF3>WHITE</span><span class=cF0>  &lt;&lt; </span><span class=cFE>4</span><span class=cF0> + </span><span class=cF3>LTGRAY</span><span class=cF0>;
+<a name="l17"></a>    </span><span class=cF5>DocClear</span><span class=cF0>(net_log_task-&gt;border_doc, </span><span class=cF3>TRUE</span><span class=cF0>);
+<a name="l18"></a>
+<a name="l19"></a>    </span><span class=cF5>WinHorz</span><span class=cF0>(</span><span class=cF3>TEXT_COLS</span><span class=cF0> / </span><span class=cFE>3</span><span class=cF0>, </span><span class=cFE>2</span><span class=cF0> * </span><span class=cF3>TEXT_COLS</span><span class=cF0> / </span><span class=cFE>3</span><span class=cF0>, net_log_task);
+<a name="l20"></a>    </span><span class=cF5>WinVert</span><span class=cF0>(</span><span class=cFE>2</span><span class=cF0> * </span><span class=cF3>TEXT_ROWS</span><span class=cF0> / </span><span class=cFE>3</span><span class=cF0>, </span><span class=cFE>5</span><span class=cF0> * </span><span class=cF3>TEXT_ROWS</span><span class=cF0> / </span><span class=cFE>6</span><span class=cF0>, net_log_task);
+<a name="l21"></a>    </span><span class=cF5>WinFocus</span><span class=cF0>(net_log_task);
 <a name="l22"></a>
-<a name="l23"></a>    net_log_task-&gt;border_src    = </span><span class=cF3>BDS_CONST</span><span class=cF0>;
-<a name="l24"></a>    net_log_task-&gt;border_attr   = </span><span class=cF3>DKGRAY</span><span class=cF0> &lt;&lt; </span><span class=cFE>4</span><span class=cF0> + </span><span class=cF3>LTGRAY</span><span class=cF0>;
-<a name="l25"></a>    net_log_task-&gt;text_attr     = </span><span class=cF3>WHITE</span><span class=cF0>  &lt;&lt; </span><span class=cFE>4</span><span class=cF0> + </span><span class=cF3>LTGRAY</span><span class=cF0>;
-<a name="l26"></a>    </span><span class=cF5>DocClear</span><span class=cF0>(net_log_task-&gt;border_doc, </span><span class=cF3>TRUE</span><span class=cF0>);
-<a name="l27"></a>
-<a name="l28"></a>    </span><span class=cF5>WinHorz</span><span class=cF0>(</span><span class=cF3>TEXT_COLS</span><span class=cF0> / </span><span class=cFE>3</span><span class=cF0>, </span><span class=cFE>2</span><span class=cF0> * </span><span class=cF3>TEXT_COLS</span><span class=cF0> / </span><span class=cFE>3</span><span class=cF0>, net_log_task);
-<a name="l29"></a>    </span><span class=cF5>WinVert</span><span class=cF0>(</span><span class=cFE>2</span><span class=cF0> * </span><span class=cF3>TEXT_ROWS</span><span class=cF0> / </span><span class=cFE>3</span><span class=cF0>, </span><span class=cFE>5</span><span class=cF0> * </span><span class=cF3>TEXT_ROWS</span><span class=cF0> / </span><span class=cFE>6</span><span class=cF0>, net_log_task);
-<a name="l30"></a>    </span><span class=cF5>WinFocus</span><span class=cF0>(net_log_task);
-<a name="l31"></a>
-<a name="l32"></a>    </span><span class=cF5>DocPrint</span><span class=cF0>(net_log_task-&gt;put_doc, </span><span class=cF6>&quot;$WW+H,1$&quot;</span><span class=cF0>);
-<a name="l33"></a>
-<a name="l34"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;net_log_task-&gt;win_inhibit, </span><span class=cF3>WIf_SELF_FOCUS</span><span class=cF0>);
-<a name="l35"></a>}
-<a name="l36"></a>
-<a name="l37"></a></span><span class=cF1>U0</span><span class=cF0> NetLog(</span><span class=cF1>U8</span><span class=cF0> *format, ...)
-<a name="l38"></a>{ </span><span class=cF2>// Output text to NetLogTask as Log.</span><span class=cF0>
-<a name="l39"></a>    </span><span class=cF1>U8</span><span class=cF0> *buf = </span><span class=cF5>StrPrintJoin</span><span class=cF0>(</span><span class=cF3>NULL</span><span class=cF0>, format, argc, argv);
-<a name="l40"></a>
-<a name="l41"></a>    </span><span class=cF5>DocBottom</span><span class=cF0>(net_log_task-&gt;put_doc);
-<a name="l42"></a>    </span><span class=cF5>DocPrint</span><span class=cF0>(net_log_task-&gt;put_doc, </span><span class=cF6>&quot;%s\n&quot;</span><span class=cF0>, buf);
-<a name="l43"></a>
-<a name="l44"></a>    </span><span class=cF5>Free</span><span class=cF0>(buf);
-<a name="l45"></a>}
-<a name="l46"></a>
-<a name="l47"></a></span><span class=cF1>U0</span><span class=cF0> NetWarn(</span><span class=cF1>U8</span><span class=cF0> *format, ...)
-<a name="l48"></a>{ </span><span class=cF2>// Output text to NetLogTask as Warning.</span><span class=cF0>
-<a name="l49"></a>    </span><span class=cF1>U8</span><span class=cF0> *buf = </span><span class=cF5>StrPrintJoin</span><span class=cF0>(</span><span class=cF3>NULL</span><span class=cF0>, format, argc, argv);
-<a name="l50"></a>
-<a name="l51"></a>    </span><span class=cF5>DocBottom</span><span class=cF0>(net_log_task-&gt;put_doc);
-<a name="l52"></a>    </span><span class=cF5>DocPrint</span><span class=cF0>(net_log_task-&gt;put_doc, </span><span class=cF6>&quot;$BG,BROWN$$WHITE$%s$BG$$FG$\n&quot;</span><span class=cF0>, buf);
-<a name="l53"></a>
-<a name="l54"></a>    </span><span class=cF5>Free</span><span class=cF0>(buf);
-<a name="l55"></a>}
+<a name="l23"></a>    </span><span class=cF5>DocPrint</span><span class=cF0>(net_log_task-&gt;put_doc, </span><span class=cF6>&quot;$WW+H,1$&quot;</span><span class=cF0>);
+<a name="l24"></a>
+<a name="l25"></a></span><span class=cF2>//</span><span class=cF0>  </span><span class=cF2>net_log_task-&gt;put_doc-&gt;max_entries = I64_MAX;</span><span class=cF0>
+<a name="l26"></a>
+<a name="l27"></a>    </span><span class=cF5>Bts</span><span class=cF0>(&amp;net_log_task-&gt;win_inhibit, </span><span class=cF3>WIf_SELF_FOCUS</span><span class=cF0>);
+<a name="l28"></a>}
+<a name="l29"></a>
+<a name="l30"></a></span><span class=cF1>U0</span><span class=cF0> NetLogBottom()
+<a name="l31"></a>{</span><span class=cF2>//Move cursor, cur_entry, to bottom.</span><span class=cF0>
+<a name="l32"></a>    </span><span class=cF1>Bool</span><span class=cF0> unlock;
+<a name="l33"></a>    </span><span class=cF9>CDoc</span><span class=cF0> *doc = net_log_task-&gt;put_doc;
+<a name="l34"></a>
+<a name="l35"></a>    unlock = </span><span class=cF5>DocLock</span><span class=cF0>(doc);
+<a name="l36"></a>    doc-&gt;cur_entry  = doc;
+<a name="l37"></a>    doc-&gt;cur_col    = </span><span class=cFE>0</span><span class=cF0>;
+<a name="l38"></a>    </span><span class=cF1>if</span><span class=cF0> (unlock)
+<a name="l39"></a>        </span><span class=cF5>DocUnlock</span><span class=cF0>(doc);
+<a name="l40"></a>}
+<a name="l41"></a>
+<a name="l42"></a></span><span class=cF1>U0</span><span class=cF0> NetLog(</span><span class=cF1>U8</span><span class=cF0> *format, ...)
+<a name="l43"></a>{ </span><span class=cF2>// Output text to NetLogTask as Log.</span><span class=cF0>
+<a name="l44"></a>    </span><span class=cF1>U8</span><span class=cF0> *buf = </span><span class=cF5>StrPrintJoin</span><span class=cF0>(</span><span class=cF3>NULL</span><span class=cF0>, format, argc, argv);
+<a name="l45"></a>
+<a name="l46"></a>    NetLogBottom;
+<a name="l47"></a>
+<a name="l48"></a>    </span><span class=cF5>DocPrint</span><span class=cF0>(net_log_task-&gt;put_doc, </span><span class=cF6>&quot;%s\n&quot;</span><span class=cF0>, buf);
+<a name="l49"></a>
+<a name="l50"></a>    </span><span class=cF5>Free</span><span class=cF0>(buf);
+<a name="l51"></a>}
+<a name="l52"></a>
+<a name="l53"></a></span><span class=cF1>U0</span><span class=cF0> NetWarn(</span><span class=cF1>U8</span><span class=cF0> *format, ...)
+<a name="l54"></a>{ </span><span class=cF2>// Output text to NetLogTask as Warning.</span><span class=cF0>
+<a name="l55"></a>    </span><span class=cF1>U8</span><span class=cF0> *buf = </span><span class=cF5>StrPrintJoin</span><span class=cF0>(</span><span class=cF3>NULL</span><span class=cF0>, format, argc, argv);
 <a name="l56"></a>
-<a name="l57"></a></span><span class=cF1>U0</span><span class=cF0> NetErr(</span><span class=cF1>U8</span><span class=cF0> *format, ...)
-<a name="l58"></a>{ </span><span class=cF2>// Output text to NetLogTask as Error.</span><span class=cF0>
-<a name="l59"></a>    </span><span class=cF1>U8</span><span class=cF0> *buf = </span><span class=cF5>StrPrintJoin</span><span class=cF0>(</span><span class=cF3>NULL</span><span class=cF0>, format, argc, argv);
+<a name="l57"></a>    NetLogBottom;
+<a name="l58"></a>
+<a name="l59"></a>    </span><span class=cF5>DocPrint</span><span class=cF0>(net_log_task-&gt;put_doc, </span><span class=cF6>&quot;$BG,BROWN$$WHITE$%s$BG$$FG$\n&quot;</span><span class=cF0>, buf);
 <a name="l60"></a>
-<a name="l61"></a>    </span><span class=cF5>DocBottom</span><span class=cF0>(net_log_task-&gt;put_doc);
-<a name="l62"></a>    </span><span class=cF5>DocPrint</span><span class=cF0>(net_log_task-&gt;put_doc, </span><span class=cF6>&quot;$BG,RED$$WHITE$%s$BG$$FG$\n&quot;</span><span class=cF0>, buf);
+<a name="l61"></a>    </span><span class=cF5>Free</span><span class=cF0>(buf);
+<a name="l62"></a>}
 <a name="l63"></a>
-<a name="l64"></a>    </span><span class=cF5>Free</span><span class=cF0>(buf);
-<a name="l65"></a>}
-<a name="l66"></a>
-<a name="l67"></a></span><span class=cF1>U0</span><span class=cF0> NetDebug(</span><span class=cF1>U8</span><span class=cF0> *format, ...)
-<a name="l68"></a>{ </span><span class=cF2>// Output text to NetLogTask as Debug.</span><span class=cF0>
-<a name="l69"></a>    </span><span class=cF1>U8</span><span class=cF0> *buf = </span><span class=cF5>StrPrintJoin</span><span class=cF0>(</span><span class=cF3>NULL</span><span class=cF0>, format, argc, argv);
-<a name="l70"></a>
-<a name="l71"></a>    </span><span class=cF5>DocBottom</span><span class=cF0>(net_log_task-&gt;put_doc);
-<a name="l72"></a>    </span><span class=cF5>DocPrint</span><span class=cF0>(net_log_task-&gt;put_doc, </span><span class=cF6>&quot;$BG,YELLOW$$DKGRAY$%s$BG$$FG$\n&quot;</span><span class=cF0>, buf);
-<a name="l73"></a>
-<a name="l74"></a>    </span><span class=cF5>Free</span><span class=cF0>(buf);
-<a name="l75"></a>}
-<a name="l76"></a>
-<a name="l77"></a>NetLogInit;</span></pre></body>
+<a name="l64"></a></span><span class=cF1>U0</span><span class=cF0> NetErr(</span><span class=cF1>U8</span><span class=cF0> *format, ...)
+<a name="l65"></a>{ </span><span class=cF2>// Output text to NetLogTask as Error.</span><span class=cF0>
+<a name="l66"></a>    </span><span class=cF1>U8</span><span class=cF0> *buf = </span><span class=cF5>StrPrintJoin</span><span class=cF0>(</span><span class=cF3>NULL</span><span class=cF0>, format, argc, argv);
+<a name="l67"></a>
+<a name="l68"></a>    NetLogBottom;
+<a name="l69"></a>
+<a name="l70"></a>    </span><span class=cF5>DocPrint</span><span class=cF0>(net_log_task-&gt;put_doc, </span><span class=cF6>&quot;$BG,RED$$WHITE$%s$BG$$FG$\n&quot;</span><span class=cF0>, buf);
+<a name="l71"></a>
+<a name="l72"></a>    </span><span class=cF5>Free</span><span class=cF0>(buf);
+<a name="l73"></a>}
+<a name="l74"></a>
+<a name="l75"></a></span><span class=cF1>U0</span><span class=cF0> NetDebug(</span><span class=cF1>U8</span><span class=cF0> *format, ...)
+<a name="l76"></a>{ </span><span class=cF2>// Output text to NetLogTask as Debug.</span><span class=cF0>
+<a name="l77"></a>    </span><span class=cF1>U8</span><span class=cF0> *buf = </span><span class=cF5>StrPrintJoin</span><span class=cF0>(</span><span class=cF3>NULL</span><span class=cF0>, format, argc, argv);
+<a name="l78"></a>
+<a name="l79"></a>    NetLogBottom;
+<a name="l80"></a>
+<a name="l81"></a>    </span><span class=cF5>DocPrint</span><span class=cF0>(net_log_task-&gt;put_doc, </span><span class=cF6>&quot;$BG,YELLOW$$DKGRAY$%s$BG$$FG$\n&quot;</span><span class=cF0>, buf);
+<a name="l82"></a>
+<a name="l83"></a>    </span><span class=cF5>Free</span><span class=cF0>(buf);
+<a name="l84"></a>}
+<a name="l85"></a>
+<a name="l86"></a>NetLogInit;</span></pre></body>
 </html>

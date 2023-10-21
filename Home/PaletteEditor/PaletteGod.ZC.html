@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V2.00">
+<meta name="generator" content="ZealOS V2.03">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -25,19 +25,23 @@ body {background-color:#1f1f1f;}
 </head>
 <body>
 <pre style="font-family:monospace;font-size:12pt">
-<a name="l1"></a><span class=cF0>
-<a name="l2"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF1>U0</span><span class=cF0> PaletteGodGenerate()
-<a name="l3"></a>{
-<a name="l4"></a>    </span><span class=cF9>I64</span><span class=cF0>     i;
-<a name="l5"></a>    </span><span class=cF9>CBGR24</span><span class=cF0>  palette;
-<a name="l6"></a>
-<a name="l7"></a>    </span><span class=cF1>for</span><span class=cF0> (i = </span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cFE>16</span><span class=cF0>; i++)
-<a name="l8"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l9"></a>        palette = </span><span class=cF5>GodPick</span><span class=cF0> &amp; </span><span class=cFE>0xFFFFFF</span><span class=cF0>;
-<a name="l10"></a>        </span><span class=cFB>gr_palette</span><span class=cF0>[i] = palette;
-<a name="l11"></a>        </span><span class=cF5>LFBFlush</span><span class=cF0>;
-<a name="l12"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l13"></a>}
+<a name="l1"></a><span class=cF9>CBGR24</span><span class=cF0> ColorGod(</span><span class=cF1>Bool</span><span class=cF0> instant=</span><span class=cF3>TRUE</span><span class=cF0>)
+<a name="l2"></a>{</span><span class=cF2>// Generate a random color, seed-based or not</span><span class=cF0>
+<a name="l3"></a>    </span><span class=cF1>if</span><span class=cF0> (instant)
+<a name="l4"></a>        </span><span class=cF1>return</span><span class=cF0> </span><span class=cF5>RandI32</span><span class=cF0> &amp; </span><span class=cFE>0xFFFFFF</span><span class=cF0>;
+<a name="l5"></a>    </span><span class=cF1>else</span><span class=cF0>
+<a name="l6"></a>        </span><span class=cF1>return</span><span class=cF0> </span><span class=cF5>GodPick</span><span class=cF0> &amp; </span><span class=cFE>0xFFFFFF</span><span class=cF0>;
+<a name="l7"></a>}
+<a name="l8"></a>
+<a name="l9"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF1>U0</span><span class=cF0> PaletteGod(</span><span class=cF1>Bool</span><span class=cF0> seedUse=</span><span class=cF3>FALSE</span><span class=cF0>, </span><span class=cF1>Bool</span><span class=cF0> instant=</span><span class=cF3>TRUE</span><span class=cF0>)
+<a name="l10"></a>{</span><span class=cF2>// Generate a random palette, seed-based or not</span><span class=cF0>
+<a name="l11"></a>    </span><span class=cF9>I64</span><span class=cF0>     i;
+<a name="l12"></a>
+<a name="l13"></a>    </span><span class=cF1>if</span><span class=cF0> (seedUse) </span><span class=cF5>Seed</span><span class=cF0>(</span><span class=cF5>GodPick</span><span class=cF0>);
 <a name="l14"></a>
-<a name="l15"></a>PaletteGodGenerate;</span></pre></body>
+<a name="l15"></a>    </span><span class=cF1>for</span><span class=cF0> (i=</span><span class=cFE>0</span><span class=cF0>; i &lt; </span><span class=cFE>16</span><span class=cF0>; i++)
+<a name="l16"></a>        </span><span class=cFB>gr_palette</span><span class=cF0>[i] = ColorGod(instant);
+<a name="l17"></a>    </span><span class=cF5>LFBFlush</span><span class=cF0>;
+<a name="l18"></a>}
+</span></pre></body>
 </html>

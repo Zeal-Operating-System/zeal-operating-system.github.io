@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V2.00">
+<meta name="generator" content="ZealOS V2.03">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -81,40 +81,41 @@ body {background-color:#1f1f1f;}
 <a name="l54"></a>    </span><span class=cF2>//*(drv_text_attr(U8 *) + 1) = BROWN;</span><span class=cF0>
 <a name="l55"></a>}
 <a name="l56"></a></span><span class=cF2>//********************************************************************************</span><span class=cF0>
-<a name="l57"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF9>CBGR24</span><span class=cF0> </span><span class=cFB>gr_palette_light</span><span class=cF0>[</span><span class=cF3>COLORS_NUM</span><span class=cF0>] = {
-<a name="l58"></a>    </span><span class=cFE>0x000000</span><span class=cF0>, </span><span class=cFE>0x0148A4</span><span class=cF0>, </span><span class=cFE>0x3B7901</span><span class=cF0>, </span><span class=cFE>0x057C7E</span><span class=cF0>, </span><span class=cFE>0xBB2020</span><span class=cF0>, </span><span class=cFE>0x9E42AE</span><span class=cF0>, </span><span class=cFE>0xB57901</span><span class=cF0>, </span><span class=cFE>0xB2B6AF</span><span class=cF0>,
-<a name="l59"></a>    </span><span class=cFE>0x555753</span><span class=cF0>, </span><span class=cFE>0x678FBB</span><span class=cF0>, </span><span class=cFE>0x82BC49</span><span class=cF0>, </span><span class=cFE>0x0097A2</span><span class=cF0>, </span><span class=cFE>0xE26A6A</span><span class=cF0>, </span><span class=cFE>0xC671BC</span><span class=cF0>, </span><span class=cFE>0xC7AB00</span><span class=cF0>, </span><span class=cFE>0xFEF1F0</span><span class=cF0>
-<a name="l60"></a>};
-<a name="l61"></a>
-<a name="l62"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>PaletteSetLight</span><span class=cF0>(</span><span class=cF1>Bool</span><span class=cF0> persistent=</span><span class=cF3>TRUE</span><span class=cF0>)
-<a name="l63"></a>{</span><span class=cF2>//Activate Light palette.</span><span class=cF0>
-<a name="l64"></a>    </span><span class=cF5>GrPaletteSet</span><span class=cF0>(</span><span class=cFB>gr_palette_light</span><span class=cF0>);
-<a name="l65"></a>    </span><span class=cF5>LFBFlush</span><span class=cF0>;
-<a name="l66"></a>    </span><span class=cF1>if</span><span class=cF0> (persistent)
-<a name="l67"></a>        </span><span class=cFB>fp_set_std_palette</span><span class=cF0> = &amp;</span><span class=cF5>PaletteSetLight</span><span class=cF0>;
-<a name="l68"></a>}
-<a name="l69"></a></span><span class=cF2>//********************************************************************************</span><span class=cF0>
-<a name="l70"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF9>CBGR24</span><span class=cF0> </span><span class=cFB>gr_palette_slate</span><span class=cF0>[</span><span class=cF3>COLORS_NUM</span><span class=cF0>] = {
-<a name="l71"></a>    </span><span class=cFE>0xE3E3E3</span><span class=cF0>, </span><span class=cFE>0x4F84A6</span><span class=cF0>, </span><span class=cFE>0x73A255</span><span class=cF0>, </span><span class=cFE>0x297582</span><span class=cF0>, </span><span class=cFE>0xB34F4B</span><span class=cF0>, </span><span class=cFE>0x8A52C3</span><span class=cF0>, </span><span class=cFE>0xB7822F</span><span class=cF0>, </span><span class=cFE>0x444444</span><span class=cF0>,
-<a name="l72"></a>    </span><span class=cFE>0x6D6D6D</span><span class=cF0>, </span><span class=cFE>0x94BFDE</span><span class=cF0>, </span><span class=cFE>0xA1CE97</span><span class=cF0>, </span><span class=cFE>0x6DB4BE</span><span class=cF0>, </span><span class=cFE>0xE88E88</span><span class=cF0>, </span><span class=cFE>0xCA94E8</span><span class=cF0>, </span><span class=cFE>0xD4B475</span><span class=cF0>, </span><span class=cFE>0x1F1F1F</span><span class=cF0>
-<a name="l73"></a>};
-<a name="l74"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>PaletteSetSlate</span><span class=cF0>(</span><span class=cF1>Bool</span><span class=cF0> persistent=</span><span class=cF3>TRUE</span><span class=cF0>)
-<a name="l75"></a>{</span><span class=cF2>//Activate Slate palette.</span><span class=cF0>
-<a name="l76"></a>    </span><span class=cF5>GrPaletteSet</span><span class=cF0>(</span><span class=cFB>gr_palette_slate</span><span class=cF0>);
-<a name="l77"></a>    </span><span class=cF5>LFBFlush</span><span class=cF0>;
-<a name="l78"></a>    </span><span class=cF1>if</span><span class=cF0> (persistent)
-<a name="l79"></a>        </span><span class=cFB>fp_set_std_palette</span><span class=cF0> = &amp;</span><span class=cF5>PaletteSetSlate</span><span class=cF0>;
-<a name="l80"></a>}
-<a name="l81"></a></span><span class=cF2>//********************************************************************************</span><span class=cF0>
-<a name="l82"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF9>CBGR24</span><span class=cF0> </span><span class=cFB>gr_palette_commander</span><span class=cF0>[</span><span class=cF3>COLORS_NUM</span><span class=cF0>] = {
-<a name="l83"></a>    </span><span class=cFE>0xFFFFFF</span><span class=cF0>, </span><span class=cFE>0x867ADE</span><span class=cF0>, </span><span class=cFE>0x00CC55</span><span class=cF0>, </span><span class=cFE>0x5A878B</span><span class=cF0>, </span><span class=cFE>0xFF0000</span><span class=cF0>, </span><span class=cFE>0xCC44CC</span><span class=cF0>, </span><span class=cFE>0xDD8855</span><span class=cF0>, </span><span class=cFE>0xE1E1E2</span><span class=cF0>,
-<a name="l84"></a>    </span><span class=cFE>0x777777</span><span class=cF0>, </span><span class=cFE>0x009BFF</span><span class=cF0>, </span><span class=cFE>0xAAFF66</span><span class=cF0>, </span><span class=cFE>0xAAFFEE</span><span class=cF0>, </span><span class=cFE>0xFF7777</span><span class=cF0>, </span><span class=cFE>0xCA94E8</span><span class=cF0>, </span><span class=cFE>0xEEEE77</span><span class=cF0>, </span><span class=cFE>0x483AA7</span><span class=cF0>
-<a name="l85"></a>};
-<a name="l86"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>PaletteSetCommander</span><span class=cF0>(</span><span class=cF1>Bool</span><span class=cF0> persistent=</span><span class=cF3>TRUE</span><span class=cF0>)
-<a name="l87"></a>{</span><span class=cF2>//Activate Commander palette.</span><span class=cF0>
-<a name="l88"></a>    </span><span class=cF5>GrPaletteSet</span><span class=cF0>(</span><span class=cFB>gr_palette_commander</span><span class=cF0>);
-<a name="l89"></a>    </span><span class=cF5>LFBFlush</span><span class=cF0>;
-<a name="l90"></a>    </span><span class=cF1>if</span><span class=cF0> (persistent)
-<a name="l91"></a>        </span><span class=cFB>fp_set_std_palette</span><span class=cF0> = &amp;</span><span class=cF5>PaletteSetCommander</span><span class=cF0>;
-<a name="l92"></a>}</span></pre></body>
+<a name="l57"></a>
+<a name="l58"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF9>CBGR24</span><span class=cF0> </span><span class=cFB>gr_palette_light</span><span class=cF0>[</span><span class=cF3>COLORS_NUM</span><span class=cF0>] = {
+<a name="l59"></a>    </span><span class=cFE>0x000000</span><span class=cF0>, </span><span class=cFE>0x0148A4</span><span class=cF0>, </span><span class=cFE>0x3B7901</span><span class=cF0>, </span><span class=cFE>0x057C7E</span><span class=cF0>, </span><span class=cFE>0xBB2020</span><span class=cF0>, </span><span class=cFE>0x9E42AE</span><span class=cF0>, </span><span class=cFE>0xB57901</span><span class=cF0>, </span><span class=cFE>0xB2B6AF</span><span class=cF0>,
+<a name="l60"></a>    </span><span class=cFE>0x555753</span><span class=cF0>, </span><span class=cFE>0x678FBB</span><span class=cF0>, </span><span class=cFE>0x82BC49</span><span class=cF0>, </span><span class=cFE>0x0097A2</span><span class=cF0>, </span><span class=cFE>0xE26A6A</span><span class=cF0>, </span><span class=cFE>0xC671BC</span><span class=cF0>, </span><span class=cFE>0xC7AB00</span><span class=cF0>, </span><span class=cFE>0xFEF1F0</span><span class=cF0>
+<a name="l61"></a>};
+<a name="l62"></a>
+<a name="l63"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>PaletteSetLight</span><span class=cF0>(</span><span class=cF1>Bool</span><span class=cF0> persistent=</span><span class=cF3>TRUE</span><span class=cF0>)
+<a name="l64"></a>{</span><span class=cF2>//Activate Light palette.</span><span class=cF0>
+<a name="l65"></a>    </span><span class=cF5>GrPaletteSet</span><span class=cF0>(</span><span class=cFB>gr_palette_light</span><span class=cF0>);
+<a name="l66"></a>    </span><span class=cF5>LFBFlush</span><span class=cF0>;
+<a name="l67"></a>    </span><span class=cF1>if</span><span class=cF0> (persistent)
+<a name="l68"></a>        </span><span class=cFB>fp_set_std_palette</span><span class=cF0> = &amp;</span><span class=cF5>PaletteSetLight</span><span class=cF0>;
+<a name="l69"></a>}
+<a name="l70"></a></span><span class=cF2>//********************************************************************************</span><span class=cF0>
+<a name="l71"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF9>CBGR24</span><span class=cF0> </span><span class=cFB>gr_palette_slate</span><span class=cF0>[</span><span class=cF3>COLORS_NUM</span><span class=cF0>] = {
+<a name="l72"></a>    </span><span class=cFE>0xE3E3E3</span><span class=cF0>, </span><span class=cFE>0x4F84A6</span><span class=cF0>, </span><span class=cFE>0x73A255</span><span class=cF0>, </span><span class=cFE>0x297582</span><span class=cF0>, </span><span class=cFE>0xB34F4B</span><span class=cF0>, </span><span class=cFE>0x8A52C3</span><span class=cF0>, </span><span class=cFE>0xB7822F</span><span class=cF0>, </span><span class=cFE>0x444444</span><span class=cF0>,
+<a name="l73"></a>    </span><span class=cFE>0x6D6D6D</span><span class=cF0>, </span><span class=cFE>0x94BFDE</span><span class=cF0>, </span><span class=cFE>0xA1CE97</span><span class=cF0>, </span><span class=cFE>0x6DB4BE</span><span class=cF0>, </span><span class=cFE>0xE88E88</span><span class=cF0>, </span><span class=cFE>0xCA94E8</span><span class=cF0>, </span><span class=cFE>0xD4B475</span><span class=cF0>, </span><span class=cFE>0x1F1F1F</span><span class=cF0>
+<a name="l74"></a>};
+<a name="l75"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>PaletteSetSlate</span><span class=cF0>(</span><span class=cF1>Bool</span><span class=cF0> persistent=</span><span class=cF3>TRUE</span><span class=cF0>)
+<a name="l76"></a>{</span><span class=cF2>//Activate Slate palette.</span><span class=cF0>
+<a name="l77"></a>    </span><span class=cF5>GrPaletteSet</span><span class=cF0>(</span><span class=cFB>gr_palette_slate</span><span class=cF0>);
+<a name="l78"></a>    </span><span class=cF5>LFBFlush</span><span class=cF0>;
+<a name="l79"></a>    </span><span class=cF1>if</span><span class=cF0> (persistent)
+<a name="l80"></a>        </span><span class=cFB>fp_set_std_palette</span><span class=cF0> = &amp;</span><span class=cF5>PaletteSetSlate</span><span class=cF0>;
+<a name="l81"></a>}
+<a name="l82"></a></span><span class=cF2>//********************************************************************************</span><span class=cF0>
+<a name="l83"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF9>CBGR24</span><span class=cF0> </span><span class=cFB>gr_palette_commander</span><span class=cF0>[</span><span class=cF3>COLORS_NUM</span><span class=cF0>] = {
+<a name="l84"></a>    </span><span class=cFE>0xFFFFFF</span><span class=cF0>, </span><span class=cFE>0x867ADE</span><span class=cF0>, </span><span class=cFE>0x00CC55</span><span class=cF0>, </span><span class=cFE>0x5A878B</span><span class=cF0>, </span><span class=cFE>0xFF0000</span><span class=cF0>, </span><span class=cFE>0xCC44CC</span><span class=cF0>, </span><span class=cFE>0xDD8855</span><span class=cF0>, </span><span class=cFE>0xE1E1E2</span><span class=cF0>,
+<a name="l85"></a>    </span><span class=cFE>0x777777</span><span class=cF0>, </span><span class=cFE>0x009BFF</span><span class=cF0>, </span><span class=cFE>0xAAFF66</span><span class=cF0>, </span><span class=cFE>0xAAFFEE</span><span class=cF0>, </span><span class=cFE>0xFF7777</span><span class=cF0>, </span><span class=cFE>0xCA94E8</span><span class=cF0>, </span><span class=cFE>0xEEEE77</span><span class=cF0>, </span><span class=cFE>0x483AA7</span><span class=cF0>
+<a name="l86"></a>};
+<a name="l87"></a></span><span class=cF1>public</span><span class=cF0> </span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>PaletteSetCommander</span><span class=cF0>(</span><span class=cF1>Bool</span><span class=cF0> persistent=</span><span class=cF3>TRUE</span><span class=cF0>)
+<a name="l88"></a>{</span><span class=cF2>//Activate Commander palette.</span><span class=cF0>
+<a name="l89"></a>    </span><span class=cF5>GrPaletteSet</span><span class=cF0>(</span><span class=cFB>gr_palette_commander</span><span class=cF0>);
+<a name="l90"></a>    </span><span class=cF5>LFBFlush</span><span class=cF0>;
+<a name="l91"></a>    </span><span class=cF1>if</span><span class=cF0> (persistent)
+<a name="l92"></a>        </span><span class=cFB>fp_set_std_palette</span><span class=cF0> = &amp;</span><span class=cF5>PaletteSetCommander</span><span class=cF0>;
+<a name="l93"></a>}</span></pre></body>
 </html>

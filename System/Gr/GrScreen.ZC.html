@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V2.00">
+<meta name="generator" content="ZealOS V2.03">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -151,7 +151,7 @@ body {background-color:#1f1f1f;}
 <a name="l124"></a>    </span><span class=cF7>}</span><span class=cF0>
 <a name="l125"></a>    </span><span class=cF1>else</span><span class=cF0>
 <a name="l126"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l127"></a>        </span><span class=cFB>gr</span><span class=cF0>.sx = </span><span class=cF5>ClampI64</span><span class=cF0>(</span><span class=cFB>gr</span><span class=cF0>.sx, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cF3>GR_WIDTH</span><span class=cF0>  - </span><span class=cF3>GR_WIDTH</span><span class=cF0>  / </span><span class=cFB>gr</span><span class=cF0>.screen_zoom) &amp; ~</span><span class=cFE>7</span><span class=cF0>;
+<a name="l127"></a>        </span><span class=cFB>gr</span><span class=cF0>.sx = </span><span class=cF5>ClampI64</span><span class=cF0>(</span><span class=cFB>gr</span><span class=cF0>.sx, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cF3>GR_WIDTH</span><span class=cF0>  - </span><span class=cF3>GR_WIDTH</span><span class=cF0>  / </span><span class=cFB>gr</span><span class=cF0>.screen_zoom);
 <a name="l128"></a>        </span><span class=cFB>gr</span><span class=cF0>.sy = </span><span class=cF5>ClampI64</span><span class=cF0>(</span><span class=cFB>gr</span><span class=cF0>.sy, </span><span class=cFE>0</span><span class=cF0>, </span><span class=cF3>GR_HEIGHT</span><span class=cF0> - </span><span class=cF3>GR_HEIGHT</span><span class=cF0> / </span><span class=cFB>gr</span><span class=cF0>.screen_zoom);
 <a name="l129"></a>    </span><span class=cF7>}</span><span class=cF0>
 <a name="l130"></a>}
@@ -422,32 +422,33 @@ body {background-color:#1f1f1f;}
 <a name="l395"></a>    </span><span class=cF1>while</span><span class=cF0> (src &lt; size) </span><span class=cF2>//draw 2 pixels at a time</span><span class=cF0>
 <a name="l396"></a>        *dst++ = </span><span class=cFB>gr_palette</span><span class=cF0>[*src++ &amp; </span><span class=cFE>0xFF</span><span class=cF0>] | </span><span class=cFB>gr_palette</span><span class=cF0>[*src++ &amp; </span><span class=cFE>0xFF</span><span class=cF0>] &lt;&lt; </span><span class=cFE>32</span><span class=cF0>;
 <a name="l397"></a>
-<a name="l398"></a>    </span><span class=cF5>GrCalcScreenUpdates</span><span class=cF0>;
-<a name="l399"></a>
-<a name="l400"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>LBtr</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>sys_semas</span><span class=cF0>[</span><span class=cF3>SEMA_FLUSH_VBE_IMAGE</span><span class=cF0>], </span><span class=cFE>0</span><span class=cF7>)</span><span class=cF0>)
-<a name="l401"></a>        </span><span class=cF5>MemCopy</span><span class=cF0>(</span><span class=cFB>text</span><span class=cF0>.fb_alias, </span><span class=cFB>text</span><span class=cF0>.raw_screen, </span><span class=cFB>text</span><span class=cF0>.buffer_size);
-<a name="l402"></a>}
-<a name="l403"></a>
-<a name="l404"></a></span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>GrUpdateScreen</span><span class=cF0>()
-<a name="l405"></a>{</span><span class=cF2>//Called by the Window Manager </span><a href="https://zeal-operating-system.github.io/System/WinMgr.ZC.html#l306"><span class=cF4>HERE</span></a><span class=cF2>, 30 times a second.</span><span class=cF0>
-<a name="l406"></a>    </span><span class=cF9>CDC</span><span class=cF0> *dc;
-<a name="l407"></a>
-<a name="l408"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cFB>text</span><span class=cF0>.is_fb_busy)
-<a name="l409"></a>        </span><span class=cF1>return</span><span class=cF0>;
-<a name="l410"></a>
-<a name="l411"></a>    </span><span class=cF5>GrUpdateTextBG</span><span class=cF0>;
-<a name="l412"></a>    </span><span class=cF5>GrUpdateTextFG</span><span class=cF0>;
-<a name="l413"></a>    </span><span class=cF5>GrUpdateTasks</span><span class=cF0>;
-<a name="l414"></a>    </span><span class=cF5>DCBlotColor8</span><span class=cF0>(</span><span class=cFB>gr</span><span class=cF0>.dc2, </span><span class=cFB>gr</span><span class=cF0>.dc);
-<a name="l415"></a>
-<a name="l416"></a>    dc = </span><span class=cF5>DCAlias</span><span class=cF0>(</span><span class=cFB>gr</span><span class=cF0>.dc2, </span><span class=cF5>Fs</span><span class=cF0>);
-<a name="l417"></a>    dc-&gt;flags |= </span><span class=cF3>DCF_ON_TOP</span><span class=cF0>;
-<a name="l418"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cFB>gr</span><span class=cF0>.fp_final_screen_update)
-<a name="l419"></a>        (*</span><span class=cFB>gr</span><span class=cF0>.fp_final_screen_update)(dc);
-<a name="l420"></a>    </span><span class=cF5>DCDel</span><span class=cF0>(dc);
-<a name="l421"></a>
-<a name="l422"></a>    </span><span class=cF5>DCBlotColor4</span><span class=cF0>(</span><span class=cFB>gr</span><span class=cF0>.dc1-&gt;body, </span><span class=cFB>gr</span><span class=cF0>.dc2-&gt;body, </span><span class=cFB>gr</span><span class=cF0>.dc_cache-&gt;body, </span><span class=cFB>gr</span><span class=cF0>.dc2-&gt;height * </span><span class=cFB>gr</span><span class=cF0>.dc2-&gt;width_internal &gt;&gt; </span><span class=cFE>3</span><span class=cF0>);
-<a name="l423"></a>    </span><span class=cF5>GrUpdateScreen32</span><span class=cF0>;
-<a name="l424"></a>}
+<a name="l398"></a>
+<a name="l399"></a>    </span><span class=cF5>GrCalcScreenUpdates</span><span class=cF0>;
+<a name="l400"></a>
+<a name="l401"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cF5>LBtr</span><span class=cF7>(</span><span class=cF0>&amp;</span><span class=cFB>sys_semas</span><span class=cF0>[</span><span class=cF3>SEMA_FLUSH_VBE_IMAGE</span><span class=cF0>], </span><span class=cFE>0</span><span class=cF7>)</span><span class=cF0>)
+<a name="l402"></a>        </span><span class=cF5>MemCopy</span><span class=cF0>(</span><span class=cFB>text</span><span class=cF0>.fb_alias, </span><span class=cFB>text</span><span class=cF0>.raw_screen, </span><span class=cFB>text</span><span class=cF0>.buffer_size);
+<a name="l403"></a>}
+<a name="l404"></a>
+<a name="l405"></a></span><span class=cF1>U0</span><span class=cF0> </span><span class=cF5>GrUpdateScreen</span><span class=cF0>()
+<a name="l406"></a>{</span><span class=cF2>//Called by the Window Manager </span><a href="https://zeal-operating-system.github.io/System/WinMgr.ZC.html#l306"><span class=cF4>HERE</span></a><span class=cF2>, 30 times a second.</span><span class=cF0>
+<a name="l407"></a>    </span><span class=cF9>CDC</span><span class=cF0> *dc;
+<a name="l408"></a>
+<a name="l409"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cFB>text</span><span class=cF0>.is_fb_busy)
+<a name="l410"></a>        </span><span class=cF1>return</span><span class=cF0>;
+<a name="l411"></a>
+<a name="l412"></a>    </span><span class=cF5>GrUpdateTextBG</span><span class=cF0>;
+<a name="l413"></a>    </span><span class=cF5>GrUpdateTextFG</span><span class=cF0>;
+<a name="l414"></a>    </span><span class=cF5>GrUpdateTasks</span><span class=cF0>;
+<a name="l415"></a>    </span><span class=cF5>DCBlotColor8</span><span class=cF0>(</span><span class=cFB>gr</span><span class=cF0>.dc2, </span><span class=cFB>gr</span><span class=cF0>.dc);
+<a name="l416"></a>
+<a name="l417"></a>    dc = </span><span class=cF5>DCAlias</span><span class=cF0>(</span><span class=cFB>gr</span><span class=cF0>.dc2, </span><span class=cF5>Fs</span><span class=cF0>);
+<a name="l418"></a>    dc-&gt;flags |= </span><span class=cF3>DCF_ON_TOP</span><span class=cF0>;
+<a name="l419"></a>    </span><span class=cF1>if</span><span class=cF0> (</span><span class=cFB>gr</span><span class=cF0>.fp_final_screen_update)
+<a name="l420"></a>        (*</span><span class=cFB>gr</span><span class=cF0>.fp_final_screen_update)(dc);
+<a name="l421"></a>    </span><span class=cF5>DCDel</span><span class=cF0>(dc);
+<a name="l422"></a>
+<a name="l423"></a>    </span><span class=cF5>DCBlotColor4</span><span class=cF0>(</span><span class=cFB>gr</span><span class=cF0>.dc1-&gt;body, </span><span class=cFB>gr</span><span class=cF0>.dc2-&gt;body, </span><span class=cFB>gr</span><span class=cF0>.dc_cache-&gt;body, </span><span class=cFB>gr</span><span class=cF0>.dc2-&gt;height * </span><span class=cFB>gr</span><span class=cF0>.dc2-&gt;width_internal &gt;&gt; </span><span class=cFE>3</span><span class=cF0>);
+<a name="l424"></a>    </span><span class=cF5>GrUpdateScreen32</span><span class=cF0>;
+<a name="l425"></a>}
 </span></pre></body>
 </html>

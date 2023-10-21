@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V2.00">
+<meta name="generator" content="ZealOS V2.03">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -238,42 +238,44 @@ body {background-color:#1f1f1f;}
 <a name="l211"></a>    </span><span class=cF5>KbdInit</span><span class=cF0>;
 <a name="l212"></a>    </span><span class=cF6>&quot;Spawn(&amp;MouseHardDriverInstall);\n\n&quot;</span><span class=cF0>;
 <a name="l213"></a>    </span><span class=cF5>Spawn</span><span class=cF0>(&amp;</span><span class=cF5>MouseHardDriverInstall</span><span class=cF0>);
-<a name="l214"></a>
-<a name="l215"></a>    </span><span class=cF6>&quot;Load(\&quot;Compiler\&quot;);\n&quot;</span><span class=cF0>;
-<a name="l216"></a>    </span><span class=cF5>Cd</span><span class=cF0>(</span><span class=cF6>&quot;/Compiler&quot;</span><span class=cF0>);
-<a name="l217"></a>    </span><span class=cF5>Load</span><span class=cF0>(</span><span class=cF6>&quot;Compiler&quot;</span><span class=cF0>, </span><span class=cF3>LDF_SILENT</span><span class=cF0>);
-<a name="l218"></a>    </span><span class=cF5>LBts</span><span class=cF0>(&amp;</span><span class=cFB>sys_run_level</span><span class=cF0>, </span><span class=cF3>RLf_COMPILER</span><span class=cF0>);
-<a name="l219"></a>
-<a name="l220"></a>    </span><span class=cF5>DebugMode</span><span class=cF0>(</span><span class=cF3>OFF</span><span class=cF0>);
-<a name="l221"></a>    </span><span class=cFB>counts</span><span class=cF0>.time_stamp_freq_initial = </span><span class=cF5>TimeCal</span><span class=cF0>;
-<a name="l222"></a>    </span><span class=cF5>Cd</span><span class=cF0>(</span><span class=cF6>&quot;/&quot;</span><span class=cF0>);
-<a name="l223"></a>    </span><span class=cF1>try</span><span class=cF0>
-<a name="l224"></a>        </span><span class=cF5>ExeFile</span><span class=cF0>(</span><span class=cF6>&quot;StartOS&quot;</span><span class=cF0>); </span><span class=cF2>//Continues </span><a href="https://zeal-operating-system.github.io/StartOS.ZC.html#l1"><span class=cF4>/StartOS.ZC</span></a><span class=cF0>
-<a name="l225"></a>    </span><span class=cF1>catch</span><span class=cF0>
-<a name="l226"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l227"></a>        </span><span class=cF5>Raw</span><span class=cF0>(</span><span class=cF3>ON</span><span class=cF0>);
-<a name="l228"></a>        </span><span class=cF5>Silent</span><span class=cF0>(</span><span class=cF3>OFF</span><span class=cF0>);
-<a name="l229"></a>        </span><span class=cF5>GetOutOfDollar</span><span class=cF0>;
-<a name="l230"></a>        </span><span class=cF5>PutExcept</span><span class=cF0>;
-<a name="l231"></a>        </span><span class=cF5>Debug</span><span class=cF0>;
-<a name="l232"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l233"></a>
-<a name="l234"></a>    </span><span class=cF5>LBts</span><span class=cF0>(&amp;</span><span class=cFB>sys_run_level</span><span class=cF0>, </span><span class=cF3>RLf_SYSTEM_SERVER</span><span class=cF0>);
-<a name="l235"></a>    </span><span class=cF5>ServerTaskCont</span><span class=cF0>; </span><span class=cF2>//Never to return</span><span class=cF0>
-<a name="l236"></a>}
-<a name="l237"></a>
-<a name="l238"></a></span><span class=cF1>asm</span><span class=cF0>
-<a name="l239"></a>{
-<a name="l240"></a>
-<a name="l241"></a>    </span><span class=cF1>ALIGN</span><span class=cF0>   </span><span class=cFE>16</span><span class=cF0>, </span><span class=cF3>OC_NOP</span><span class=cF0>
-<a name="l242"></a></span><span class=cFD>SYS_KERNEL_END</span><span class=cF0>::
-<a name="l243"></a>#</span><span class=cF1>exe</span><span class=cF0> </span><span class=cF7>{</span><span class=cF0>
-<a name="l244"></a>    </span><span class=cF1>if</span><span class=cF0> (kernel_config-&gt;opts[CONFIG_DEBUG_DISTRO])
-<a name="l245"></a>        </span><span class=cF5>StreamPrint</span><span class=cF0>(</span><span class=cF6>&quot;DU8 0x%X - (SYS_KERNEL_END-SYS_KERNEL + BOOT_RAM_BASE + sizeof(CZXE)) DUP (0);&quot;</span><span class=cF0>
-<a name="l246"></a>                    </span><span class=cF6>&quot;BINLOAD \&quot;%s\&quot;;&quot;</span><span class=cF0>,
-<a name="l247"></a>                    kernel_config-&gt;debug_distro_start, kernel_config-&gt;debug_distro_file);
-<a name="l248"></a></span><span class=cF7>}</span><span class=cF0>;
-<a name="l249"></a>
-<a name="l250"></a>}
+<a name="l214"></a>    </span><span class=cF6>&quot;Spawn(&amp;MouseRawWatcher,, \&quot;MouseRawWatcher\&quot;);\n&quot;</span><span class=cF0>;
+<a name="l215"></a>    </span><span class=cF5>Spawn</span><span class=cF0>(&amp;</span><span class=cFD>MouseRawWatcher</span><span class=cF0>,, </span><span class=cF6>&quot;MouseRawWatcher&quot;</span><span class=cF0>);
+<a name="l216"></a>
+<a name="l217"></a>    </span><span class=cF6>&quot;Load(\&quot;Compiler\&quot;);\n&quot;</span><span class=cF0>;
+<a name="l218"></a>    </span><span class=cF5>Cd</span><span class=cF0>(</span><span class=cF6>&quot;/Compiler&quot;</span><span class=cF0>);
+<a name="l219"></a>    </span><span class=cF5>Load</span><span class=cF0>(</span><span class=cF6>&quot;Compiler&quot;</span><span class=cF0>, </span><span class=cF3>LDF_SILENT</span><span class=cF0>);
+<a name="l220"></a>    </span><span class=cF5>LBts</span><span class=cF0>(&amp;</span><span class=cFB>sys_run_level</span><span class=cF0>, </span><span class=cF3>RLf_COMPILER</span><span class=cF0>);
+<a name="l221"></a>
+<a name="l222"></a>    </span><span class=cF5>DebugMode</span><span class=cF0>(</span><span class=cF3>OFF</span><span class=cF0>);
+<a name="l223"></a>    </span><span class=cFB>counts</span><span class=cF0>.time_stamp_freq_initial = </span><span class=cF5>TimeCal</span><span class=cF0>;
+<a name="l224"></a>    </span><span class=cF5>Cd</span><span class=cF0>(</span><span class=cF6>&quot;/&quot;</span><span class=cF0>);
+<a name="l225"></a>    </span><span class=cF1>try</span><span class=cF0>
+<a name="l226"></a>        </span><span class=cF5>ExeFile</span><span class=cF0>(</span><span class=cF6>&quot;StartOS&quot;</span><span class=cF0>); </span><span class=cF2>//Continues </span><a href="https://zeal-operating-system.github.io/StartOS.ZC.html#l1"><span class=cF4>/StartOS.ZC</span></a><span class=cF0>
+<a name="l227"></a>    </span><span class=cF1>catch</span><span class=cF0>
+<a name="l228"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l229"></a>        </span><span class=cF5>Raw</span><span class=cF0>(</span><span class=cF3>ON</span><span class=cF0>);
+<a name="l230"></a>        </span><span class=cF5>Silent</span><span class=cF0>(</span><span class=cF3>OFF</span><span class=cF0>);
+<a name="l231"></a>        </span><span class=cF5>GetOutOfDollar</span><span class=cF0>;
+<a name="l232"></a>        </span><span class=cF5>PutExcept</span><span class=cF0>;
+<a name="l233"></a>        </span><span class=cF5>Debug</span><span class=cF0>;
+<a name="l234"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l235"></a>
+<a name="l236"></a>    </span><span class=cF5>LBts</span><span class=cF0>(&amp;</span><span class=cFB>sys_run_level</span><span class=cF0>, </span><span class=cF3>RLf_SYSTEM_SERVER</span><span class=cF0>);
+<a name="l237"></a>    </span><span class=cF5>ServerTaskCont</span><span class=cF0>; </span><span class=cF2>//Never to return</span><span class=cF0>
+<a name="l238"></a>}
+<a name="l239"></a>
+<a name="l240"></a></span><span class=cF1>asm</span><span class=cF0>
+<a name="l241"></a>{
+<a name="l242"></a>
+<a name="l243"></a>    </span><span class=cF1>ALIGN</span><span class=cF0>   </span><span class=cFE>16</span><span class=cF0>, </span><span class=cF3>OC_NOP</span><span class=cF0>
+<a name="l244"></a></span><span class=cFD>SYS_KERNEL_END</span><span class=cF0>::
+<a name="l245"></a>#</span><span class=cF1>exe</span><span class=cF0> </span><span class=cF7>{</span><span class=cF0>
+<a name="l246"></a>    </span><span class=cF1>if</span><span class=cF0> (kernel_config-&gt;opts[CONFIG_DEBUG_DISTRO])
+<a name="l247"></a>        </span><span class=cF5>StreamPrint</span><span class=cF0>(</span><span class=cF6>&quot;DU8 0x%X - (SYS_KERNEL_END-SYS_KERNEL + BOOT_RAM_BASE + sizeof(CZXE)) DUP (0);&quot;</span><span class=cF0>
+<a name="l248"></a>                    </span><span class=cF6>&quot;BINLOAD \&quot;%s\&quot;;&quot;</span><span class=cF0>,
+<a name="l249"></a>                    kernel_config-&gt;debug_distro_start, kernel_config-&gt;debug_distro_file);
+<a name="l250"></a></span><span class=cF7>}</span><span class=cF0>;
+<a name="l251"></a>
+<a name="l252"></a>}
 </span></pre></body>
 </html>

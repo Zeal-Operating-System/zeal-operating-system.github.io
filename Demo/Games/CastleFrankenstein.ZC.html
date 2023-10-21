@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>ZealOS</title><meta http-equiv="Content-Type" content="text/html;charset=US-ASCII">
-<meta name="generator" content="ZealOS V2.00">
+<meta name="generator" content="ZealOS V2.03">
 <style type="text/css">
 body {background-color:#1f1f1f;}
 .cF0{color:#e3e3e3;background-color:#1f1f1f;}
@@ -605,91 +605,149 @@ body {background-color:#1f1f1f;}
 <a name="l578"></a>    </span><span class=cF7>}</span><span class=cF0>
 <a name="l579"></a>}
 <a name="l580"></a>
-<a name="l581"></a></span><span class=cF1>U0</span><span class=cF0> CastleFrankenstein()
-<a name="l582"></a>{
-<a name="l583"></a>    </span><span class=cF9>I64</span><span class=cF0> sc;
+<a name="l581"></a></span><span class=cF9>CTask</span><span class=cF0> *mouse_task = </span><span class=cF3>NULL</span><span class=cF0>;
+<a name="l582"></a></span><span class=cF9>CTask</span><span class=cF0> *game_task = </span><span class=cF5>Fs</span><span class=cF0>;
+<a name="l583"></a></span><span class=cF1>F64</span><span class=cF0> mouse_scale = </span><span class=cFE>32</span><span class=cF0>.</span><span class=cFE>0</span><span class=cF0>;
 <a name="l584"></a>
-<a name="l585"></a>    </span><span class=cF5>MenuPush</span><span class=cF0>(
-<a name="l586"></a>                </span><span class=cF6>&quot;File {&quot;</span><span class=cF0>
-<a name="l587"></a>                </span><span class=cF6>&quot;  Abort(,CH_SHIFT_ESC);&quot;</span><span class=cF0>
-<a name="l588"></a>                </span><span class=cF6>&quot;  Exit(,CH_ESC);&quot;</span><span class=cF0>
-<a name="l589"></a>                </span><span class=cF6>&quot;}&quot;</span><span class=cF0>
-<a name="l590"></a>                </span><span class=cF6>&quot;Play {&quot;</span><span class=cF0>
-<a name="l591"></a>                </span><span class=cF6>&quot;  Restart(,'\n');&quot;</span><span class=cF0>
-<a name="l592"></a>                </span><span class=cF6>&quot;  Fwd(,,SC_CURSOR_UP);&quot;</span><span class=cF0>
-<a name="l593"></a>                </span><span class=cF6>&quot;  Bwd(,,SC_CURSOR_DOWN);&quot;</span><span class=cF0>
-<a name="l594"></a>                </span><span class=cF6>&quot;  Left(,,SC_CURSOR_LEFT);&quot;</span><span class=cF0>
-<a name="l595"></a>                </span><span class=cF6>&quot;  Right(,,SC_CURSOR_RIGHT);&quot;</span><span class=cF0>
-<a name="l596"></a>                </span><span class=cF6>&quot;  Fire(,CH_SPACE);&quot;</span><span class=cF0>
-<a name="l597"></a>                </span><span class=cF6>&quot;}&quot;</span><span class=cF0>
-<a name="l598"></a>                );
-<a name="l599"></a>
-<a name="l600"></a>    </span><span class=cF5>SettingsPush</span><span class=cF0>; </span><span class=cF2>//See </span><a href="https://zeal-operating-system.github.io/System/TaskSettings.ZC.html#l3"><span class=cF4>SettingsPush</span></a><span class=cF0>
-<a name="l601"></a>    </span><span class=cF5>Fs</span><span class=cF0>-&gt;text_attr = </span><span class=cF3>DKGRAY</span><span class=cF0> &lt;&lt; </span><span class=cFE>4</span><span class=cF0> + </span><span class=cF3>WHITE</span><span class=cF0>;
-<a name="l602"></a>    </span><span class=cF5>AutoComplete</span><span class=cF0>;
-<a name="l603"></a>    </span><span class=cF5>WinBorder</span><span class=cF0>;
-<a name="l604"></a>    </span><span class=cF5>WinMax</span><span class=cF0>;
-<a name="l605"></a>    </span><span class=cF5>DocCursor</span><span class=cF0>;
-<a name="l606"></a>    Init;
-<a name="l607"></a>    </span><span class=cF5>Fs</span><span class=cF0>-&gt;animate_task = </span><span class=cF5>Spawn</span><span class=cF0>(&amp;AnimateTask, </span><span class=cF3>NULL</span><span class=cF0>, </span><span class=cF6>&quot;Animate&quot;</span><span class=cF0>,, </span><span class=cF5>Fs</span><span class=cF0>);
-<a name="l608"></a>    </span><span class=cF5>Fs</span><span class=cF0>-&gt;song_task    = </span><span class=cF5>Spawn</span><span class=cF0>(&amp;SongTask, </span><span class=cF3>NULL</span><span class=cF0>, </span><span class=cF6>&quot;Song&quot;</span><span class=cF0>,, </span><span class=cF5>Fs</span><span class=cF0>);
-<a name="l609"></a>    </span><span class=cF5>Fs</span><span class=cF0>-&gt;draw_it      = &amp;</span><span class=cF5>DrawIt</span><span class=cF0>;
-<a name="l610"></a>
-<a name="l611"></a>    </span><span class=cF1>try</span><span class=cF0>
-<a name="l612"></a>    </span><span class=cF7>{</span><span class=cF0>
-<a name="l613"></a>        </span><span class=cF1>while</span><span class=cF0> (</span><span class=cF3>TRUE</span><span class=cF0>)
-<a name="l614"></a>        {
-<a name="l615"></a>            </span><span class=cF1>switch</span><span class=cF0> (</span><span class=cF5>KeyGet</span><span class=cF7>(</span><span class=cF0>&amp;sc</span><span class=cF7>)</span><span class=cF0>)
-<a name="l616"></a>            </span><span class=cF7>{</span><span class=cF0>
-<a name="l617"></a>                </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>CH_SPACE</span><span class=cF0>:
-<a name="l618"></a>                    Fire;
-<a name="l619"></a>                    </span><span class=cF1>break</span><span class=cF0>;
-<a name="l620"></a>
-<a name="l621"></a>                </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'\n'</span><span class=cF0>:
-<a name="l622"></a>                    Init;
-<a name="l623"></a>                    </span><span class=cF1>break</span><span class=cF0>;
-<a name="l624"></a>
-<a name="l625"></a>                </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>CH_ESC</span><span class=cF0>:
-<a name="l626"></a>                </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>CH_SHIFT_ESC</span><span class=cF0>:
-<a name="l627"></a>                    </span><span class=cF1>goto</span><span class=cF0> fs_done;
-<a name="l628"></a>
-<a name="l629"></a>                </span><span class=cF1>case</span><span class=cF0> </span><span class=cFE>0</span><span class=cF0>:
-<a name="l630"></a>                    </span><span class=cF1>switch</span><span class=cF0> (sc.u8[</span><span class=cFE>0</span><span class=cF0>])
-<a name="l631"></a>                    {
-<a name="l632"></a>                        </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_RIGHT</span><span class=cF0>:
-<a name="l633"></a></span><span class=cF2>//</span><span class=cF0>                          </span><span class=cF2>Spawn(&amp;RotateMan, (pi / 32)(I64));</span><span class=cF0>
-<a name="l634"></a>                            RotateMan(</span><span class=cF3>pi</span><span class=cF0> / </span><span class=cFE>32</span><span class=cF0>);
-<a name="l635"></a>                            </span><span class=cF5>FlushMessages</span><span class=cF0>;
-<a name="l636"></a>                            </span><span class=cF1>break</span><span class=cF0>;
-<a name="l637"></a>
-<a name="l638"></a>                        </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_LEFT</span><span class=cF0>:
-<a name="l639"></a></span><span class=cF2>//</span><span class=cF0>                          </span><span class=cF2>Spawn(&amp;RotateMan, (-pi / 32)(I64));</span><span class=cF0>
-<a name="l640"></a>                            RotateMan(-</span><span class=cF3>pi</span><span class=cF0> / </span><span class=cFE>32</span><span class=cF0>);
-<a name="l641"></a>                            </span><span class=cF5>FlushMessages</span><span class=cF0>;
-<a name="l642"></a>                            </span><span class=cF1>break</span><span class=cF0>;
+<a name="l585"></a></span><span class=cF1>U0</span><span class=cF0> MouseHandler()
+<a name="l586"></a>{
+<a name="l587"></a>    </span><span class=cF1>Bool</span><span class=cF0> button;
+<a name="l588"></a>    </span><span class=cF9>I64</span><span class=cF0> x;
+<a name="l589"></a>
+<a name="l590"></a>    </span><span class=cF1>while</span><span class=cF0> (</span><span class=cF5>MouseRawQueueFind</span><span class=cF7>(</span><span class=cF0>game_task</span><span class=cF7>)</span><span class=cF0>)
+<a name="l591"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l592"></a>        button = </span><span class=cFB>mouse_hard</span><span class=cF0>.raw_bttns[</span><span class=cFE>0</span><span class=cF0>];
+<a name="l593"></a>        x = </span><span class=cFB>mouse_hard</span><span class=cF0>.raw_data.x;
+<a name="l594"></a>
+<a name="l595"></a>        </span><span class=cF1>if</span><span class=cF0> (button || x != </span><span class=cFE>0</span><span class=cF0>)
+<a name="l596"></a>            </span><span class=cF5>MouseRawReset</span><span class=cF0>; </span><span class=cF2>// Mark mouse data as consumed</span><span class=cF0>
+<a name="l597"></a>        </span><span class=cF1>if</span><span class=cF0> (button)
+<a name="l598"></a>            </span><span class=cF5>MessagePostWait</span><span class=cF0>(game_task, </span><span class=cF3>MESSAGE_KEY_DOWN_UP</span><span class=cF0>, </span><span class=cF3>CH_SPACE</span><span class=cF0>, </span><span class=cFE>0</span><span class=cF0>);
+<a name="l599"></a>        </span><span class=cF1>if</span><span class=cF0> (x != </span><span class=cFE>0</span><span class=cF0>)
+<a name="l600"></a>            man_theta += (x / mouse_scale) / MICRO_STEPS;
+<a name="l601"></a>
+<a name="l602"></a>        </span><span class=cF5>Sleep</span><span class=cF0>(</span><span class=cFE>10</span><span class=cF0>);
+<a name="l603"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l604"></a>    mouse_task = </span><span class=cF3>NULL</span><span class=cF0>;
+<a name="l605"></a>}
+<a name="l606"></a>
+<a name="l607"></a></span><span class=cF1>U0</span><span class=cF0> CastleFrankenstein()
+<a name="l608"></a>{
+<a name="l609"></a>    </span><span class=cF9>I64</span><span class=cF0> sc;
+<a name="l610"></a>    </span><span class=cF1>Bool</span><span class=cF0> is_raw = </span><span class=cF3>TRUE</span><span class=cF0>;
+<a name="l611"></a>
+<a name="l612"></a>    </span><span class=cF5>MouseRaw</span><span class=cF0>(is_raw);
+<a name="l613"></a>    mouse_task = </span><span class=cF5>Spawn</span><span class=cF0>(&amp;MouseHandler, </span><span class=cF3>NULL</span><span class=cF0>, </span><span class=cF6>&quot;MouseHandler&quot;</span><span class=cF0>);
+<a name="l614"></a>
+<a name="l615"></a>    </span><span class=cF5>MenuPush</span><span class=cF0>(
+<a name="l616"></a>                </span><span class=cF6>&quot;File {&quot;</span><span class=cF0>
+<a name="l617"></a>                </span><span class=cF6>&quot;  Abort(,CH_SHIFT_ESC);&quot;</span><span class=cF0>
+<a name="l618"></a>                </span><span class=cF6>&quot;  Exit(,CH_ESC);&quot;</span><span class=cF0>
+<a name="l619"></a>                </span><span class=cF6>&quot;}&quot;</span><span class=cF0>
+<a name="l620"></a>                </span><span class=cF6>&quot;Play {&quot;</span><span class=cF0>
+<a name="l621"></a>                </span><span class=cF6>&quot;  Restart(,'\n');&quot;</span><span class=cF0>
+<a name="l622"></a>                </span><span class=cF6>&quot;  Fwd(,,SC_CURSOR_UP);&quot;</span><span class=cF0>
+<a name="l623"></a>                </span><span class=cF6>&quot;  Bwd(,,SC_CURSOR_DOWN);&quot;</span><span class=cF0>
+<a name="l624"></a>                </span><span class=cF6>&quot;  Left(,,SC_CURSOR_LEFT);&quot;</span><span class=cF0>
+<a name="l625"></a>                </span><span class=cF6>&quot;  Right(,,SC_CURSOR_RIGHT);&quot;</span><span class=cF0>
+<a name="l626"></a>                </span><span class=cF6>&quot;  Fire(,CH_SPACE);&quot;</span><span class=cF0>
+<a name="l627"></a>                </span><span class=cF6>&quot;  MouseMode(,'m');&quot;</span><span class=cF0>
+<a name="l628"></a>                </span><span class=cF6>&quot;  MouseScaleUp(,'+');&quot;</span><span class=cF0>
+<a name="l629"></a>                </span><span class=cF6>&quot;  MouseScaleDown(,'-');&quot;</span><span class=cF0>
+<a name="l630"></a>                </span><span class=cF6>&quot;}&quot;</span><span class=cF0>
+<a name="l631"></a>                );
+<a name="l632"></a>
+<a name="l633"></a>    </span><span class=cF5>SettingsPush</span><span class=cF0>; </span><span class=cF2>//See </span><a href="https://zeal-operating-system.github.io/System/TaskSettings.ZC.html#l3"><span class=cF4>SettingsPush</span></a><span class=cF0>
+<a name="l634"></a>    </span><span class=cF5>Fs</span><span class=cF0>-&gt;text_attr = </span><span class=cF3>DKGRAY</span><span class=cF0> &lt;&lt; </span><span class=cFE>4</span><span class=cF0> + </span><span class=cF3>WHITE</span><span class=cF0>;
+<a name="l635"></a>    </span><span class=cF5>AutoComplete</span><span class=cF0>;
+<a name="l636"></a>    </span><span class=cF5>WinBorder</span><span class=cF0>;
+<a name="l637"></a>    </span><span class=cF5>WinMax</span><span class=cF0>;
+<a name="l638"></a>    </span><span class=cF5>DocCursor</span><span class=cF0>;
+<a name="l639"></a>    Init;
+<a name="l640"></a>    </span><span class=cF5>Fs</span><span class=cF0>-&gt;animate_task = </span><span class=cF5>Spawn</span><span class=cF0>(&amp;AnimateTask, </span><span class=cF3>NULL</span><span class=cF0>, </span><span class=cF6>&quot;Animate&quot;</span><span class=cF0>,, </span><span class=cF5>Fs</span><span class=cF0>);
+<a name="l641"></a>    </span><span class=cF5>Fs</span><span class=cF0>-&gt;song_task    = </span><span class=cF5>Spawn</span><span class=cF0>(&amp;SongTask, </span><span class=cF3>NULL</span><span class=cF0>, </span><span class=cF6>&quot;Song&quot;</span><span class=cF0>,, </span><span class=cF5>Fs</span><span class=cF0>);
+<a name="l642"></a>    </span><span class=cF5>Fs</span><span class=cF0>-&gt;draw_it      = &amp;</span><span class=cF5>DrawIt</span><span class=cF0>;
 <a name="l643"></a>
-<a name="l644"></a>                        </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_UP</span><span class=cF0>:
-<a name="l645"></a>                            MoveMan(man_theta);
-<a name="l646"></a>                            </span><span class=cF1>break</span><span class=cF0>;
-<a name="l647"></a>
-<a name="l648"></a>                        </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_DOWN</span><span class=cF0>:
-<a name="l649"></a>                            MoveMan(man_theta + </span><span class=cF3>pi</span><span class=cF0>);
-<a name="l650"></a>                            </span><span class=cF1>break</span><span class=cF0>;
-<a name="l651"></a>                    }
+<a name="l644"></a>    </span><span class=cF1>try</span><span class=cF0>
+<a name="l645"></a>    </span><span class=cF7>{</span><span class=cF0>
+<a name="l646"></a>        </span><span class=cF1>while</span><span class=cF0> (</span><span class=cF3>TRUE</span><span class=cF0>)
+<a name="l647"></a>        {
+<a name="l648"></a>            </span><span class=cF1>switch</span><span class=cF0> (</span><span class=cF5>KeyGet</span><span class=cF7>(</span><span class=cF0>&amp;sc</span><span class=cF7>)</span><span class=cF0>)
+<a name="l649"></a>            </span><span class=cF7>{</span><span class=cF0>
+<a name="l650"></a>                </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>CH_SPACE</span><span class=cF0>:
+<a name="l651"></a>                    Fire;
 <a name="l652"></a>                    </span><span class=cF1>break</span><span class=cF0>;
-<a name="l653"></a>            </span><span class=cF7>}</span><span class=cF0>
-<a name="l654"></a>        }
-<a name="l655"></a>fs_done:
-<a name="l656"></a>    </span><span class=cF7>}</span><span class=cF0>
-<a name="l657"></a>    </span><span class=cF1>catch</span><span class=cF0>
-<a name="l658"></a>        </span><span class=cF5>PutExcept</span><span class=cF0>;
-<a name="l659"></a>    </span><span class=cF5>DocClear</span><span class=cF0>;
-<a name="l660"></a>    </span><span class=cF5>SettingsPop</span><span class=cF0>;
-<a name="l661"></a>    CleanUp;
-<a name="l662"></a>    </span><span class=cF5>MenuPop</span><span class=cF0>;
-<a name="l663"></a>    </span><span class=cF5>RegWrite</span><span class=cF0>(</span><span class=cF6>&quot;ZealOS/CastleFrankenstein&quot;</span><span class=cF0>, </span><span class=cF6>&quot;F64 best_score=%5.4f;\n&quot;</span><span class=cF0>, best_score);
-<a name="l664"></a>}
-<a name="l665"></a>
-<a name="l666"></a>CastleFrankenstein;
+<a name="l653"></a>
+<a name="l654"></a>                </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'m'</span><span class=cF0>:
+<a name="l655"></a>                    </span><span class=cF1>if</span><span class=cF0> (is_raw)
+<a name="l656"></a>                    {
+<a name="l657"></a>                        is_raw = </span><span class=cF3>FALSE</span><span class=cF0>;
+<a name="l658"></a>                        </span><span class=cF5>MouseRaw</span><span class=cF0>(is_raw);
+<a name="l659"></a>                        </span><span class=cF5>Kill</span><span class=cF0>(mouse_task);
+<a name="l660"></a>                    }
+<a name="l661"></a>                    </span><span class=cF1>else</span><span class=cF0>
+<a name="l662"></a>                    {
+<a name="l663"></a>                        is_raw = </span><span class=cF3>TRUE</span><span class=cF0>;
+<a name="l664"></a>                        </span><span class=cF5>MouseRaw</span><span class=cF0>(is_raw);
+<a name="l665"></a>                        mouse_task = </span><span class=cF5>Spawn</span><span class=cF0>(&amp;MouseHandler, </span><span class=cF3>NULL</span><span class=cF0>, </span><span class=cF6>&quot;MouseHandler&quot;</span><span class=cF0>);
+<a name="l666"></a>                    }
+<a name="l667"></a>                    </span><span class=cF1>break</span><span class=cF0>;
+<a name="l668"></a>
+<a name="l669"></a>                </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'+'</span><span class=cF0>:
+<a name="l670"></a>                </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'='</span><span class=cF0>:
+<a name="l671"></a>                    mouse_scale *= </span><span class=cFE>0</span><span class=cF0>.</span><span class=cFE>9</span><span class=cF0>;
+<a name="l672"></a>                    </span><span class=cF1>break</span><span class=cF0>;
+<a name="l673"></a>
+<a name="l674"></a>                </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'-'</span><span class=cF0>:
+<a name="l675"></a>                    mouse_scale *= </span><span class=cFE>1</span><span class=cF0>.</span><span class=cFE>1</span><span class=cF0>;
+<a name="l676"></a>                    </span><span class=cF1>break</span><span class=cF0>;
+<a name="l677"></a>
+<a name="l678"></a>                </span><span class=cF1>case</span><span class=cF0> </span><span class=cF6>'\n'</span><span class=cF0>:
+<a name="l679"></a>                    Init;
+<a name="l680"></a>                    </span><span class=cF1>break</span><span class=cF0>;
+<a name="l681"></a>
+<a name="l682"></a>                </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>CH_ESC</span><span class=cF0>:
+<a name="l683"></a>                </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>CH_SHIFT_ESC</span><span class=cF0>:
+<a name="l684"></a>                    </span><span class=cF1>goto</span><span class=cF0> fs_done;
+<a name="l685"></a>
+<a name="l686"></a>                </span><span class=cF1>case</span><span class=cF0> </span><span class=cFE>0</span><span class=cF0>:
+<a name="l687"></a>                    </span><span class=cF1>switch</span><span class=cF0> (sc.u8[</span><span class=cFE>0</span><span class=cF0>])
+<a name="l688"></a>                    {
+<a name="l689"></a>                        </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_RIGHT</span><span class=cF0>:
+<a name="l690"></a></span><span class=cF2>//</span><span class=cF0>                          </span><span class=cF2>Spawn(&amp;RotateMan, (pi / 32)(I64));</span><span class=cF0>
+<a name="l691"></a>                            RotateMan(</span><span class=cF3>pi</span><span class=cF0> / </span><span class=cFE>32</span><span class=cF0>);
+<a name="l692"></a>                            </span><span class=cF5>FlushMessages</span><span class=cF0>;
+<a name="l693"></a>                            </span><span class=cF1>break</span><span class=cF0>;
+<a name="l694"></a>
+<a name="l695"></a>                        </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_LEFT</span><span class=cF0>:
+<a name="l696"></a></span><span class=cF2>//</span><span class=cF0>                          </span><span class=cF2>Spawn(&amp;RotateMan, (-pi / 32)(I64));</span><span class=cF0>
+<a name="l697"></a>                            RotateMan(-</span><span class=cF3>pi</span><span class=cF0> / </span><span class=cFE>32</span><span class=cF0>);
+<a name="l698"></a>                            </span><span class=cF5>FlushMessages</span><span class=cF0>;
+<a name="l699"></a>                            </span><span class=cF1>break</span><span class=cF0>;
+<a name="l700"></a>
+<a name="l701"></a>                        </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_UP</span><span class=cF0>:
+<a name="l702"></a>                            MoveMan(man_theta);
+<a name="l703"></a>                            </span><span class=cF1>break</span><span class=cF0>;
+<a name="l704"></a>
+<a name="l705"></a>                        </span><span class=cF1>case</span><span class=cF0> </span><span class=cF3>SC_CURSOR_DOWN</span><span class=cF0>:
+<a name="l706"></a>                            MoveMan(man_theta + </span><span class=cF3>pi</span><span class=cF0>);
+<a name="l707"></a>                            </span><span class=cF1>break</span><span class=cF0>;
+<a name="l708"></a>                    }
+<a name="l709"></a>                    </span><span class=cF1>break</span><span class=cF0>;
+<a name="l710"></a>            </span><span class=cF7>}</span><span class=cF0>
+<a name="l711"></a>        }
+<a name="l712"></a>fs_done:
+<a name="l713"></a>    </span><span class=cF7>}</span><span class=cF0>
+<a name="l714"></a>    </span><span class=cF1>catch</span><span class=cF0>
+<a name="l715"></a>        </span><span class=cF5>PutExcept</span><span class=cF0>;
+<a name="l716"></a>    </span><span class=cF5>DocClear</span><span class=cF0>;
+<a name="l717"></a>    </span><span class=cF5>SettingsPop</span><span class=cF0>;
+<a name="l718"></a>    CleanUp;
+<a name="l719"></a>    </span><span class=cF5>MenuPop</span><span class=cF0>;
+<a name="l720"></a>    </span><span class=cF5>RegWrite</span><span class=cF0>(</span><span class=cF6>&quot;ZealOS/CastleFrankenstein&quot;</span><span class=cF0>, </span><span class=cF6>&quot;F64 best_score=%5.4f;\n&quot;</span><span class=cF0>, best_score);
+<a name="l721"></a>}
+<a name="l722"></a>
+<a name="l723"></a>CastleFrankenstein;
+<a name="l724"></a></span><span class=cF5>MouseRaw</span><span class=cF0>(</span><span class=cF3>FALSE</span><span class=cF0>);
 </span></pre></body>
 </html>
